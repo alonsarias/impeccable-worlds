@@ -13,7 +13,10 @@ npm run dev
 
 Open the printed local URL (Vite, usually `http://localhost:5173`). The API is served from the same process at `/api/*`. Collect more is enabled here.
 
-Optional: copy `.env.example` to `.env` to override the header **View on GitHub** URL (`VITE_GITHUB_REPO_URL`). The default is `https://github.com/alonsarias/impeccable-worlds`.
+Optional: copy `.env.example` to `.env` (or set the same keys on Vercel) to override:
+
+- `VITE_GITHUB_REPO_URL` — header **View on GitHub** URL. Default: `https://github.com/alonsarias/impeccable-worlds`.
+- `VITE_SITE_URL` — public origin for the canonical URL and absolute Open Graph / Twitter image (`/og.png`). No trailing slash. Example: `https://your-deployment.vercel.app`. If unset, canonical and `og:url` are omitted and the share image is the relative path `/og.png`.
 
 ## Use
 

@@ -808,6 +808,58 @@ h1 {
   border: 1px solid #000;
 }
 
+.preview-open {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: #fff;
+  color: inherit;
+  cursor: zoom-in;
+}
+
+.preview-open:focus-visible {
+  outline-offset: -2px;
+}
+
+.image-viewer {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: #fff;
+  outline: none;
+}
+
+.image-viewer-bar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  padding-top: max(12px, env(safe-area-inset-top));
+}
+
+.image-viewer-stage {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 68px 16px 16px;
+  cursor: zoom-out;
+}
+
+.image-viewer-stage img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100dvh - 84px);
+  object-fit: contain;
+}
+
 .facts {
   margin: 0;
   display: grid;

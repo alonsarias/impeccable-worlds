@@ -43,16 +43,26 @@ export function DetailDrawer({
   const titleId = useId();
   const descId = useId();
   const paneRef = useRef<HTMLDivElement>(null);
+  const viewerRef = useRef<HTMLDivElement>(null);
+  const previewBtnRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = useState<CopiedKind>(null);
+  const [viewerIndex, setViewerIndex] = useState<number | null>(null);
   const index = world ? queue.findIndex((entry) => entry.id === world.id) : -1;
   const canStep = Boolean(world) && queue.length > 1;
 
   const open = requestedId !== null;
   const shareId = world?.id ?? requestedId;
+  const preview = world ? (world.cardHero ?? world.cardBoard) : undefined;
+  const board =
+    world?.cardBoard && world.cardBoard !== preview ? world.cardBoard : null;
+  const viewerImages = [preview, board].filter((src): src is string =>
+    Boolean(src),
+  );
 
   useEffect(() => {
     setCopied(null);
+    setViewerIndex(null);
     scrollRef.current?.scrollTo(0, 0);
   }, [requestedId, world?.id]);
 
@@ -70,6 +80,27 @@ export function DetailDrawer({
       opener?.focus();
     };
   }, [open]);
+
+  useEffect(() => {
+    if (viewerIndex === null) return;
+    viewerRef.current?.focus();
+  }, [viewerIndex]);
+
+  function closeViewer() {
+    const from = viewerIndex;
+    setViewerIndex(null);
+    requestAnimationFrame(() => {
+      if (from !== null) previewBtnRefs.current[from]?.focus();
+    });
+  }
+
+  function stepViewer(delta: number) {
+    if (viewerImages.length < 2) return;
+    setViewerIndex((current) => {
+      if (current === null) return current;
+      return (current + delta + viewerImages.length) % viewerImages.length;
+    });
+  }
 
   useEffect(() => {
     if (!open) return;
@@ -90,24 +121,25 @@ export function DetailDrawer({
       )
         return;
 
+      const trapRoot =
+        viewerIndex !== null ? viewerRef.current : paneRef.current;
       if (event.key === "Tab") {
-        const pane = paneRef.current;
-        if (!pane) return;
-        const focusable = getFocusable(pane);
+        if (!trapRoot) return;
+        const focusable = getFocusable(trapRoot);
         if (focusable.length === 0) {
           event.preventDefault();
-          pane.focus();
+          trapRoot.focus();
           return;
         }
         const first = focusable[0];
         const last = focusable[focusable.length - 1];
         const active = document.activeElement;
-        if (event.shiftKey && (active === first || active === pane)) {
+        if (event.shiftKey && (active === first || active === trapRoot)) {
           event.preventDefault();
           last.focus();
         } else if (
           !event.shiftKey &&
-          (active === last || !pane.contains(active))
+          (active === last || !trapRoot.contains(active))
         ) {
           event.preventDefault();
           first.focus();
@@ -116,6 +148,23 @@ export function DetailDrawer({
       }
 
       if (isTypingTarget(event.target)) return;
+      if (viewerIndex !== null) {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          closeViewer();
+          return;
+        }
+        if (viewerImages.length < 2) return;
+        if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          stepViewer(-1);
+        }
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          stepViewer(1);
+        }
+        return;
+      }
       if (event.key === "Escape") {
         event.preventDefault();
         onClose();
@@ -134,7 +183,16 @@ export function DetailDrawer({
 
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open, world, queue, canStep, onClose, onSelect]);
+  }, [
+    open,
+    world,
+    queue,
+    canStep,
+    onClose,
+    onSelect,
+    viewerIndex,
+    viewerImages.length,
+  ]);
 
   if (!open) return null;
 
@@ -194,11 +252,6 @@ export function DetailDrawer({
   const selected = world;
 
   const name = displayValue(selected.name);
-  const preview = selected.cardHero ?? selected.cardBoard;
-  const board =
-    selected.cardBoard && selected.cardBoard !== selected.cardHero
-      ? selected.cardBoard
-      : null;
   const position =
     index >= 0 ? `${index + 1} / ${queue.length}` : `${queue.length} in view`;
 
@@ -224,7 +277,7 @@ export function DetailDrawer({
       aria-describedby={descId}
       tabIndex={-1}
     >
-      <div className="detail">
+      <div className="detail" inert={viewerIndex !== null ? true : undefined}>
         <header className="detail-head">
           <div>
             <p className={`tier tier-${selected.wellTier ?? "unknown"}`}>
@@ -268,21 +321,43 @@ export function DetailDrawer({
         </header>
         <p id={descId} className="sr-only">
           {displayValue(selected.form)}. Use the left and right arrow keys to
-          move between worlds.
+          move between worlds. Open an image to view it full size.
         </p>
 
         <div className="detail-scroll" ref={scrollRef}>
           <div className="previews">
             {preview ? (
               <div className="preview-stage">
-                <img src={preview} alt="" />
+                <button
+                  ref={(node) => {
+                    previewBtnRefs.current[0] = node;
+                  }}
+                  type="button"
+                  className="preview-open"
+                  onClick={() => setViewerIndex(0)}
+                  aria-haspopup="dialog"
+                  aria-label={`View ${name} full size`}
+                >
+                  <img src={preview} alt="" />
+                </button>
               </div>
             ) : (
               <div className="missing-block">No value</div>
             )}
             {board ? (
               <div className="preview-stage">
-                <img src={board} alt="" />
+                <button
+                  ref={(node) => {
+                    previewBtnRefs.current[1] = node;
+                  }}
+                  type="button"
+                  className="preview-open"
+                  onClick={() => setViewerIndex(1)}
+                  aria-haspopup="dialog"
+                  aria-label={`View ${name} board full size`}
+                >
+                  <img src={board} alt="" />
+                </button>
               </div>
             ) : null}
           </div>
@@ -342,6 +417,60 @@ export function DetailDrawer({
           </button>
         </footer>
       </div>
+
+      {viewerIndex !== null && viewerImages[viewerIndex] ? (
+        <div
+          ref={viewerRef}
+          className="image-viewer"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${name}, full size`}
+          tabIndex={-1}
+        >
+          <div className="image-viewer-bar">
+            {viewerImages.length > 1 ? (
+              <>
+                <p className="detail-index" aria-live="polite">
+                  {viewerIndex + 1} / {viewerImages.length}
+                </p>
+                <button
+                  type="button"
+                  className="icon-btn"
+                  onClick={() => stepViewer(-1)}
+                  aria-label="Previous image"
+                  title="Previous image"
+                >
+                  ←
+                </button>
+                <button
+                  type="button"
+                  className="icon-btn"
+                  onClick={() => stepViewer(1)}
+                  aria-label="Next image"
+                  title="Next image"
+                >
+                  →
+                </button>
+              </>
+            ) : null}
+            <button
+              type="button"
+              className="icon-btn"
+              onClick={closeViewer}
+              aria-label="Close full size"
+            >
+              ×
+            </button>
+          </div>
+          <div className="image-viewer-stage" onClick={closeViewer}>
+            <img
+              src={viewerImages[viewerIndex]}
+              alt={name}
+              onClick={(event) => event.stopPropagation()}
+            />
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

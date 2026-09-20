@@ -1,30 +1,79 @@
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { World } from "../../shared/types";
 import { buildDirectionPrompt } from "../lib/directionPrompt";
 import { displayValue } from "../lib/display";
 
 interface DetailDrawerProps {
   world: World | null;
+  queue: World[];
   onClose: () => void;
   onFavorite: (id: string) => void;
+  onSelect: (id: string) => void;
 }
 
-export function DetailDrawer({ world, onClose, onFavorite }: DetailDrawerProps) {
+function isTypingTarget(target: EventTarget | null): boolean {
+  if (!(target instanceof HTMLElement)) return false;
+  return Boolean(target.closest("input, textarea, select, [contenteditable='true']"));
+}
+
+export function DetailDrawer({ world, queue, onClose, onFavorite, onSelect }: DetailDrawerProps) {
   const titleId = useId();
+  const paneRef = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = useState(false);
+  const index = world ? queue.findIndex((entry) => entry.id === world.id) : -1;
+  const canStep = queue.length > 1;
+
+  const open = world !== null;
 
   useEffect(() => {
     setCopied(false);
+    paneRef.current?.scrollTo(0, 0);
   }, [world?.id]);
 
   useEffect(() => {
-    if (!world) return;
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
+    if (!open) return;
+    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    paneRef.current?.focus();
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      opener?.focus();
     };
+  }, [open]);
+
+  useEffect(() => {
+    if (!world) return;
+
+    const step = (delta: number) => {
+      if (queue.length === 0) return;
+      const current = queue.findIndex((entry) => entry.id === world.id);
+      const from = current >= 0 ? current : delta > 0 ? -1 : 0;
+      onSelect(queue[(from + delta + queue.length) % queue.length].id);
+    };
+
+    const onKey = (event: KeyboardEvent) => {
+      if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey) return;
+      if (isTypingTarget(event.target)) return;
+      if (event.key === "Escape") {
+        event.preventDefault();
+        onClose();
+        return;
+      }
+      if (!canStep) return;
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        step(-1);
+      }
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        step(1);
+      }
+    };
+
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [world, onClose]);
+  }, [world, queue, canStep, onClose, onSelect]);
 
   if (!world) return null;
   const selected = world;
@@ -32,6 +81,14 @@ export function DetailDrawer({ world, onClose, onFavorite }: DetailDrawerProps) 
   const name = displayValue(selected.name);
   const preview = selected.cardHero ?? selected.cardBoard;
   const board = selected.cardBoard && selected.cardBoard !== selected.cardHero ? selected.cardBoard : null;
+  const position = index >= 0 ? `${index + 1} / ${queue.length}` : `${queue.length} in view`;
+
+  function step(delta: number) {
+    if (queue.length === 0) return;
+    const current = queue.findIndex((entry) => entry.id === selected.id);
+    const from = current >= 0 ? current : delta > 0 ? -1 : 0;
+    onSelect(queue[(from + delta + queue.length) % queue.length].id);
+  }
 
   async function copyPrompt() {
     const text = buildDirectionPrompt(selected);
@@ -55,18 +112,50 @@ export function DetailDrawer({ world, onClose, onFavorite }: DetailDrawerProps) 
   }
 
   return (
-    <div className="drawer-root">
-      <button type="button" className="drawer-backdrop" aria-label="Close detail" onClick={onClose} />
-      <aside className="drawer" role="dialog" aria-modal="true" aria-labelledby={titleId}>
-        <header className="drawer-head">
+    <div
+      ref={paneRef}
+      className="detail-root"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={titleId}
+      tabIndex={-1}
+    >
+      <div className="detail">
+        <header className="detail-head">
           <div>
-            <p className="kicker">{displayValue(world.wellTier)}</p>
+            <p className={`tier tier-${selected.wellTier ?? "unknown"}`}>{displayValue(selected.wellTier)}</p>
             <h2 id={titleId}>{name}</h2>
           </div>
-          <button type="button" className="icon-btn" onClick={onClose} aria-label="Close">
-            ×
-          </button>
+          <div className="detail-nav">
+            <p className="detail-index" aria-live="polite">
+              {position}
+            </p>
+            <button
+              type="button"
+              className="icon-btn"
+              onClick={() => step(-1)}
+              disabled={!canStep}
+              aria-label="Previous world"
+              title="Previous world"
+            >
+              ←
+            </button>
+            <button
+              type="button"
+              className="icon-btn"
+              onClick={() => step(1)}
+              disabled={!canStep}
+              aria-label="Next world"
+              title="Next world"
+            >
+              →
+            </button>
+            <button type="button" className="icon-btn" onClick={onClose} aria-label="Close">
+              ×
+            </button>
+          </div>
         </header>
+        <p className="sr-only">Use the left and right arrow keys to move between worlds.</p>
 
         <div className="previews">
           {preview ? (
@@ -112,7 +201,7 @@ export function DetailDrawer({ world, onClose, onFavorite }: DetailDrawerProps) 
           </div>
         </dl>
 
-        <footer className="drawer-actions">
+        <footer className="detail-actions">
           <button type="button" className="btn primary" onClick={() => void copyPrompt()}>
             {copied ? "Copied" : "Copy direction prompt"}
           </button>
@@ -125,7 +214,7 @@ export function DetailDrawer({ world, onClose, onFavorite }: DetailDrawerProps) 
             {world.favorite ? "Favorited" : "Favorite"}
           </button>
         </footer>
-      </aside>
+      </div>
     </div>
   );
 }

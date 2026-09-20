@@ -4,6 +4,7 @@ import { WELL_TIERS } from "../shared/types";
 import { CoverageStrip } from "./components/CoverageStrip";
 import { DetailDrawer } from "./components/DetailDrawer";
 import { EmptyState } from "./components/EmptyState";
+import { GitHubMark } from "./components/GitHubMark";
 import { WorldGrid } from "./components/WorldGrid";
 import { sortWorldsByName } from "../shared/catalog";
 import { collectWorlds, fetchCoverage, fetchWorlds, toggleFavorite } from "./lib/api";
@@ -96,76 +97,91 @@ export function App() {
 
   return (
     <div className="app">
-      <header className="top">
-        <div className="masthead">
-          <div>
-            <h1>Impeccable Worlds</h1>
-            <p className="lede">Browse, filter, and copy a direction — not an official or complete deck.</p>
+      <div className="catalog" inert={selected ? true : undefined}>
+        <header className="top">
+          <div className="masthead">
+            <div>
+              <h1>Impeccable Worlds</h1>
+              <p className="lede">Browse, filter, and copy a direction — not an official or complete deck.</p>
+            </div>
+            <a
+              className="github-link"
+              href={GITHUB_REPO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View on GitHub"
+              title="View on GitHub"
+            >
+              <GitHubMark />
+            </a>
           </div>
-          <a className="github-link" href={GITHUB_REPO_URL} target="_blank" rel="noopener noreferrer">
-            View on GitHub
-          </a>
-        </div>
-        <div className="controls">
-          <label className="search">
-            <span>Search</span>
-            <input
-              type="search"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Name, form, spark, system"
-            />
-          </label>
-          <label>
-            <span>wellTier</span>
-            <select value={tier} onChange={(event) => setTier(event.target.value)}>
-              <option value="all">All</option>
-              {WELL_TIERS.map((value) => (
-                <option key={value} value={value}>
-                  {value}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="check">
-            <input
-              type="checkbox"
-              checked={favoritesOnly}
-              onChange={(event) => setFavoritesOnly(event.target.checked)}
-            />
-            Favorites only
-          </label>
-        </div>
-      </header>
+          <div className="controls">
+            <label className="search">
+              <span>Search</span>
+              <input
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Name, form, spark, system"
+              />
+            </label>
+            <label>
+              <span>wellTier</span>
+              <select value={tier} onChange={(event) => setTier(event.target.value)}>
+                <option value="all">All</option>
+                {WELL_TIERS.map((value) => (
+                  <option key={value} value={value}>
+                    {value}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="check">
+              <input
+                type="checkbox"
+                checked={favoritesOnly}
+                onChange={(event) => setFavoritesOnly(event.target.checked)}
+              />
+              Favorites only
+            </label>
+          </div>
+        </header>
 
-      {isCollectAllowed() ? (
-        <CoverageStrip coverage={coverage} collecting={collecting} onCollect={() => void onCollect()} />
-      ) : null}
+        {isCollectAllowed() ? (
+          <CoverageStrip coverage={coverage} collecting={collecting} onCollect={() => void onCollect()} />
+        ) : null}
 
-      {error && worlds.length > 0 ? (
-        <p className="banner" role="alert">
-          {error}
-        </p>
-      ) : null}
+        {error && worlds.length > 0 ? (
+          <p className="banner" role="alert">
+            {error}
+          </p>
+        ) : null}
 
-      {emptyKind ? (
-        <EmptyState
-          kind={emptyKind}
-          message={loadError ?? error ?? undefined}
-          onCollect={emptyKind === "none" && isCollectAllowed() ? () => void onCollect() : undefined}
-          collecting={collecting}
-        />
-      ) : (
-        <WorldGrid worlds={visible} onOpen={setSelectedId} onFavorite={onFavorite} />
-      )}
+        {emptyKind ? (
+          <EmptyState
+            kind={emptyKind}
+            message={loadError ?? error ?? undefined}
+            onCollect={emptyKind === "none" && isCollectAllowed() ? () => void onCollect() : undefined}
+            collecting={collecting}
+          />
+        ) : (
+          <WorldGrid worlds={visible} onOpen={setSelectedId} onFavorite={onFavorite} />
+        )}
 
-      <footer className="legal">
-        World names, direction text, and card images come from Impeccable (impeccable.style). This is a personal/lab
-        index for choosing a direction by eye. It is not an official Impeccable product, and it does not claim a complete
-        catalog.
-      </footer>
+        <footer className="legal">
+          World names, direction text, and card images come from Impeccable (impeccable.style). This is a personal/lab
+          index for choosing a direction by eye. It is not an official Impeccable product, and it does not claim a complete
+          catalog.
+        </footer>
+      </div>
 
-      <DetailDrawer world={selected} onClose={() => setSelectedId(null)} onFavorite={onFavorite} />
+      <DetailDrawer
+        world={selected}
+        queue={visible}
+        onClose={() => setSelectedId(null)}
+        onFavorite={onFavorite}
+        onSelect={setSelectedId}
+      />
     </div>
   );
 }

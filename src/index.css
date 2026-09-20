@@ -41,13 +41,25 @@ select {
   font: inherit;
 }
 
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.app,
+.catalog {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
 .app {
   width: min(1180px, calc(100% - 32px));
   margin: 0 auto;
   padding: 28px 0 48px;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
 }
 
 .top {
@@ -65,11 +77,18 @@ select {
 
 .github-link {
   flex: 0 0 auto;
-  margin-top: 6px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin-top: 2px;
   color: var(--ink);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  font-size: 0.92rem;
+  border-radius: 6px;
+}
+
+.github-link svg {
+  width: 22px;
+  height: 22px;
 }
 
 .github-link:hover {
@@ -171,7 +190,8 @@ h1 {
   cursor: pointer;
 }
 
-.btn:disabled {
+.btn:disabled,
+.icon-btn:disabled {
   opacity: 0.45;
   cursor: default;
 }
@@ -207,7 +227,7 @@ h1 {
 }
 
 .empty h2,
-.drawer h2,
+.detail h2,
 .card h2 {
   margin: 0;
 }
@@ -222,6 +242,7 @@ h1 {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 14px;
+  align-items: start;
 }
 
 .card {
@@ -244,18 +265,19 @@ h1 {
 }
 
 .card-thumb {
-  aspect-ratio: 4 / 3;
   background: #e4e0d8;
+}
+
+.card-thumb:has(.missing) {
+  aspect-ratio: 4 / 3;
   display: grid;
   place-items: center;
-  overflow: hidden;
 }
 
 .card-thumb img,
 .preview-stage img {
   width: 100%;
-  height: 100%;
-  object-fit: contain;
+  height: auto;
   display: block;
 }
 
@@ -328,40 +350,73 @@ h1 {
   color: #8a5a12;
 }
 
-.drawer-root {
+.detail-root {
   position: fixed;
   inset: 0;
   z-index: 20;
-}
-
-.drawer-backdrop {
-  position: absolute;
-  inset: 0;
-  border: 0;
-  background: rgba(28, 27, 24, 0.38);
-  cursor: pointer;
-}
-
-.drawer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: min(440px, 100%);
-  height: 100%;
-  background: var(--surface);
-  box-shadow: var(--shadow);
   overflow: auto;
-  padding: 22px 20px 28px;
+  background: var(--bg);
+  outline: none;
+}
+
+.detail {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 22px 0 48px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
+  min-height: 100%;
 }
 
-.drawer-head {
+.detail-head {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
   align-items: start;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  margin: 0 -4px;
+  padding: 10px 4px 14px;
+  background: var(--bg);
+}
+
+.detail-head .tier {
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.detail h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  letter-spacing: -0.03em;
+}
+
+.detail-nav {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.detail-index {
+  margin: 0 4px 0 0;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.85rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .kicker {
@@ -380,20 +435,31 @@ h1 {
 
 .previews {
   display: grid;
-  gap: 8px;
+  gap: 12px;
+}
+
+@media (min-width: 800px) {
+  .previews:has(> :nth-child(2)) {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .preview-stage {
-  aspect-ratio: 16 / 10;
   border-radius: 6px;
-  background: #e4e0d8;
   overflow: hidden;
 }
 
 .facts {
   margin: 0;
   display: grid;
-  gap: 14px;
+  gap: 16px;
+}
+
+@media (min-width: 800px) {
+  .facts {
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 32px;
+  }
 }
 
 .facts dt {
@@ -415,11 +481,10 @@ h1 {
   gap: 6px;
 }
 
-.drawer-actions {
+.detail-actions {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  margin-top: auto;
 }
 
 .legal {
@@ -428,10 +493,17 @@ h1 {
 }
 
 @media (max-width: 720px) {
-  .masthead,
   .coverage,
-  .drawer-actions {
+  .detail-actions {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .detail-head {
+    flex-wrap: wrap;
+  }
+
+  .detail-nav {
+    margin-left: auto;
   }
 }

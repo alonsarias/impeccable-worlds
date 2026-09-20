@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <title>OG card</title>
+    <!--
+      1200×630 share card: four representative catalog worlds, whole boards.
+      Gameboy · Art Paul Magazine Program · Crouwel · Midnight Transit Diagram.
+      Hung faces come from data/worlds.json via scripts/generate-og.mjs.
+    -->
     <style>
       @font-face {
         font-family: "Host Grotesk";
@@ -16,52 +21,149 @@
         font-weight: 700;
         src: url("/fonts/host-grotesk-700-latin.woff2") format("woff2");
       }
+      * {
+        box-sizing: border-box;
+      }
       html,
       body {
         margin: 0;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
         background: #fff;
       }
       .card {
-        box-sizing: border-box;
+        position: relative;
         width: 1200px;
         height: 630px;
-        display: flex;
-        align-items: center;
-        gap: 48px;
-        padding: 0 120px;
-        border: 3px solid #000;
+        overflow: hidden;
         background: #fff;
         color: #000;
         font-family: "Host Grotesk", Helvetica, Arial, sans-serif;
+        border: 3px solid #000;
       }
-      img {
-        width: 280px;
-        height: 280px;
+      .wall {
+        position: absolute;
+        inset: 0;
+        opacity: 0.14;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='48'><path fill='none' stroke='%23000' stroke-width='1' d='M4 0 L8 8 L2 16 L9 24 L3 32 L8 40 L4 48 M18 0 L22 8 L16 16 L23 24 L17 32 L22 40 L18 48'/></svg>");
+        background-size: 28px 48px;
+        pointer-events: none;
+      }
+      .salon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        bottom: 88px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 440px));
+        justify-content: center;
+        align-content: center;
+        gap: 24px;
+      }
+      .hang {
+        margin: 0;
+        min-width: 0;
+        background: #fff;
+        border: 1px solid #000;
+      }
+      .hang img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 2048 / 1152;
+        object-fit: contain;
+        object-position: center;
         display: block;
       }
+      .rail {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 0 28px;
+        background: #fff;
+        border-top: 2px solid #000;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+      }
+      .brand img {
+        width: 36px;
+        height: 36px;
+        display: block;
+        flex: 0 0 auto;
+      }
       h1 {
-        margin: 0 0 16px;
-        font-size: 56px;
-        line-height: 1.05;
+        margin: 0;
+        font-size: 36px;
+        line-height: 1;
         font-weight: 700;
-        letter-spacing: -0.03em;
+        letter-spacing: -0.035em;
+        white-space: nowrap;
       }
       p {
         margin: 0;
-        font-size: 24px;
-        line-height: 1.35;
+        flex: 0 0 auto;
+        font-size: 20px;
+        line-height: 1.2;
         font-weight: 400;
-        max-width: 28ch;
+        text-align: right;
+        white-space: nowrap;
       }
     </style>
   </head>
   <body>
     <div class="card">
-      <img src="/favicon.svg" alt="" />
-      <div>
-        <h1>Impeccable Worlds</h1>
-        <p>An unofficial catalog of design worlds and directions.</p>
+      <div class="wall" aria-hidden="true"></div>
+      <div class="salon">
+        <figure class="hang">
+          <img
+            src="/og-src/digital-design-canon-gameboy-four-shade-field.webp"
+            alt=""
+          />
+        </figure>
+        <figure class="hang">
+          <img
+            src="/og-src/brand-identity-canon-art-paul-magazine-program.webp"
+            alt=""
+          />
+        </figure>
+        <figure class="hang">
+          <img src="/og-src/crouwel-grid-specimen.webp" alt="" />
+        </figure>
+        <figure class="hang">
+          <img
+            src="/og-src/wayfinding-cartography-signage-midnight-transit-diagram.webp"
+            alt=""
+          />
+        </figure>
+      </div>
+      <div class="rail">
+        <div class="brand">
+          <img src="/favicon.svg" alt="" />
+          <h1>Impeccable Worlds</h1>
+        </div>
+        <p>Choose a direction by eye. Copy the prompt.</p>
       </div>
     </div>
+    <script>
+      Promise.all([
+        document.fonts.ready,
+        ...[...document.images].map((img) =>
+          img.decode ? img.decode().catch(() => {}) : Promise.resolve(),
+        ),
+      ]).then(() => {
+        document.documentElement.dataset.ready = "1";
+      });
+    </script>
   </body>
 </html>

@@ -5,3 +5,5 @@ dist
 node_modules/.tmp
 data/favorites.json
 data/*.tmp
+public/og-card.html
+public/og-src

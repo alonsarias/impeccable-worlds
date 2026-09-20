@@ -17,7 +17,7 @@ export function WorldCard({
   onOpen,
   onFavorite,
 }: WorldCardProps) {
-  const thumb = world.cardBoard ?? world.cardHero;
+  const thumb = world.cardHero ?? world.cardBoard;
   const [broken, setBroken] = useState(false);
   const name = displayValue(world.name);
   const tier = displayValue(world.wellTier);

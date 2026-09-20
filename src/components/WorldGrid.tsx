@@ -5,6 +5,7 @@ export type CardLayout = "comfortable" | "compact" | "list";
 
 interface WorldGridProps {
   worlds: World[];
+  catalog: World[];
   layout: CardLayout;
   onOpen: (id: string) => void;
   onFavorite: (id: string) => void;
@@ -12,6 +13,7 @@ interface WorldGridProps {
 
 export function WorldGrid({
   worlds,
+  catalog,
   layout,
   onOpen,
   onFavorite,
@@ -22,6 +24,7 @@ export function WorldGrid({
         <WorldCard
           key={world.id}
           world={world}
+          catalog={catalog}
           onOpen={onOpen}
           onFavorite={onFavorite}
         />

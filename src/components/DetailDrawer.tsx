@@ -9,6 +9,7 @@ interface DetailDrawerProps {
   world: World | null;
   requestedId: string | null;
   queue: World[];
+  catalog: World[];
   onClose: () => void;
   onFavorite: (id: string) => void;
   onSelect: (id: string) => void;
@@ -36,6 +37,7 @@ export function DetailDrawer({
   world,
   requestedId,
   queue,
+  catalog,
   onClose,
   onFavorite,
   onSelect,
@@ -198,7 +200,9 @@ export function DetailDrawer({
 
   async function copyLink() {
     if (!shareId) return;
-    const ok = await copyText(worldShareUrl(shareId));
+    const ok = await copyText(
+      worldShareUrl(world ?? shareId, undefined, catalog),
+    );
     setCopied(ok ? "link" : null);
   }
 

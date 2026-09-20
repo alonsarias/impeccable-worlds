@@ -6,11 +6,17 @@ import { CanvasFrame } from "./WaveField";
 
 interface WorldCardProps {
   world: World;
+  catalog: World[];
   onOpen: (id: string) => void;
   onFavorite: (id: string) => void;
 }
 
-export function WorldCard({ world, onOpen, onFavorite }: WorldCardProps) {
+export function WorldCard({
+  world,
+  catalog,
+  onOpen,
+  onFavorite,
+}: WorldCardProps) {
   const thumb = world.cardBoard ?? world.cardHero;
   const [broken, setBroken] = useState(false);
   const name = displayValue(world.name);
@@ -21,7 +27,7 @@ export function WorldCard({ world, onOpen, onFavorite }: WorldCardProps) {
       <CanvasFrame />
       <a
         className="card-main"
-        href={worldPath(world.id)}
+        href={worldPath(world, catalog)}
         onClick={(event) => {
           if (shouldAllowNativeLink(event)) return;
           event.preventDefault();

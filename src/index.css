@@ -1,24 +1,62 @@
+@font-face {
+  font-family: "Host Grotesk";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/host-grotesk-400-latin.woff2") format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Host Grotesk";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/host-grotesk-500-latin.woff2") format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Host Grotesk";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/host-grotesk-700-latin.woff2") format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   color-scheme: light;
-  --bg: #efece6;
-  --surface: #f7f5f1;
-  --ink: #1c1b18;
-  --muted: #6f6b63;
-  --line: #d9d4c8;
-  --graphic: #2c4a6e;
-  --graphic-bg: #d6e2ee;
-  --atmosphere: #3d5340;
-  --atmosphere-bg: #d7e4d4;
-  --interaction: #6a4a1f;
-  --interaction-bg: #f0e0c4;
-  --unknown: #5c5852;
-  --unknown-bg: #e4e0d8;
-  --shadow: 0 18px 50px rgba(28, 27, 24, 0.16);
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --ink: #000000;
+  --muted: #000000;
+  --line: #000000;
+  --graphic: #000000;
+  --graphic-bg: #ffffff;
+  --atmosphere: #000000;
+  --atmosphere-bg: #ffffff;
+  --interaction: #000000;
+  --interaction-bg: #ffffff;
+  --unknown: #000000;
+  --unknown-bg: #ffffff;
+  --shadow: none;
+  font-family: "Host Grotesk", Helvetica, Arial, sans-serif;
   line-height: 1.45;
-  font-weight: 430;
+  font-weight: 400;
   color: var(--ink);
   background: var(--bg);
+  caret-color: #000;
+  accent-color: #000;
 }
 
 * {
@@ -31,21 +69,46 @@ body,
   min-height: 100%;
 }
 
+html {
+  background: #fff;
+  scrollbar-color: #000 #fff;
+  scrollbar-width: thin;
+}
+
 body {
   margin: 0;
+  background: transparent;
+}
+
+.wave-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+#root {
+  position: relative;
+  z-index: 0;
+}
+
+::selection {
+  background: #000;
+  color: #fff;
 }
 
 button,
 input,
 select {
   font: inherit;
+  border-radius: 0;
 }
 
 button:focus-visible,
 input:focus-visible,
 select:focus-visible,
 a:focus-visible {
-  outline: 2px solid var(--ink);
+  outline: 2px solid #000;
   outline-offset: 2px;
 }
 
@@ -57,15 +120,23 @@ a:focus-visible {
 }
 
 .app {
+  position: relative;
+  z-index: 1;
   width: min(1180px, calc(100% - 32px));
   margin: 0 auto;
   padding: 28px 0 48px;
+}
+
+.catalog {
+  position: relative;
+  z-index: 1;
 }
 
 .top {
   display: flex;
   flex-direction: column;
   gap: 18px;
+  background: #fff;
 }
 
 .masthead {
@@ -83,7 +154,6 @@ a:focus-visible {
   height: 36px;
   margin-top: 2px;
   color: var(--ink);
-  border-radius: 6px;
 }
 
 .github-link svg {
@@ -92,12 +162,14 @@ a:focus-visible {
 }
 
 .github-link:hover {
-  color: var(--muted);
+  background: #000;
+  color: #fff;
 }
 
 h1 {
   margin: 0 0 4px;
   font-size: 1.55rem;
+  font-weight: 500;
   letter-spacing: -0.03em;
 }
 
@@ -113,6 +185,7 @@ h1 {
 .legal {
   margin: 0;
   max-width: 52ch;
+  background: #fff;
 }
 
 .controls {
@@ -137,14 +210,18 @@ h1 {
 .controls select {
   min-height: 36px;
   border: 1px solid var(--line);
-  background: var(--surface);
-  color: var(--ink);
+  background: #fff;
+  color: #000;
   padding: 0 10px;
-  border-radius: 6px;
 }
 
 .search input {
   width: min(320px, 72vw);
+}
+
+.controls input::placeholder {
+  color: #000;
+  opacity: 1;
 }
 
 .check {
@@ -164,14 +241,13 @@ h1 {
   gap: 16px;
   align-items: center;
   padding: 12px 14px;
-  background: var(--surface);
+  background: #fff;
   border: 1px solid var(--line);
-  border-radius: 8px;
 }
 
 .coverage-meta {
   margin: 0;
-  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-family: inherit;
   font-size: 0.82rem;
 }
 
@@ -181,25 +257,27 @@ h1 {
 
 .btn,
 .icon-btn {
-  border: 1px solid var(--ink);
-  background: var(--ink);
-  color: var(--bg);
+  border: 1px solid #000;
+  background: #000;
+  color: #fff;
   min-height: 36px;
   padding: 0 12px;
-  border-radius: 6px;
   cursor: pointer;
 }
 
 .btn:disabled,
 .icon-btn:disabled {
-  opacity: 0.45;
+  opacity: 1;
+  background: #fff;
+  color: #000;
+  border-style: dashed;
   cursor: default;
 }
 
 .btn.ghost,
 .icon-btn {
-  background: transparent;
-  color: var(--ink);
+  background: #fff;
+  color: #000;
 }
 
 .btn.primary {
@@ -207,23 +285,22 @@ h1 {
 }
 
 .btn.is-on {
-  background: var(--ink);
-  color: var(--bg);
+  background: #000;
+  color: #fff;
 }
 
 .banner,
 .empty {
-  border: 1px dashed var(--line);
-  background: var(--surface);
+  border: 1px dashed #000;
+  background: #fff;
   padding: 28px;
-  border-radius: 8px;
 }
 
 .banner {
   margin: 0;
   padding: 12px 14px;
   border-style: solid;
-  color: #7a2e1b;
+  color: #000;
 }
 
 .empty h2,
@@ -247,10 +324,38 @@ h1 {
 
 .card {
   position: relative;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #000;
   overflow: hidden;
+}
+
+.canvas-frame {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  padding: 5px;
+  box-sizing: border-box;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.wave-fill {
+  display: none;
+}
+
+.card[data-vantage="far"] .wave-fill[data-for="far"],
+.card[data-vantage="mid"] .wave-fill[data-for="mid"],
+.card[data-vantage="near"] .wave-fill[data-for="near"] {
+  display: block;
 }
 
 .card-main {
@@ -262,10 +367,12 @@ h1 {
   color: inherit;
   text-align: left;
   cursor: pointer;
+  position: relative;
+  z-index: 0;
 }
 
 .card-thumb {
-  background: #e4e0d8;
+  background: #fff;
 }
 
 .card-thumb:has(.missing) {
@@ -283,7 +390,7 @@ h1 {
 
 .missing,
 .missing-block {
-  color: var(--muted);
+  color: #000;
   font-size: 0.85rem;
 }
 
@@ -291,8 +398,8 @@ h1 {
   aspect-ratio: 16 / 10;
   display: grid;
   place-items: center;
-  background: #e4e0d8;
-  border-radius: 6px;
+  background: #fff;
+  border: 1px solid #000;
 }
 
 .card-body {
@@ -301,10 +408,12 @@ h1 {
   gap: 8px;
   align-items: start;
   padding: 10px 12px 12px;
+  background: #fff;
 }
 
 .card h2 {
   font-size: 0.98rem;
+  font-weight: 500;
   letter-spacing: -0.02em;
 }
 
@@ -314,40 +423,35 @@ h1 {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   padding: 3px 6px;
-  border-radius: 999px;
-  background: var(--unknown-bg);
-  color: var(--unknown);
+  border: 1px solid #000;
+  background: #fff;
+  color: #000;
 }
 
-.tier-graphic {
-  background: var(--graphic-bg);
-  color: var(--graphic);
-}
-
-.tier-atmosphere {
-  background: var(--atmosphere-bg);
-  color: var(--atmosphere);
-}
-
-.tier-interaction {
-  background: var(--interaction-bg);
-  color: var(--interaction);
+.tier-graphic,
+.tier-atmosphere,
+.tier-interaction,
+.tier-unknown {
+  background: #fff;
+  color: #000;
 }
 
 .fav {
   position: absolute;
   top: 8px;
   right: 8px;
+  z-index: 2;
   width: 32px;
   height: 32px;
   border: 0;
-  border-radius: 999px;
-  background: rgba(247, 245, 241, 0.92);
+  background: #fff;
+  color: #000;
   cursor: pointer;
 }
 
 .fav.is-on {
-  color: #8a5a12;
+  background: #000;
+  color: #fff;
 }
 
 .detail-root {
@@ -355,7 +459,7 @@ h1 {
   inset: 0;
   z-index: 20;
   overflow: auto;
-  background: var(--bg);
+  background: #fff;
   outline: none;
 }
 
@@ -379,7 +483,7 @@ h1 {
   z-index: 1;
   margin: 0 -4px;
   padding: 10px 4px 14px;
-  background: var(--bg);
+  background: #fff;
 }
 
 .detail-head .tier {
@@ -390,6 +494,7 @@ h1 {
 .detail h2 {
   font-size: clamp(1.6rem, 3vw, 2.2rem);
   letter-spacing: -0.03em;
+  font-weight: 500;
 }
 
 .detail-nav {
@@ -445,8 +550,8 @@ h1 {
 }
 
 .preview-stage {
-  border-radius: 6px;
   overflow: hidden;
+  border: 1px solid #000;
 }
 
 .facts {

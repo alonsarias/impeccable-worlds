@@ -5,6 +5,7 @@ import { CoverageStrip } from "./components/CoverageStrip";
 import { DetailDrawer } from "./components/DetailDrawer";
 import { EmptyState } from "./components/EmptyState";
 import { GitHubMark } from "./components/GitHubMark";
+import { WaveField } from "./components/WaveField";
 import { WorldGrid } from "./components/WorldGrid";
 import { sortWorldsByName } from "../shared/catalog";
 import { collectWorlds, fetchCoverage, fetchWorlds, toggleFavorite } from "./lib/api";
@@ -96,7 +97,9 @@ export function App() {
           : null;
 
   return (
-    <div className="app">
+    <>
+      <WaveField token={visible.length} />
+      <div className="app">
       <div className="catalog" inert={selected ? true : undefined}>
         <header className="top">
           <div className="masthead">
@@ -183,5 +186,6 @@ export function App() {
         onSelect={setSelectedId}
       />
     </div>
+    </>
   );
 }

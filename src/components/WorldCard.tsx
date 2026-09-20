@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { World } from "../../shared/types";
 import { displayValue } from "../lib/display";
+import { CanvasFrame } from "./WaveField";
 
 interface WorldCardProps {
   world: World;
@@ -15,7 +16,8 @@ export function WorldCard({ world, onOpen, onFavorite }: WorldCardProps) {
   const tier = displayValue(world.wellTier);
 
   return (
-    <article className="card">
+    <article className="card" data-vantage="far">
+      <CanvasFrame />
       <button type="button" className="card-main" onClick={() => onOpen(world.id)}>
         <div className="card-thumb">
           {thumb && !broken ? (

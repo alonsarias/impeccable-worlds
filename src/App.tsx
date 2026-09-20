@@ -7,7 +7,10 @@ import { CoverageStrip } from "./components/CoverageStrip";
 import { DetailDrawer } from "./components/DetailDrawer";
 import { EmptyState } from "./components/EmptyState";
 import { GitHubMark } from "./components/GitHubMark";
-import { HowItWorksDialog } from "./components/HowItWorksDialog";
+import {
+  HOW_IT_WORKS_DIALOG_ID,
+  HowItWorksDialog,
+} from "./components/HowItWorksDialog";
 import { ResultsBar } from "./components/ResultsBar";
 import { WaveField } from "./components/WaveField";
 import type { CardLayout } from "./components/WorldGrid";
@@ -195,6 +198,7 @@ export function App() {
                     className="text-link"
                     aria-haspopup="dialog"
                     aria-expanded={howItWorksOpen}
+                    aria-controls={HOW_IT_WORKS_DIALOG_ID}
                     onClick={() => setHowItWorksOpen(true)}
                   >
                     How it works
@@ -281,7 +285,12 @@ export function App() {
             />
           ) : null}
 
-          <p className={liveClass} aria-live="polite" aria-atomic="true">
+          <p
+            className={liveClass}
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          >
             {liveText}
           </p>
 
@@ -331,18 +340,21 @@ export function App() {
           )}
 
           <footer className="legal">
-            World names, direction text, and card images come from Impeccable
-            (impeccable.style). This is a personal/lab index for choosing a
-            direction by eye. It is not an official Impeccable product, and it
-            does not claim a complete catalog.{" "}
+            <p>
+              World names, direction text, and card images come from Impeccable
+              (impeccable.style). This is a personal/lab index for choosing a
+              direction by eye. It is not an official Impeccable product, and it
+              does not claim a complete catalog.
+            </p>
             <button
               type="button"
               className="text-link"
               aria-haspopup="dialog"
               aria-expanded={howItWorksOpen}
+              aria-controls={HOW_IT_WORKS_DIALOG_ID}
               onClick={() => setHowItWorksOpen(true)}
             >
-              About
+              How it works
             </button>
           </footer>
         </div>

@@ -190,6 +190,19 @@ h1 {
   background: #fff;
 }
 
+.legal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  font-size: 0.8rem;
+  max-width: 72ch;
+}
+
+.legal p {
+  margin: 0;
+}
+
 .purpose {
   display: flex;
   flex-wrap: wrap;
@@ -214,13 +227,6 @@ h1 {
   text-decoration: underline;
   text-underline-offset: 0.18em;
   cursor: pointer;
-}
-
-.legal .text-link {
-  min-height: 0;
-  padding: 8px 6px;
-  margin: -8px 0;
-  vertical-align: baseline;
 }
 
 .text-link:hover {
@@ -608,10 +614,12 @@ h1 {
   border: 1px solid #000;
   background: #fff;
   color: #000;
-  overflow: auto;
-  overscroll-behavior: contain;
-  scrollbar-color: #000 #fff;
-  scrollbar-width: thin;
+  overflow: hidden;
+}
+
+.how-dialog[open] {
+  display: flex;
+  flex-direction: column;
 }
 
 .how-dialog::backdrop {
@@ -619,9 +627,10 @@ h1 {
 }
 
 .how-panel {
-  padding: 22px 22px 24px;
-  display: grid;
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
 }
 
 .how-head {
@@ -629,6 +638,23 @@ h1 {
   justify-content: space-between;
   align-items: start;
   gap: 16px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 22px 22px 12px;
+  background: #fff;
+}
+
+.how-body {
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 0 22px 24px;
+  display: grid;
+  gap: 16px;
+  scrollbar-color: #000 #fff;
+  scrollbar-width: thin;
 }
 
 .how-dialog h2 {
@@ -820,11 +846,6 @@ h1 {
   padding: 12px 16px calc(16px + env(safe-area-inset-bottom));
   background: #fff;
   border-top: 1px solid #000;
-}
-
-.legal {
-  font-size: 0.8rem;
-  max-width: 72ch;
 }
 
 @media (max-width: 720px) {

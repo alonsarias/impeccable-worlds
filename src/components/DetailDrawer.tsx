@@ -35,6 +35,7 @@ export function DetailDrawer({
   onSelect,
 }: DetailDrawerProps) {
   const titleId = useId();
+  const descId = useId();
   const paneRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = useState(false);
@@ -175,6 +176,7 @@ export function DetailDrawer({
       role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}
+      aria-describedby={descId}
       tabIndex={-1}
     >
       <div className="detail">
@@ -219,8 +221,9 @@ export function DetailDrawer({
             </button>
           </div>
         </header>
-        <p className="sr-only">
-          Use the left and right arrow keys to move between worlds.
+        <p id={descId} className="sr-only">
+          {displayValue(selected.form)}. Use the left and right arrow keys to
+          move between worlds.
         </p>
 
         <div className="detail-scroll" ref={scrollRef}>

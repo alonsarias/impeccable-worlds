@@ -1,6 +1,6 @@
 /**
  * Build public/og.png: four catalog worlds chosen for the share card.
- * Gameboy Four Shade Field · Art Paul Magazine Program · Crouwel Grid Specimen · Midnight Transit Diagram.
+ * Angura Theatre Poster · Antialiased Racing League · Alphabet Storm · CRT Arcade Pixel Glow.
  *
  * Run: node scripts/generate-og.mjs
  */
@@ -14,10 +14,10 @@ const publicDir = join(root, "public");
 const srcDir = join(publicDir, "og-src");
 
 const HANG_IDS = [
-  "digital-design-canon-gameboy-four-shade-field",
-  "brand-identity-canon-art-paul-magazine-program",
-  "crouwel-grid-specimen",
-  "wayfinding-cartography-signage-midnight-transit-diagram",
+  "posters-covers-sleeves-angura-theatre-poster",
+  "digital-design-canon-antialiased-racing-league",
+  "dream-surreal-impossible-worlds-alphabet-storm",
+  "medium-native-crt-arcade-pixel-glow",
 ];
 
 const WIDTH = 1200;

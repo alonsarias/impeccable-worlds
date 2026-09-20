@@ -83,6 +83,10 @@ export function HowItWorksDialog({ open, onClose }: HowItWorksDialogProps) {
               your coding agent.
             </li>
             <li>
+              Each world has its own link. Share it and the other person lands
+              on that world.
+            </li>
+            <li>
               This index helps you pick a direction. It does not install or
               replace Impeccable.
             </li>

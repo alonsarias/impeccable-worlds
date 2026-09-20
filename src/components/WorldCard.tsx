@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { World } from "../../shared/types";
 import { displayValue } from "../lib/display";
+import { shouldAllowNativeLink, worldPath } from "../lib/worldPath";
 import { CanvasFrame } from "./WaveField";
 
 interface WorldCardProps {
@@ -18,19 +19,35 @@ export function WorldCard({ world, onOpen, onFavorite }: WorldCardProps) {
   return (
     <article className="card" data-vantage="far">
       <CanvasFrame />
-      <button type="button" className="card-main" onClick={() => onOpen(world.id)}>
+      <a
+        className="card-main"
+        href={worldPath(world.id)}
+        onClick={(event) => {
+          if (shouldAllowNativeLink(event)) return;
+          event.preventDefault();
+          onOpen(world.id);
+        }}
+      >
         <div className="card-thumb">
           {thumb && !broken ? (
-            <img src={thumb} alt="" loading="lazy" decoding="async" onError={() => setBroken(true)} />
+            <img
+              src={thumb}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              onError={() => setBroken(true)}
+            />
           ) : (
             <span className="missing">No value</span>
           )}
         </div>
         <div className="card-body">
           <h2>{name}</h2>
-          <span className={`tier tier-${world.wellTier ?? "unknown"}`}>{tier}</span>
+          <span className={`tier tier-${world.wellTier ?? "unknown"}`}>
+            {tier}
+          </span>
         </div>
-      </button>
+      </a>
       <button
         type="button"
         className={`fav ${world.favorite ? "is-on" : ""}`}

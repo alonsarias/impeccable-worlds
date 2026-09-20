@@ -30,6 +30,7 @@ import {
   humanizeCollectError,
   titleCaseTier,
 } from "./lib/statusCopy";
+import { worldIdFromPathname, worldPath } from "./lib/worldPath";
 
 type CollectFeedback = {
   tone: "progress" | "success" | "error";
@@ -66,7 +67,9 @@ export function App() {
   const [sort, setSort] = useState<WorldSort>("name");
   const [layout, setLayout] = useState<CardLayout>("comfortable");
   const [favoritesOnly, setFavoritesOnly] = useState(false);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(() =>
+    worldIdFromPathname(window.location.pathname),
+  );
   const [collecting, setCollecting] = useState(false);
   const [collectFeedback, setCollectFeedback] = useState<CollectFeedback>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -109,6 +112,46 @@ export function App() {
     });
   }, [collecting, coverage]);
 
+  const writeWorldLocation = useCallback(
+    (id: string | null, mode: "push" | "replace") => {
+      const nextPath = id ? worldPath(id) : "/";
+      if (window.location.pathname === nextPath) return;
+      const state = { worldId: id };
+      if (mode === "replace") history.replaceState(state, "", nextPath);
+      else history.pushState(state, "", nextPath);
+    },
+    [],
+  );
+
+  const openWorld = useCallback(
+    (id: string) => {
+      setSelectedId(id);
+      writeWorldLocation(id, "push");
+    },
+    [writeWorldLocation],
+  );
+
+  const stepWorld = useCallback(
+    (id: string) => {
+      setSelectedId(id);
+      writeWorldLocation(id, "replace");
+    },
+    [writeWorldLocation],
+  );
+
+  const closeWorld = useCallback(() => {
+    setSelectedId(null);
+    writeWorldLocation(null, "push");
+  }, [writeWorldLocation]);
+
+  useEffect(() => {
+    const onPop = () => {
+      setSelectedId(worldIdFromPathname(window.location.pathname));
+    };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
+
   const visible = useMemo(
     () =>
       sortWorlds(
@@ -119,6 +162,24 @@ export function App() {
   );
 
   const selected = worlds.find((world) => world.id === selectedId) ?? null;
+  const drawerId = ready && !loadError ? selectedId : null;
+
+  useEffect(() => {
+    const base = "Impeccable Worlds";
+    if (selected?.name) {
+      document.title = `${selected.name} · ${base}`;
+      return () => {
+        document.title = base;
+      };
+    }
+    if (drawerId && !selected) {
+      document.title = `Not in the index · ${base}`;
+      return () => {
+        document.title = base;
+      };
+    }
+    document.title = base;
+  }, [drawerId, selected]);
 
   async function onCollect() {
     setCollectFeedback({ tone: "progress", text: "Fetching new directions…" });
@@ -183,7 +244,7 @@ export function App() {
         token={`${layout}-${sort}-${visible.length}-${visible[0]?.id ?? ""}`}
       />
       <div className="app">
-        <div className="catalog" inert={selected ? true : undefined}>
+        <div className="catalog" inert={drawerId ? true : undefined}>
           <header className="top">
             <div className="masthead">
               <div>
@@ -334,7 +395,7 @@ export function App() {
             <WorldGrid
               worlds={visible}
               layout={layout}
-              onOpen={setSelectedId}
+              onOpen={openWorld}
               onFavorite={onFavorite}
             />
           )}
@@ -366,10 +427,11 @@ export function App() {
 
         <DetailDrawer
           world={selected}
+          requestedId={drawerId}
           queue={visible}
-          onClose={() => setSelectedId(null)}
+          onClose={closeWorld}
           onFavorite={onFavorite}
-          onSelect={setSelectedId}
+          onSelect={stepWorld}
         />
       </div>
     </>

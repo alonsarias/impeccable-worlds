@@ -1,15 +1,20 @@
 import { useEffect, useId, useRef, useState } from "react";
 import type { World } from "../../shared/types";
+import { copyText } from "../lib/clipboard";
 import { buildDirectionPrompt } from "../lib/directionPrompt";
 import { displayValue } from "../lib/display";
+import { worldShareUrl } from "../lib/worldPath";
 
 interface DetailDrawerProps {
   world: World | null;
+  requestedId: string | null;
   queue: World[];
   onClose: () => void;
   onFavorite: (id: string) => void;
   onSelect: (id: string) => void;
 }
+
+type CopiedKind = "prompt" | "link" | null;
 
 function isTypingTarget(target: EventTarget | null): boolean {
   if (!(target instanceof HTMLElement)) return false;
@@ -29,6 +34,7 @@ function getFocusable(root: HTMLElement): HTMLElement[] {
 
 export function DetailDrawer({
   world,
+  requestedId,
   queue,
   onClose,
   onFavorite,
@@ -38,16 +44,17 @@ export function DetailDrawer({
   const descId = useId();
   const paneRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState<CopiedKind>(null);
   const index = world ? queue.findIndex((entry) => entry.id === world.id) : -1;
-  const canStep = queue.length > 1;
+  const canStep = Boolean(world) && queue.length > 1;
 
-  const open = world !== null;
+  const open = requestedId !== null;
+  const shareId = world?.id ?? requestedId;
 
   useEffect(() => {
-    setCopied(false);
+    setCopied(null);
     scrollRef.current?.scrollTo(0, 0);
-  }, [world?.id]);
+  }, [requestedId, world?.id]);
 
   useEffect(() => {
     if (!open) return;
@@ -65,10 +72,10 @@ export function DetailDrawer({
   }, [open]);
 
   useEffect(() => {
-    if (!world) return;
+    if (!open) return;
 
     const step = (delta: number) => {
-      if (queue.length === 0) return;
+      if (!world || queue.length === 0) return;
       const current = queue.findIndex((entry) => entry.id === world.id);
       const from = current >= 0 ? current : delta > 0 ? -1 : 0;
       onSelect(queue[(from + delta + queue.length) % queue.length].id);
@@ -127,9 +134,63 @@ export function DetailDrawer({
 
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [world, queue, canStep, onClose, onSelect]);
+  }, [open, world, queue, canStep, onClose, onSelect]);
 
-  if (!world) return null;
+  if (!open) return null;
+
+  async function copyLink() {
+    if (!shareId) return;
+    const ok = await copyText(worldShareUrl(shareId));
+    setCopied(ok ? "link" : null);
+  }
+
+  if (!world) {
+    return (
+      <div
+        ref={paneRef}
+        className="detail-root"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        aria-describedby={descId}
+        tabIndex={-1}
+      >
+        <div className="detail">
+          <header className="detail-head">
+            <div>
+              <h2 id={titleId}>This world is not in the index</h2>
+            </div>
+            <div className="detail-nav">
+              <button
+                type="button"
+                className="icon-btn"
+                onClick={onClose}
+                aria-label="Close"
+              >
+                ×
+              </button>
+            </div>
+          </header>
+          <p id={descId} className="missing-copy">
+            The catalog is incomplete, so a shared id may not be collected yet.
+          </p>
+          <footer className="detail-actions">
+            <button
+              type="button"
+              className="btn ghost"
+              onClick={() => void copyLink()}
+            >
+              {copied === "link" ? "Copied link" : "Copy link"}
+            </button>
+            <button type="button" className="btn" onClick={onClose}>
+              Back to catalog
+            </button>
+          </footer>
+        </div>
+      </div>
+    );
+  }
+
   const selected = world;
 
   const name = displayValue(selected.name);
@@ -149,24 +210,8 @@ export function DetailDrawer({
   }
 
   async function copyPrompt() {
-    const text = buildDirectionPrompt(selected);
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopied(true);
-      return;
-    } catch {
-      /* fall through to execCommand for restricted browsers */
-    }
-    const field = document.createElement("textarea");
-    field.value = text;
-    field.setAttribute("readonly", "");
-    field.style.position = "fixed";
-    field.style.left = "-9999px";
-    document.body.appendChild(field);
-    field.select();
-    const ok = document.execCommand("copy");
-    field.remove();
-    setCopied(ok);
+    const ok = await copyText(buildDirectionPrompt(selected));
+    setCopied(ok ? "prompt" : null);
   }
 
   return (
@@ -278,7 +323,14 @@ export function DetailDrawer({
             className="btn primary"
             onClick={() => void copyPrompt()}
           >
-            {copied ? "Copied" : "Copy direction prompt"}
+            {copied === "prompt" ? "Copied prompt" : "Copy direction prompt"}
+          </button>
+          <button
+            type="button"
+            className="btn ghost"
+            onClick={() => void copyLink()}
+          >
+            {copied === "link" ? "Copied link" : "Copy link"}
           </button>
           <button
             type="button"

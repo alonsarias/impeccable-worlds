@@ -480,6 +480,7 @@ h1 {
   background: transparent;
   color: inherit;
   text-align: left;
+  text-decoration: none;
   cursor: pointer;
   position: relative;
   z-index: 0;
@@ -514,6 +515,11 @@ h1 {
   place-items: center;
   background: #fff;
   border: 1px solid #000;
+}
+
+.missing-copy {
+  margin: 0;
+  max-width: 52ch;
 }
 
 .card-body {

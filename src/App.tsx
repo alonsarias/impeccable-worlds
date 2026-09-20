@@ -5,8 +5,10 @@ import { CoverageStrip } from "./components/CoverageStrip";
 import { DetailDrawer } from "./components/DetailDrawer";
 import { EmptyState } from "./components/EmptyState";
 import { WorldGrid } from "./components/WorldGrid";
+import { sortWorldsByName } from "../shared/catalog";
 import { collectWorlds, fetchCoverage, fetchWorlds, toggleFavorite } from "./lib/api";
 import { isCollectAllowed } from "./lib/collectAllowed";
+import { GITHUB_REPO_URL } from "./lib/github";
 
 function matches(world: World, query: string, tier: string, favoritesOnly: boolean): boolean {
   if (favoritesOnly && !world.favorite) return false;
@@ -55,7 +57,7 @@ export function App() {
   }, [collecting]);
 
   const visible = useMemo(
-    () => worlds.filter((world) => matches(world, query, tier, favoritesOnly)),
+    () => sortWorldsByName(worlds.filter((world) => matches(world, query, tier, favoritesOnly))),
     [worlds, query, tier, favoritesOnly],
   );
 
@@ -95,9 +97,14 @@ export function App() {
   return (
     <div className="app">
       <header className="top">
-        <div>
-          <h1>Impeccable Worlds</h1>
-          <p className="lede">Browse, filter, and copy a direction — not an official or complete deck.</p>
+        <div className="masthead">
+          <div>
+            <h1>Impeccable Worlds</h1>
+            <p className="lede">Browse, filter, and copy a direction — not an official or complete deck.</p>
+          </div>
+          <a className="github-link" href={GITHUB_REPO_URL} target="_blank" rel="noopener noreferrer">
+            View on GitHub
+          </a>
         </div>
         <div className="controls">
           <label className="search">

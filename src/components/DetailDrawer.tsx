@@ -70,11 +70,17 @@ export function DetailDrawer({ world, onClose, onFavorite }: DetailDrawerProps) 
 
         <div className="previews">
           {preview ? (
-            <img src={preview} alt="" />
+            <div className="preview-stage">
+              <img src={preview} alt="" />
+            </div>
           ) : (
             <div className="missing-block">No value</div>
           )}
-          {board ? <img src={board} alt="" /> : null}
+          {board ? (
+            <div className="preview-stage">
+              <img src={board} alt="" />
+            </div>
+          ) : null}
         </div>
 
         <dl className="facts">

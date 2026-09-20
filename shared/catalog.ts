@@ -1,13 +1,13 @@
 import type { Coverage, World, WorldsStoreFile } from "./types";
 
+export function sortWorldsByName<T extends { id: string; name?: string }>(worlds: T[]): T[] {
+  return [...worlds].sort((a, b) =>
+    (a.name ?? a.id).localeCompare(b.name ?? b.id, undefined, { sensitivity: "base" }),
+  );
+}
+
 export function worldsFromStore(store: WorldsStoreFile): World[] {
-  return Object.values(store.worlds)
-    .map((world) => ({ ...world, favorite: false }))
-    .sort((a, b) => {
-      const seen = b.lastSeenAt.localeCompare(a.lastSeenAt);
-      if (seen !== 0) return seen;
-      return (a.name ?? a.id).localeCompare(b.name ?? b.id);
-    });
+  return sortWorldsByName(Object.values(store.worlds).map((world) => ({ ...world, favorite: false })));
 }
 
 export function coverageFromStore(

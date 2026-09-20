@@ -13,6 +13,8 @@ npm run dev
 
 Open the printed local URL (Vite, usually `http://localhost:5173`). The API is served from the same process at `/api/*`. Collect more is enabled here.
 
+Optional: copy `.env.example` to `.env` to override the header **View on GitHub** URL (`VITE_GITHUB_REPO_URL`). The default is `https://github.com/alonsarias/impeccable-worlds`.
+
 ## Use
 
 1. Locally, click **Collect** / **Collect more** to fetch rolls from `https://impeccable.style/api/roll`.

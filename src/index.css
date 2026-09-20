@@ -52,10 +52,28 @@ select {
 
 .top {
   display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.masthead {
+  display: flex;
   justify-content: space-between;
   gap: 24px;
-  align-items: end;
-  flex-wrap: wrap;
+  align-items: start;
+}
+
+.github-link {
+  flex: 0 0 auto;
+  margin-top: 6px;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-size: 0.92rem;
+}
+
+.github-link:hover {
+  color: var(--muted);
 }
 
 h1 {
@@ -234,10 +252,10 @@ h1 {
 }
 
 .card-thumb img,
-.previews img {
+.preview-stage img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 
@@ -365,9 +383,11 @@ h1 {
   gap: 8px;
 }
 
-.previews img {
+.preview-stage {
   aspect-ratio: 16 / 10;
   border-radius: 6px;
+  background: #e4e0d8;
+  overflow: hidden;
 }
 
 .facts {
@@ -408,6 +428,7 @@ h1 {
 }
 
 @media (max-width: 720px) {
+  .masthead,
   .coverage,
   .drawer-actions {
     flex-direction: column;

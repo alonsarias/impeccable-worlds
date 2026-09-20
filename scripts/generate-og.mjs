@@ -1,6 +1,7 @@
 /**
  * Build public/og.png: four catalog worlds chosen for the share card.
  * Angura Theatre Poster · Antialiased Racing League · Alphabet Storm · CRT Arcade Pixel Glow.
+ * Hung faces are each world's landing hero crop (cardHero), not the styleguide board.
  *
  * Run: node scripts/generate-og.mjs
  */
@@ -36,13 +37,13 @@ const ua =
 
 for (const id of HANG_IDS) {
   const world = store.worlds[id];
-  if (!world?.cardBoard) {
-    throw new Error(`OG hang is missing from the catalog: ${id}`);
+  if (!world?.cardHero) {
+    throw new Error(`OG hang is missing a landing hero: ${id}`);
   }
   const dest = join(srcDir, `${id}.webp`);
-  const res = await fetch(world.cardBoard, { headers: { "user-agent": ua } });
+  const res = await fetch(world.cardHero, { headers: { "user-agent": ua } });
   if (!res.ok) {
-    throw new Error(`Could not fetch ${world.cardBoard}: ${res.status}`);
+    throw new Error(`Could not fetch ${world.cardHero}: ${res.status}`);
   }
   writeFileSync(dest, Buffer.from(await res.arrayBuffer()));
   console.log(`og-src/${id}.webp`);

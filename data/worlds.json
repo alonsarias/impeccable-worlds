@@ -17,12 +17,16 @@
       "cardBoard": "https://impeccable.style/worlds/cards/paper-folds-pleats-deployable-miura-orbit-sheet.webp",
       "cardHero": "https://impeccable.style/worlds/cards/paper-folds-pleats-deployable-miura-orbit-sheet-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:51.682Z",
-      "lastSeenAt": "2026-09-20T02:50:31.648Z",
+      "lastSeenAt": "2026-09-20T18:04:18.407Z",
       "modesSeen": [
         "persuade",
         "read",
         "experience",
         "operate"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "magnetism-electricity-plasma-hand-bent-neon-circuit": {
@@ -42,10 +46,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/magnetism-electricity-plasma-hand-bent-neon-circuit.webp",
       "cardHero": "https://impeccable.style/worlds/cards/magnetism-electricity-plasma-hand-bent-neon-circuit-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:51.682Z",
-      "lastSeenAt": "2026-09-20T02:30:08.729Z",
+      "lastSeenAt": "2026-09-20T18:04:21.734Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface",
+        "direction"
       ]
     },
     "medium-native-ansi-bbs-nightboard": {
@@ -65,10 +73,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/medium-native-ansi-bbs-nightboard.webp",
       "cardHero": "https://impeccable.style/worlds/cards/medium-native-ansi-bbs-nightboard-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:51.682Z",
-      "lastSeenAt": "2026-09-20T02:47:58.001Z",
+      "lastSeenAt": "2026-09-20T18:04:39.791Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface",
+        "direction"
       ]
     },
     "scientific-notation-particle-detector-event-display": {
@@ -88,10 +100,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/scientific-notation-particle-detector-event-display.webp",
       "cardHero": "https://impeccable.style/worlds/cards/scientific-notation-particle-detector-event-display-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:51.682Z",
-      "lastSeenAt": "2026-09-20T02:50:21.752Z",
+      "lastSeenAt": "2026-09-20T18:03:49.415Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface",
+        "direction"
       ]
     },
     "civic-bureau-prospectus-late-modern": {
@@ -111,12 +127,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/civic-bureau-prospectus-late-modern.webp",
       "cardHero": "https://impeccable.style/worlds/cards/civic-bureau-prospectus-late-modern-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:51.682Z",
-      "lastSeenAt": "2026-09-20T02:43:51.146Z",
+      "lastSeenAt": "2026-09-20T18:04:29.953Z",
       "modesSeen": [
         "persuade",
         "read",
         "operate",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "rw-manual-acetate-tab-board": {
@@ -136,11 +155,16 @@
       "cardBoard": "https://impeccable.style/worlds/cards/rw-manual-acetate-tab-board.webp",
       "cardHero": "https://impeccable.style/worlds/cards/rw-manual-acetate-tab-board-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:51.682Z",
-      "lastSeenAt": "2026-09-20T02:43:44.546Z",
+      "lastSeenAt": "2026-09-20T18:02:06.324Z",
       "modesSeen": [
         "persuade",
         "read",
         "operate"
+      ],
+      "steersSeen": [],
+      "scopesSeen": [
+        "surface",
+        "direction"
       ]
     },
     "digital-design-canon-metro-typographic-tiles": {
@@ -160,10 +184,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/digital-design-canon-metro-typographic-tiles.webp",
       "cardHero": "https://impeccable.style/worlds/cards/digital-design-canon-metro-typographic-tiles-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:53.458Z",
-      "lastSeenAt": "2026-09-20T02:38:53.586Z",
+      "lastSeenAt": "2026-09-20T18:03:56.012Z",
       "modesSeen": [
         "operate",
-        "experience"
+        "experience",
+        "persuade"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "generative-parametric-identity": {
@@ -183,12 +211,17 @@
       "cardBoard": "https://impeccable.style/worlds/cards/generative-parametric-identity.webp",
       "cardHero": "https://impeccable.style/worlds/cards/generative-parametric-identity-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:53.458Z",
-      "lastSeenAt": "2026-09-20T02:46:46.830Z",
+      "lastSeenAt": "2026-09-20T18:02:09.586Z",
       "modesSeen": [
         "operate",
         "read",
         "persuade",
         "experience"
+      ],
+      "steersSeen": [],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "signals-instruments-nixie-laboratory-counter": {
@@ -208,11 +241,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/signals-instruments-nixie-laboratory-counter.webp",
       "cardHero": "https://impeccable.style/worlds/cards/signals-instruments-nixie-laboratory-counter-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:53.458Z",
-      "lastSeenAt": "2026-09-20T02:50:33.331Z",
+      "lastSeenAt": "2026-09-20T18:04:41.419Z",
       "modesSeen": [
         "operate",
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface",
+        "direction"
       ]
     },
     "variable-font-specimen": {
@@ -232,11 +269,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/variable-font-specimen.webp",
       "cardHero": "https://impeccable.style/worlds/cards/variable-font-specimen-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:53.458Z",
-      "lastSeenAt": "2026-09-20T02:50:29.987Z",
+      "lastSeenAt": "2026-09-20T18:04:38.156Z",
       "modesSeen": [
         "operate",
         "experience",
         "persuade"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "clouds-storms-auroras-iridescent-cloud-edge": {
@@ -256,12 +296,17 @@
       "cardBoard": "https://impeccable.style/worlds/cards/clouds-storms-auroras-iridescent-cloud-edge.webp",
       "cardHero": "https://impeccable.style/worlds/cards/clouds-storms-auroras-iridescent-cloud-edge-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:53.458Z",
-      "lastSeenAt": "2026-09-20T02:47:58.001Z",
+      "lastSeenAt": "2026-09-20T18:04:25.024Z",
       "modesSeen": [
         "operate",
         "persuade",
         "experience",
         "read"
+      ],
+      "steersSeen": [],
+      "scopesSeen": [
+        "surface",
+        "direction"
       ]
     },
     "paper-folds-pleats-deployable-orizuru-crane-sequence": {
@@ -281,12 +326,16 @@
       "cardBoard": "https://impeccable.style/worlds/cards/paper-folds-pleats-deployable-orizuru-crane-sequence.webp",
       "cardHero": "https://impeccable.style/worlds/cards/paper-folds-pleats-deployable-orizuru-crane-sequence-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:53.458Z",
-      "lastSeenAt": "2026-09-20T02:47:53.103Z",
+      "lastSeenAt": "2026-09-20T18:04:21.734Z",
       "modesSeen": [
         "operate",
         "persuade",
         "read",
         "experience"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "operate-c-depot-blind-courses": {
@@ -306,9 +355,12 @@
       "cardBoard": "https://impeccable.style/worlds/cards/operate-c-depot-blind-courses.webp",
       "cardHero": "https://impeccable.style/worlds/cards/operate-c-depot-blind-courses-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:55.140Z",
-      "lastSeenAt": "2026-09-20T02:50:31.648Z",
+      "lastSeenAt": "2026-09-20T18:04:05.946Z",
       "modesSeen": [
         "read"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "operate-c-cracktro-scroller-queue": {
@@ -328,9 +380,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/operate-c-cracktro-scroller-queue.webp",
       "cardHero": "https://impeccable.style/worlds/cards/operate-c-cracktro-scroller-queue-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:55.140Z",
-      "lastSeenAt": "2026-09-20T02:33:18.827Z",
+      "lastSeenAt": "2026-09-20T18:02:09.586Z",
       "modesSeen": [
         "read"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "brand-identity-canon-art-paul-magazine-program": {
@@ -350,11 +406,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/brand-identity-canon-art-paul-magazine-program.webp",
       "cardHero": "https://impeccable.style/worlds/cards/brand-identity-canon-art-paul-magazine-program-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:55.140Z",
-      "lastSeenAt": "2026-09-20T02:33:18.827Z",
+      "lastSeenAt": "2026-09-20T18:04:07.581Z",
       "modesSeen": [
         "read",
         "persuade",
         "experience"
+      ],
+      "steersSeen": [],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "posters-covers-sleeves-shibuya-boutique-sleeve": {
@@ -374,11 +434,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/posters-covers-sleeves-shibuya-boutique-sleeve.webp",
       "cardHero": "https://impeccable.style/worlds/cards/posters-covers-sleeves-shibuya-boutique-sleeve-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:55.140Z",
-      "lastSeenAt": "2026-09-20T02:46:48.465Z",
+      "lastSeenAt": "2026-09-20T18:04:16.772Z",
       "modesSeen": [
         "read",
         "persuade",
         "experience"
+      ],
+      "steersSeen": [],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "games-toys-physics-play-brick-build-instructions": {
@@ -398,11 +462,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/games-toys-physics-play-brick-build-instructions.webp",
       "cardHero": "https://impeccable.style/worlds/cards/games-toys-physics-play-brick-build-instructions-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:55.140Z",
-      "lastSeenAt": "2026-09-20T02:43:54.471Z",
+      "lastSeenAt": "2026-09-20T18:02:09.586Z",
       "modesSeen": [
         "read",
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "kinetic-sculpture-automata-tensegrity-breathing-column": {
@@ -422,12 +490,16 @@
       "cardBoard": "https://impeccable.style/worlds/cards/kinetic-sculpture-automata-tensegrity-breathing-column.webp",
       "cardHero": "https://impeccable.style/worlds/cards/kinetic-sculpture-automata-tensegrity-breathing-column-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:55.140Z",
-      "lastSeenAt": "2026-09-20T02:46:20.970Z",
+      "lastSeenAt": "2026-09-20T18:04:39.791Z",
       "modesSeen": [
         "read",
         "persuade",
         "operate",
         "experience"
+      ],
+      "steersSeen": [],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "digital-design-canon-shareware-installer-screens": {
@@ -447,10 +519,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/digital-design-canon-shareware-installer-screens.webp",
       "cardHero": "https://impeccable.style/worlds/cards/digital-design-canon-shareware-installer-screens-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:56.794Z",
-      "lastSeenAt": "2026-09-20T02:26:44.164Z",
+      "lastSeenAt": "2026-09-20T18:04:10.921Z",
       "modesSeen": [
         "experience",
         "persuade"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "design-canon-riley-moire-gallery": {
@@ -470,10 +546,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/design-canon-riley-moire-gallery.webp",
       "cardHero": "https://impeccable.style/worlds/cards/design-canon-riley-moire-gallery-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:56.794Z",
-      "lastSeenAt": "2026-09-20T02:30:15.263Z",
+      "lastSeenAt": "2026-09-20T18:03:46.062Z",
       "modesSeen": [
         "experience",
         "persuade"
+      ],
+      "steersSeen": [],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "broadcast-programming-teletext-service": {
@@ -493,11 +573,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/broadcast-programming-teletext-service.webp",
       "cardHero": "https://impeccable.style/worlds/cards/broadcast-programming-teletext-service-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:56.794Z",
-      "lastSeenAt": "2026-09-20T02:43:51.146Z",
+      "lastSeenAt": "2026-09-20T18:04:25.024Z",
       "modesSeen": [
         "experience",
         "persuade",
         "operate"
+      ],
+      "scopesSeen": [
+        "surface",
+        "direction"
       ]
     },
     "dream-surreal-impossible-worlds-luminescent-alien-understory": {
@@ -517,10 +601,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-luminescent-alien-understory.webp",
       "cardHero": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-luminescent-alien-understory-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:56.794Z",
-      "lastSeenAt": "2026-09-20T02:33:10.869Z",
+      "lastSeenAt": "2026-09-20T18:04:10.921Z",
       "modesSeen": [
         "experience",
         "persuade"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "stagecraft-theater-lighting-cyclorama-dawn": {
@@ -540,12 +628,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/stagecraft-theater-lighting-cyclorama-dawn.webp",
       "cardHero": "https://impeccable.style/worlds/cards/stagecraft-theater-lighting-cyclorama-dawn-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:56.794Z",
-      "lastSeenAt": "2026-09-20T02:50:29.987Z",
+      "lastSeenAt": "2026-09-20T18:04:05.946Z",
       "modesSeen": [
         "experience",
         "operate",
         "persuade",
         "read"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "signals-instruments-split-flap-concourse": {
@@ -565,11 +656,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/signals-instruments-split-flap-concourse.webp",
       "cardHero": "https://impeccable.style/worlds/cards/signals-instruments-split-flap-concourse-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:58.581Z",
-      "lastSeenAt": "2026-09-20T02:50:28.321Z",
+      "lastSeenAt": "2026-09-20T18:04:18.407Z",
       "modesSeen": [
         "persuade",
         "operate",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "medium-native-fluid-ink-basin": {
@@ -589,10 +683,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/medium-native-fluid-ink-basin.webp",
       "cardHero": "https://impeccable.style/worlds/cards/medium-native-fluid-ink-basin-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:58.581Z",
-      "lastSeenAt": "2026-09-20T02:43:54.471Z",
+      "lastSeenAt": "2026-09-20T18:04:34.893Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "steersSeen": [],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "pop-culture-shelf-spy-dossier-title-sequence": {
@@ -612,10 +711,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/pop-culture-shelf-spy-dossier-title-sequence.webp",
       "cardHero": "https://impeccable.style/worlds/cards/pop-culture-shelf-spy-dossier-title-sequence-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:58.581Z",
-      "lastSeenAt": "2026-09-20T02:46:43.550Z",
+      "lastSeenAt": "2026-09-20T18:00:36.089Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "design-canon-creator-hardware-bench": {
@@ -635,11 +737,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/design-canon-creator-hardware-bench.webp",
       "cardHero": "https://impeccable.style/worlds/cards/design-canon-creator-hardware-bench-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:58.581Z",
-      "lastSeenAt": "2026-09-20T02:50:28.321Z",
+      "lastSeenAt": "2026-09-20T18:04:26.678Z",
       "modesSeen": [
         "persuade",
         "operate",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "reefs-bioluminescent-nocturnal-plankton-wake-stars": {
@@ -659,10 +764,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/reefs-bioluminescent-nocturnal-plankton-wake-stars.webp",
       "cardHero": "https://impeccable.style/worlds/cards/reefs-bioluminescent-nocturnal-plankton-wake-stars-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:58.581Z",
-      "lastSeenAt": "2026-09-20T02:47:51.465Z",
+      "lastSeenAt": "2026-09-20T18:04:41.419Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "paper-folds-pleats-deployable-curved-crease-shell": {
@@ -682,11 +791,18 @@
       "cardBoard": "https://impeccable.style/worlds/cards/paper-folds-pleats-deployable-curved-crease-shell.webp",
       "cardHero": "https://impeccable.style/worlds/cards/paper-folds-pleats-deployable-curved-crease-shell-hero.webp",
       "firstSeenAt": "2026-09-20T01:56:58.581Z",
-      "lastSeenAt": "2026-09-20T02:50:28.321Z",
+      "lastSeenAt": "2026-09-20T18:04:34.893Z",
       "modesSeen": [
         "persuade",
         "read",
         "experience"
+      ],
+      "steersSeen": [
+        "bolder"
+      ],
+      "scopesSeen": [
+        "surface",
+        "direction"
       ]
     },
     "textiles-weave-drape-fashion-sneaker-box-stacks": {
@@ -706,12 +822,16 @@
       "cardBoard": "https://impeccable.style/worlds/cards/textiles-weave-drape-fashion-sneaker-box-stacks.webp",
       "cardHero": "https://impeccable.style/worlds/cards/textiles-weave-drape-fashion-sneaker-box-stacks-hero.webp",
       "firstSeenAt": "2026-09-20T01:57:00.238Z",
-      "lastSeenAt": "2026-09-20T02:46:45.191Z",
+      "lastSeenAt": "2026-09-20T18:04:20.081Z",
       "modesSeen": [
         "operate",
         "read",
         "persuade",
         "experience"
+      ],
+      "steersSeen": [],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "pop-culture-shelf-anime-command-center": {
@@ -731,11 +851,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/pop-culture-shelf-anime-command-center.webp",
       "cardHero": "https://impeccable.style/worlds/cards/pop-culture-shelf-anime-command-center-hero.webp",
       "firstSeenAt": "2026-09-20T01:57:00.238Z",
-      "lastSeenAt": "2026-09-20T02:33:17.180Z",
+      "lastSeenAt": "2026-09-20T18:04:20.081Z",
       "modesSeen": [
         "operate",
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "wayfinding-cartography-signage-midnight-transit-diagram": {
@@ -755,12 +878,16 @@
       "cardBoard": "https://impeccable.style/worlds/cards/wayfinding-cartography-signage-midnight-transit-diagram.webp",
       "cardHero": "https://impeccable.style/worlds/cards/wayfinding-cartography-signage-midnight-transit-diagram-hero.webp",
       "firstSeenAt": "2026-09-20T01:57:00.238Z",
-      "lastSeenAt": "2026-09-20T02:47:59.634Z",
+      "lastSeenAt": "2026-09-20T18:04:41.419Z",
       "modesSeen": [
         "operate",
         "persuade",
         "experience",
         "read"
+      ],
+      "steersSeen": [],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "signals-instruments-drum-machine-step-row": {
@@ -780,11 +907,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/signals-instruments-drum-machine-step-row.webp",
       "cardHero": "https://impeccable.style/worlds/cards/signals-instruments-drum-machine-step-row-hero.webp",
       "firstSeenAt": "2026-09-20T01:57:00.238Z",
-      "lastSeenAt": "2026-09-20T02:46:40.259Z",
+      "lastSeenAt": "2026-09-20T18:04:38.156Z",
       "modesSeen": [
         "operate",
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface",
+        "direction"
       ]
     },
     "medium-native-hypercard-stack-shoebox": {
@@ -804,11 +935,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/medium-native-hypercard-stack-shoebox.webp",
       "cardHero": "https://impeccable.style/worlds/cards/medium-native-hypercard-stack-shoebox-hero.webp",
       "firstSeenAt": "2026-09-20T01:57:00.238Z",
-      "lastSeenAt": "2026-09-20T02:50:28.321Z",
+      "lastSeenAt": "2026-09-20T18:04:41.419Z",
       "modesSeen": [
         "operate",
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface",
+        "direction"
       ]
     },
     "sd-seedbed-lobes": {
@@ -828,12 +963,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/sd-seedbed-lobes.webp",
       "cardHero": "https://impeccable.style/worlds/cards/sd-seedbed-lobes-hero.webp",
       "firstSeenAt": "2026-09-20T01:57:01.912Z",
-      "lastSeenAt": "2026-09-20T02:47:59.634Z",
+      "lastSeenAt": "2026-09-20T18:03:59.342Z",
       "modesSeen": [
         "read",
         "persuade",
         "operate",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "notation-diagram-systems-patent-drawing-sheet": {
@@ -853,11 +991,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/notation-diagram-systems-patent-drawing-sheet.webp",
       "cardHero": "https://impeccable.style/worlds/cards/notation-diagram-systems-patent-drawing-sheet-hero.webp",
       "firstSeenAt": "2026-09-20T01:57:01.912Z",
-      "lastSeenAt": "2026-09-20T02:48:01.270Z",
+      "lastSeenAt": "2026-09-20T18:00:16.374Z",
       "modesSeen": [
         "read",
         "experience",
         "persuade"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "textiles-weave-drape-fashion-drawcord-transforming-cape": {
@@ -877,12 +1018,16 @@
       "cardBoard": "https://impeccable.style/worlds/cards/textiles-weave-drape-fashion-drawcord-transforming-cape.webp",
       "cardHero": "https://impeccable.style/worlds/cards/textiles-weave-drape-fashion-drawcord-transforming-cape-hero.webp",
       "firstSeenAt": "2026-09-20T01:57:01.912Z",
-      "lastSeenAt": "2026-09-20T02:50:29.987Z",
+      "lastSeenAt": "2026-09-20T18:04:31.606Z",
       "modesSeen": [
         "read",
         "operate",
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface",
+        "direction"
       ]
     },
     "operate-b-struck-cathode-gauze": {
@@ -902,9 +1047,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/operate-b-struck-cathode-gauze.webp",
       "cardHero": "https://impeccable.style/worlds/cards/operate-b-struck-cathode-gauze-hero.webp",
       "firstSeenAt": "2026-09-20T01:57:01.912Z",
-      "lastSeenAt": "2026-09-20T02:46:48.465Z",
+      "lastSeenAt": "2026-09-20T18:04:02.659Z",
       "modesSeen": [
         "read"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "operate-a-cutting-bench-select-rail": {
@@ -924,9 +1073,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/operate-a-cutting-bench-select-rail.webp",
       "cardHero": "https://impeccable.style/worlds/cards/operate-a-cutting-bench-select-rail-hero.webp",
       "firstSeenAt": "2026-09-20T01:57:01.912Z",
-      "lastSeenAt": "2026-09-20T02:50:31.648Z",
+      "lastSeenAt": "2026-09-20T18:04:09.259Z",
       "modesSeen": [
         "read"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "signals-instruments-darkroom-safelight-bay": {
@@ -946,11 +1099,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/signals-instruments-darkroom-safelight-bay.webp",
       "cardHero": "https://impeccable.style/worlds/cards/signals-instruments-darkroom-safelight-bay-hero.webp",
       "firstSeenAt": "2026-09-20T01:57:03.629Z",
-      "lastSeenAt": "2026-09-20T02:50:29.987Z",
+      "lastSeenAt": "2026-09-20T18:04:21.734Z",
       "modesSeen": [
         "experience",
         "persuade",
         "operate"
+      ],
+      "scopesSeen": [
+        "surface",
+        "direction"
       ]
     },
     "scientific-notation-oscilloscope-signal-bench": {
@@ -970,11 +1127,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/scientific-notation-oscilloscope-signal-bench.webp",
       "cardHero": "https://impeccable.style/worlds/cards/scientific-notation-oscilloscope-signal-bench-hero.webp",
       "firstSeenAt": "2026-09-20T01:57:03.629Z",
-      "lastSeenAt": "2026-09-20T02:48:02.901Z",
+      "lastSeenAt": "2026-09-20T18:04:34.893Z",
       "modesSeen": [
         "experience",
         "persuade",
         "operate"
+      ],
+      "scopesSeen": [
+        "surface",
+        "direction"
       ]
     },
     "cinema-cinematography-editing-multiplane-cel-dawn": {
@@ -994,10 +1155,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/cinema-cinematography-editing-multiplane-cel-dawn.webp",
       "cardHero": "https://impeccable.style/worlds/cards/cinema-cinematography-editing-multiplane-cel-dawn-hero.webp",
       "firstSeenAt": "2026-09-20T01:57:03.629Z",
-      "lastSeenAt": "2026-09-20T02:50:21.752Z",
+      "lastSeenAt": "2026-09-20T18:00:39.355Z",
       "modesSeen": [
         "experience",
         "persuade"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "dream-surreal-impossible-worlds-cloud-quarry": {
@@ -1017,12 +1182,16 @@
       "cardBoard": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-cloud-quarry.webp",
       "cardHero": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-cloud-quarry-hero.webp",
       "firstSeenAt": "2026-09-20T01:57:03.629Z",
-      "lastSeenAt": "2026-09-20T02:48:01.270Z",
+      "lastSeenAt": "2026-09-20T18:04:26.678Z",
       "modesSeen": [
         "experience",
         "persuade",
         "read",
         "operate"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "rw-timetable-slide-rack": {
@@ -1042,12 +1211,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/rw-timetable-slide-rack.webp",
       "cardHero": "https://impeccable.style/worlds/cards/rw-timetable-slide-rack-hero.webp",
       "firstSeenAt": "2026-09-20T01:57:03.629Z",
-      "lastSeenAt": "2026-09-20T02:38:48.598Z",
+      "lastSeenAt": "2026-09-20T18:04:28.312Z",
       "modesSeen": [
         "experience",
         "persuade",
         "read",
         "operate"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "vernacular-ephemera-boarding-pass-and-gate-board": {
@@ -1067,11 +1239,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/vernacular-ephemera-boarding-pass-and-gate-board.webp",
       "cardHero": "https://impeccable.style/worlds/cards/vernacular-ephemera-boarding-pass-and-gate-board-hero.webp",
       "firstSeenAt": "2026-09-20T01:57:03.629Z",
-      "lastSeenAt": "2026-09-20T02:28:53.647Z",
+      "lastSeenAt": "2026-09-20T18:00:40.974Z",
       "modesSeen": [
         "experience",
         "operate",
         "persuade"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "medium-native-webring-homepage-lane": {
@@ -1135,10 +1310,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/kinetic-sculpture-automata-crank-paper-menagerie.webp",
       "cardHero": "https://impeccable.style/worlds/cards/kinetic-sculpture-automata-crank-paper-menagerie-hero.webp",
       "firstSeenAt": "2026-09-20T01:57:05.361Z",
-      "lastSeenAt": "2026-09-20T02:20:32.904Z",
+      "lastSeenAt": "2026-09-20T18:04:38.156Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "steersSeen": [],
+      "scopesSeen": [
+        "surface",
+        "direction"
       ]
     },
     "pop-culture-shelf-sapeur-portrait-plate": {
@@ -1158,10 +1338,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/pop-culture-shelf-sapeur-portrait-plate.webp",
       "cardHero": "https://impeccable.style/worlds/cards/pop-culture-shelf-sapeur-portrait-plate-hero.webp",
       "firstSeenAt": "2026-09-20T01:57:05.361Z",
-      "lastSeenAt": "2026-09-20T02:31:46.109Z",
+      "lastSeenAt": "2026-09-20T18:04:34.893Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "steersSeen": [],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "studio-dumbar-identity": {
@@ -1181,12 +1365,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/studio-dumbar-identity.webp",
       "cardHero": "https://impeccable.style/worlds/cards/studio-dumbar-identity-hero.webp",
       "firstSeenAt": "2026-09-20T01:57:05.361Z",
-      "lastSeenAt": "2026-09-20T02:50:29.987Z",
+      "lastSeenAt": "2026-09-20T18:04:18.407Z",
       "modesSeen": [
         "persuade",
         "read",
         "operate",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "vernacular-ephemera-loteria-tabla-night": {
@@ -1206,10 +1393,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/vernacular-ephemera-loteria-tabla-night.webp",
       "cardHero": "https://impeccable.style/worlds/cards/vernacular-ephemera-loteria-tabla-night-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:46.056Z",
-      "lastSeenAt": "2026-09-20T02:15:00.895Z",
+      "lastSeenAt": "2026-09-20T18:02:04.705Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "medium-native-ascii-live-scene-render": {
@@ -1229,11 +1419,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/medium-native-ascii-live-scene-render.webp",
       "cardHero": "https://impeccable.style/worlds/cards/medium-native-ascii-live-scene-render-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:47.687Z",
-      "lastSeenAt": "2026-09-20T02:47:59.634Z",
+      "lastSeenAt": "2026-09-20T18:04:20.081Z",
       "modesSeen": [
         "persuade",
         "experience",
         "operate"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "signals-instruments-vu-meter-bridge": {
@@ -1253,10 +1447,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/signals-instruments-vu-meter-bridge.webp",
       "cardHero": "https://impeccable.style/worlds/cards/signals-instruments-vu-meter-bridge-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:47.687Z",
-      "lastSeenAt": "2026-09-20T02:46:25.931Z",
+      "lastSeenAt": "2026-09-20T18:04:26.678Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "dream-surreal-impossible-worlds-alphabet-storm": {
@@ -1276,12 +1474,17 @@
       "cardBoard": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-alphabet-storm.webp",
       "cardHero": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-alphabet-storm-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:47.687Z",
-      "lastSeenAt": "2026-09-20T02:50:23.394Z",
+      "lastSeenAt": "2026-09-20T18:03:59.342Z",
       "modesSeen": [
         "persuade",
         "operate",
         "experience",
         "read"
+      ],
+      "steersSeen": [],
+      "scopesSeen": [
+        "surface",
+        "direction"
       ]
     },
     "design-annual-s-plate-section": {
@@ -1301,12 +1504,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/design-annual-s-plate-section.webp",
       "cardHero": "https://impeccable.style/worlds/cards/design-annual-s-plate-section-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:47.687Z",
-      "lastSeenAt": "2026-09-20T02:50:31.648Z",
+      "lastSeenAt": "2026-09-20T18:04:16.772Z",
       "modesSeen": [
         "persuade",
         "operate",
         "read",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "aww2-zoo-gardens-guide-map": {
@@ -1326,12 +1532,18 @@
       "cardBoard": "https://impeccable.style/worlds/cards/aww2-zoo-gardens-guide-map.webp",
       "cardHero": "https://impeccable.style/worlds/cards/aww2-zoo-gardens-guide-map-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:47.687Z",
-      "lastSeenAt": "2026-09-20T02:47:53.103Z",
+      "lastSeenAt": "2026-09-20T18:04:33.240Z",
       "modesSeen": [
         "persuade",
         "operate",
         "read",
         "experience"
+      ],
+      "steersSeen": [
+        "bolder"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "medium-native-ebru-floated-pigment": {
@@ -1351,10 +1563,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/medium-native-ebru-floated-pigment.webp",
       "cardHero": "https://impeccable.style/worlds/cards/medium-native-ebru-floated-pigment-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:49.349Z",
-      "lastSeenAt": "2026-09-20T02:50:33.331Z",
+      "lastSeenAt": "2026-09-20T18:04:23.374Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "pop-culture-shelf-teen-magazine-quiz": {
@@ -1374,9 +1589,12 @@
       "cardBoard": "https://impeccable.style/worlds/cards/pop-culture-shelf-teen-magazine-quiz.webp",
       "cardHero": "https://impeccable.style/worlds/cards/pop-culture-shelf-teen-magazine-quiz-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:49.349Z",
-      "lastSeenAt": "2026-09-20T02:16:19.464Z",
+      "lastSeenAt": "2026-09-20T18:00:19.660Z",
       "modesSeen": [
         "persuade"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "reefs-bioluminescent-nocturnal-chromatophore-skin-language": {
@@ -1396,10 +1614,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/reefs-bioluminescent-nocturnal-chromatophore-skin-language.webp",
       "cardHero": "https://impeccable.style/worlds/cards/reefs-bioluminescent-nocturnal-chromatophore-skin-language-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:49.349Z",
-      "lastSeenAt": "2026-09-20T02:38:50.241Z",
+      "lastSeenAt": "2026-09-20T18:04:26.678Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "posters-covers-sleeves-fight-poster": {
@@ -1419,10 +1640,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/posters-covers-sleeves-fight-poster.webp",
       "cardHero": "https://impeccable.style/worlds/cards/posters-covers-sleeves-fight-poster-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:50.999Z",
-      "lastSeenAt": "2026-09-20T02:20:21.419Z",
+      "lastSeenAt": "2026-09-20T18:03:54.362Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "steersSeen": [],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "generative-art-computational-color-chord-counterpoint": {
@@ -1442,10 +1667,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/generative-art-computational-color-chord-counterpoint.webp",
       "cardHero": "https://impeccable.style/worlds/cards/generative-art-computational-color-chord-counterpoint-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:52.676Z",
-      "lastSeenAt": "2026-09-20T02:38:50.241Z",
+      "lastSeenAt": "2026-09-20T18:04:23.374Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "exhibition-museum-curation-provenance-ribbon": {
@@ -1465,11 +1693,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/exhibition-museum-curation-provenance-ribbon.webp",
       "cardHero": "https://impeccable.style/worlds/cards/exhibition-museum-curation-provenance-ribbon-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:54.321Z",
-      "lastSeenAt": "2026-09-20T02:50:33.331Z",
+      "lastSeenAt": "2026-09-20T18:04:31.606Z",
       "modesSeen": [
         "persuade",
         "experience",
         "read"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "posters-covers-sleeves-saul-bass-title": {
@@ -1489,10 +1720,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/posters-covers-sleeves-saul-bass-title.webp",
       "cardHero": "https://impeccable.style/worlds/cards/posters-covers-sleeves-saul-bass-title-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:54.321Z",
-      "lastSeenAt": "2026-09-20T02:47:51.465Z",
+      "lastSeenAt": "2026-09-20T18:04:01.002Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "rw-centre-rail-reference-setting": {
@@ -1512,11 +1746,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/rw-centre-rail-reference-setting.webp",
       "cardHero": "https://impeccable.style/worlds/cards/rw-centre-rail-reference-setting-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:54.321Z",
-      "lastSeenAt": "2026-09-20T02:46:41.903Z",
+      "lastSeenAt": "2026-09-20T18:04:21.734Z",
       "modesSeen": [
         "persuade",
         "operate",
         "read"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "medium-native-algorave-source-floor": {
@@ -1536,10 +1773,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/medium-native-algorave-source-floor.webp",
       "cardHero": "https://impeccable.style/worlds/cards/medium-native-algorave-source-floor-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:56.014Z",
-      "lastSeenAt": "2026-09-20T02:48:02.901Z",
+      "lastSeenAt": "2026-09-20T18:04:36.523Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface",
+        "direction"
       ]
     },
     "digital-design-canon-teletext-weather-mosaic": {
@@ -1559,10 +1800,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/digital-design-canon-teletext-weather-mosaic.webp",
       "cardHero": "https://impeccable.style/worlds/cards/digital-design-canon-teletext-weather-mosaic-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:56.014Z",
-      "lastSeenAt": "2026-09-20T02:26:45.794Z",
+      "lastSeenAt": "2026-09-20T18:04:38.156Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "pop-culture-shelf-code-cascade-terminal": {
@@ -1582,10 +1826,12 @@
       "cardBoard": "https://impeccable.style/worlds/cards/pop-culture-shelf-code-cascade-terminal.webp",
       "cardHero": "https://impeccable.style/worlds/cards/pop-culture-shelf-code-cascade-terminal-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:57.678Z",
-      "lastSeenAt": "2026-09-20T02:28:53.647Z",
+      "lastSeenAt": "2026-09-20T17:56:01.850Z",
       "modesSeen": [
-        "persuade"
-      ]
+        "persuade",
+        "experience"
+      ],
+      "steersSeen": []
     },
     "vernacular-ephemera-jet-age-ticket-wallet": {
       "id": "vernacular-ephemera-jet-age-ticket-wallet",
@@ -1604,11 +1850,17 @@
       "cardBoard": "https://impeccable.style/worlds/cards/vernacular-ephemera-jet-age-ticket-wallet.webp",
       "cardHero": "https://impeccable.style/worlds/cards/vernacular-ephemera-jet-age-ticket-wallet-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:57.678Z",
-      "lastSeenAt": "2026-09-20T02:38:56.857Z",
+      "lastSeenAt": "2026-09-20T18:04:23.374Z",
       "modesSeen": [
         "persuade",
         "operate",
         "experience"
+      ],
+      "steersSeen": [
+        "bolder"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "dream-surreal-impossible-worlds-moon-shadow-bazaar": {
@@ -1628,10 +1880,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-moon-shadow-bazaar.webp",
       "cardHero": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-moon-shadow-bazaar-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:57.678Z",
-      "lastSeenAt": "2026-09-20T02:46:17.683Z",
+      "lastSeenAt": "2026-09-20T18:02:04.705Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "architecture-inhabitable-space-daylight-section": {
@@ -1651,11 +1906,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/architecture-inhabitable-space-daylight-section.webp",
       "cardHero": "https://impeccable.style/worlds/cards/architecture-inhabitable-space-daylight-section-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:57.678Z",
-      "lastSeenAt": "2026-09-20T02:50:26.667Z",
+      "lastSeenAt": "2026-09-20T18:04:41.419Z",
       "modesSeen": [
         "persuade",
         "read",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "signals-instruments-seven-segment-alarm-clock": {
@@ -1675,11 +1933,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/signals-instruments-seven-segment-alarm-clock.webp",
       "cardHero": "https://impeccable.style/worlds/cards/signals-instruments-seven-segment-alarm-clock-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:57.678Z",
-      "lastSeenAt": "2026-09-20T02:47:53.103Z",
+      "lastSeenAt": "2026-09-20T18:04:36.523Z",
       "modesSeen": [
         "persuade",
         "operate",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface",
+        "direction"
       ]
     },
     "ink-pigment-printmaking-mezzotint-velvet-night": {
@@ -1699,10 +1961,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/ink-pigment-printmaking-mezzotint-velvet-night.webp",
       "cardHero": "https://impeccable.style/worlds/cards/ink-pigment-printmaking-mezzotint-velvet-night-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:59.405Z",
-      "lastSeenAt": "2026-09-20T02:46:30.835Z",
+      "lastSeenAt": "2026-09-20T18:04:36.523Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "design-canon-rietveld-sliding-house": {
@@ -1722,10 +1988,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/design-canon-rietveld-sliding-house.webp",
       "cardHero": "https://impeccable.style/worlds/cards/design-canon-rietveld-sliding-house-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:59.405Z",
-      "lastSeenAt": "2026-09-20T02:15:19.050Z",
+      "lastSeenAt": "2026-09-20T18:00:34.450Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "rivers-tides-ocean-depths-mesophotic-deep-dive": {
@@ -1745,12 +2014,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/rivers-tides-ocean-depths-mesophotic-deep-dive.webp",
       "cardHero": "https://impeccable.style/worlds/cards/rivers-tides-ocean-depths-mesophotic-deep-dive-hero.webp",
       "firstSeenAt": "2026-09-20T02:01:59.405Z",
-      "lastSeenAt": "2026-09-20T02:50:31.648Z",
+      "lastSeenAt": "2026-09-20T18:04:34.893Z",
       "modesSeen": [
         "persuade",
         "read",
         "experience",
         "operate"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "notation-diagram-systems-orienteering-map": {
@@ -1770,11 +2042,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/notation-diagram-systems-orienteering-map.webp",
       "cardHero": "https://impeccable.style/worlds/cards/notation-diagram-systems-orienteering-map-hero.webp",
       "firstSeenAt": "2026-09-20T02:02:01.019Z",
-      "lastSeenAt": "2026-09-20T02:46:29.200Z",
+      "lastSeenAt": "2026-09-20T18:02:16.126Z",
       "modesSeen": [
         "operate",
         "read",
         "persuade"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "digital-design-canon-gameboy-four-shade-field": {
@@ -1794,11 +2069,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/digital-design-canon-gameboy-four-shade-field.webp",
       "cardHero": "https://impeccable.style/worlds/cards/digital-design-canon-gameboy-four-shade-field-hero.webp",
       "firstSeenAt": "2026-09-20T02:02:01.019Z",
-      "lastSeenAt": "2026-09-20T02:30:08.729Z",
+      "lastSeenAt": "2026-09-20T18:04:39.791Z",
       "modesSeen": [
         "operate",
         "persuade",
         "experience"
+      ],
+      "steersSeen": [],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "dream-surreal-impossible-worlds-gravity-rain-garden": {
@@ -1818,11 +2097,18 @@
       "cardBoard": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-gravity-rain-garden.webp",
       "cardHero": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-gravity-rain-garden-hero.webp",
       "firstSeenAt": "2026-09-20T02:02:01.019Z",
-      "lastSeenAt": "2026-09-20T02:46:50.111Z",
+      "lastSeenAt": "2026-09-20T18:04:29.953Z",
       "modesSeen": [
         "operate",
         "persuade",
         "experience"
+      ],
+      "steersSeen": [
+        "bolder"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "ikeda-datamatics": {
@@ -1842,9 +2128,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/ikeda-datamatics.webp",
       "cardHero": "https://impeccable.style/worlds/cards/ikeda-datamatics-hero.webp",
       "firstSeenAt": "2026-09-20T02:02:04.386Z",
-      "lastSeenAt": "2026-09-20T02:46:29.200Z",
+      "lastSeenAt": "2026-09-20T18:04:09.259Z",
       "modesSeen": [
         "read"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "digital-design-canon-otome-choice-frame": {
@@ -1887,11 +2177,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/graphic-worlds-publishing-busytown-cross-section.webp",
       "cardHero": "https://impeccable.style/worlds/cards/graphic-worlds-publishing-busytown-cross-section-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:00.208Z",
-      "lastSeenAt": "2026-09-20T02:47:53.103Z",
+      "lastSeenAt": "2026-09-20T18:01:14.801Z",
       "modesSeen": [
         "persuade",
         "operate",
         "experience"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "pop-culture-shelf-doujin-event-catalog": {
@@ -1911,11 +2205,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/pop-culture-shelf-doujin-event-catalog.webp",
       "cardHero": "https://impeccable.style/worlds/cards/pop-culture-shelf-doujin-event-catalog-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:01.847Z",
-      "lastSeenAt": "2026-09-20T02:43:49.495Z",
+      "lastSeenAt": "2026-09-20T18:01:09.900Z",
       "modesSeen": [
         "persuade",
         "experience",
         "operate"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "clay-ceramics-fracture-coiled-earth-tower": {
@@ -1935,10 +2233,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/clay-ceramics-fracture-coiled-earth-tower.webp",
       "cardHero": "https://impeccable.style/worlds/cards/clay-ceramics-fracture-coiled-earth-tower-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:01.847Z",
-      "lastSeenAt": "2026-09-20T02:46:43.550Z",
+      "lastSeenAt": "2026-09-20T18:03:54.362Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "vernacular-ephemera-socialist-kiosk-print": {
@@ -1958,10 +2260,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/vernacular-ephemera-socialist-kiosk-print.webp",
       "cardHero": "https://impeccable.style/worlds/cards/vernacular-ephemera-socialist-kiosk-print-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:03.498Z",
-      "lastSeenAt": "2026-09-20T02:33:20.492Z",
+      "lastSeenAt": "2026-09-20T18:00:24.657Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "pop-culture-shelf-window-box-toy-shelf": {
@@ -1981,10 +2286,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/pop-culture-shelf-window-box-toy-shelf.webp",
       "cardHero": "https://impeccable.style/worlds/cards/pop-culture-shelf-window-box-toy-shelf-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:03.498Z",
-      "lastSeenAt": "2026-09-20T02:48:02.901Z",
+      "lastSeenAt": "2026-09-20T18:04:21.734Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "vernacular-ephemera-well-traveled-passport": {
@@ -2004,7 +2312,7 @@
       "cardBoard": "https://impeccable.style/worlds/cards/vernacular-ephemera-well-traveled-passport.webp",
       "cardHero": "https://impeccable.style/worlds/cards/vernacular-ephemera-well-traveled-passport-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:05.149Z",
-      "lastSeenAt": "2026-09-20T02:46:38.615Z",
+      "lastSeenAt": "2026-09-20T16:40:52.623Z",
       "modesSeen": [
         "persuade",
         "experience"
@@ -2027,10 +2335,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/pop-culture-shelf-devianart-character-sheet.webp",
       "cardHero": "https://impeccable.style/worlds/cards/pop-culture-shelf-devianart-character-sheet-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:06.790Z",
-      "lastSeenAt": "2026-09-20T02:43:42.900Z",
+      "lastSeenAt": "2026-09-20T18:00:21.361Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "wayfinding-cartography-signage-terminal-yellow-wayfinding": {
@@ -2050,12 +2361,16 @@
       "cardBoard": "https://impeccable.style/worlds/cards/wayfinding-cartography-signage-terminal-yellow-wayfinding.webp",
       "cardHero": "https://impeccable.style/worlds/cards/wayfinding-cartography-signage-terminal-yellow-wayfinding-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:06.790Z",
-      "lastSeenAt": "2026-09-20T02:47:58.001Z",
+      "lastSeenAt": "2026-09-20T18:03:52.720Z",
       "modesSeen": [
         "persuade",
         "read",
         "experience",
         "operate"
+      ],
+      "steersSeen": [],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "graphic-worlds-publishing-sampler-alphabet-proof": {
@@ -2075,10 +2390,17 @@
       "cardBoard": "https://impeccable.style/worlds/cards/graphic-worlds-publishing-sampler-alphabet-proof.webp",
       "cardHero": "https://impeccable.style/worlds/cards/graphic-worlds-publishing-sampler-alphabet-proof-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:08.444Z",
-      "lastSeenAt": "2026-09-20T02:50:25.038Z",
+      "lastSeenAt": "2026-09-20T18:04:20.081Z",
       "modesSeen": [
         "persuade",
-        "read"
+        "read",
+        "experience"
+      ],
+      "steersSeen": [
+        "bolder"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "clay-ceramics-fracture-glaze-river-shelf": {
@@ -2098,10 +2420,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/clay-ceramics-fracture-glaze-river-shelf.webp",
       "cardHero": "https://impeccable.style/worlds/cards/clay-ceramics-fracture-glaze-river-shelf-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:08.444Z",
-      "lastSeenAt": "2026-09-20T02:46:38.615Z",
+      "lastSeenAt": "2026-09-20T18:04:28.312Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "pop-culture-shelf-primary-toy-catalogue-spread": {
@@ -2121,10 +2446,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/pop-culture-shelf-primary-toy-catalogue-spread.webp",
       "cardHero": "https://impeccable.style/worlds/cards/pop-culture-shelf-primary-toy-catalogue-spread-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:10.087Z",
-      "lastSeenAt": "2026-09-20T02:38:51.904Z",
+      "lastSeenAt": "2026-09-20T18:00:42.711Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "vernacular-ephemera-desert-neon-sign-program": {
@@ -2144,9 +2472,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/vernacular-ephemera-desert-neon-sign-program.webp",
       "cardHero": "https://impeccable.style/worlds/cards/vernacular-ephemera-desert-neon-sign-program-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:10.087Z",
-      "lastSeenAt": "2026-09-20T02:31:52.803Z",
+      "lastSeenAt": "2026-09-20T18:03:47.759Z",
       "modesSeen": [
-        "persuade"
+        "persuade",
+        "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "fashion-folded-worlds-sewing-pattern-envelope": {
@@ -2166,10 +2498,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/fashion-folded-worlds-sewing-pattern-envelope.webp",
       "cardHero": "https://impeccable.style/worlds/cards/fashion-folded-worlds-sewing-pattern-envelope-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:11.751Z",
-      "lastSeenAt": "2026-09-20T02:46:43.550Z",
+      "lastSeenAt": "2026-09-20T18:04:36.523Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "pop-culture-shelf-sukeban-long-skirt-code": {
@@ -2189,10 +2525,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/pop-culture-shelf-sukeban-long-skirt-code.webp",
       "cardHero": "https://impeccable.style/worlds/cards/pop-culture-shelf-sukeban-long-skirt-code-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:11.751Z",
-      "lastSeenAt": "2026-09-20T02:20:26.363Z",
+      "lastSeenAt": "2026-09-20T18:04:41.419Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "design-canon-raygun-layout-desk": {
@@ -2212,11 +2551,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/design-canon-raygun-layout-desk.webp",
       "cardHero": "https://impeccable.style/worlds/cards/design-canon-raygun-layout-desk-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:15.027Z",
-      "lastSeenAt": "2026-09-20T02:43:46.196Z",
+      "lastSeenAt": "2026-09-20T18:04:10.921Z",
       "modesSeen": [
         "read",
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "hand-drawn-zine-explainer": {
@@ -2236,9 +2578,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/hand-drawn-zine-explainer.webp",
       "cardHero": "https://impeccable.style/worlds/cards/hand-drawn-zine-explainer-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:16.664Z",
-      "lastSeenAt": "2026-09-20T02:48:01.270Z",
+      "lastSeenAt": "2026-09-20T18:02:07.950Z",
       "modesSeen": [
         "read"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "operate-b-normalled-jackfield": {
@@ -2258,7 +2604,7 @@
       "cardBoard": "https://impeccable.style/worlds/cards/operate-b-normalled-jackfield.webp",
       "cardHero": "https://impeccable.style/worlds/cards/operate-b-normalled-jackfield-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:18.298Z",
-      "lastSeenAt": "2026-09-20T02:47:54.737Z",
+      "lastSeenAt": "2026-09-20T17:41:43.942Z",
       "modesSeen": [
         "read"
       ]
@@ -2280,7 +2626,7 @@
       "cardBoard": "https://impeccable.style/worlds/cards/operate-b-exposure-record-zone-sheets.webp",
       "cardHero": "https://impeccable.style/worlds/cards/operate-b-exposure-record-zone-sheets-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:18.298Z",
-      "lastSeenAt": "2026-09-20T02:50:25.038Z",
+      "lastSeenAt": "2026-09-20T04:12:26.599Z",
       "modesSeen": [
         "read"
       ]
@@ -2302,10 +2648,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/textiles-weave-drape-fashion-jacquard-punched-brocade.webp",
       "cardHero": "https://impeccable.style/worlds/cards/textiles-weave-drape-fashion-jacquard-punched-brocade-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:23.210Z",
-      "lastSeenAt": "2026-09-20T02:47:56.359Z",
+      "lastSeenAt": "2026-09-20T18:04:38.156Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface",
+        "direction"
       ]
     },
     "pop-culture-shelf-rebel-menu-interface": {
@@ -2325,9 +2675,16 @@
       "cardBoard": "https://impeccable.style/worlds/cards/pop-culture-shelf-rebel-menu-interface.webp",
       "cardHero": "https://impeccable.style/worlds/cards/pop-culture-shelf-rebel-menu-interface-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:23.210Z",
-      "lastSeenAt": "2026-09-20T02:17:02.069Z",
+      "lastSeenAt": "2026-09-20T18:01:00.087Z",
       "modesSeen": [
-        "persuade"
+        "persuade",
+        "experience"
+      ],
+      "steersSeen": [
+        "bolder"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "wayfinding-cartography-signage-salt-stiffened-treasure-map": {
@@ -2347,10 +2704,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/wayfinding-cartography-signage-salt-stiffened-treasure-map.webp",
       "cardHero": "https://impeccable.style/worlds/cards/wayfinding-cartography-signage-salt-stiffened-treasure-map-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:24.856Z",
-      "lastSeenAt": "2026-09-20T02:50:28.321Z",
+      "lastSeenAt": "2026-09-20T18:01:03.362Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "steersSeen": [],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "pop-culture-shelf-vertical-video-feed-surface": {
@@ -2370,11 +2731,16 @@
       "cardBoard": "https://impeccable.style/worlds/cards/pop-culture-shelf-vertical-video-feed-surface.webp",
       "cardHero": "https://impeccable.style/worlds/cards/pop-culture-shelf-vertical-video-feed-surface-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:28.149Z",
-      "lastSeenAt": "2026-09-20T02:50:29.987Z",
+      "lastSeenAt": "2026-09-20T18:03:52.720Z",
       "modesSeen": [
         "operate",
         "persuade",
         "experience"
+      ],
+      "steersSeen": [],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "posters-covers-sleeves-risograph-zine-cover": {
@@ -2394,10 +2760,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/posters-covers-sleeves-risograph-zine-cover.webp",
       "cardHero": "https://impeccable.style/worlds/cards/posters-covers-sleeves-risograph-zine-cover-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:33.057Z",
-      "lastSeenAt": "2026-09-20T02:33:10.869Z",
+      "lastSeenAt": "2026-09-20T18:04:28.312Z",
       "modesSeen": [
         "experience",
         "persuade"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "design-canon-decollage-torn-billboard": {
@@ -2417,10 +2786,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/design-canon-decollage-torn-billboard.webp",
       "cardHero": "https://impeccable.style/worlds/cards/design-canon-decollage-torn-billboard-hero.webp",
       "firstSeenAt": "2026-09-20T02:07:33.057Z",
-      "lastSeenAt": "2026-09-20T02:46:45.191Z",
+      "lastSeenAt": "2026-09-20T18:04:25.024Z",
       "modesSeen": [
         "experience",
         "persuade"
+      ],
+      "steersSeen": [],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "notation-diagram-systems-labanotation": {
@@ -2440,12 +2813,16 @@
       "cardBoard": "https://impeccable.style/worlds/cards/notation-diagram-systems-labanotation.webp",
       "cardHero": "https://impeccable.style/worlds/cards/notation-diagram-systems-labanotation-hero.webp",
       "firstSeenAt": "2026-09-20T02:09:27.423Z",
-      "lastSeenAt": "2026-09-20T02:50:23.394Z",
+      "lastSeenAt": "2026-09-20T18:04:25.024Z",
       "modesSeen": [
         "persuade",
         "operate",
         "read",
         "experience"
+      ],
+      "steersSeen": [],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "digital-design-canon-mondo-tech-utopian-spread": {
@@ -2465,10 +2842,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/digital-design-canon-mondo-tech-utopian-spread.webp",
       "cardHero": "https://impeccable.style/worlds/cards/digital-design-canon-mondo-tech-utopian-spread-hero.webp",
       "firstSeenAt": "2026-09-20T02:09:29.080Z",
-      "lastSeenAt": "2026-09-20T02:16:39.078Z",
+      "lastSeenAt": "2026-09-20T18:04:18.407Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "steersSeen": [],
+      "scopesSeen": [
+        "surface",
+        "direction"
       ]
     },
     "design-canon-factory-silkscreen-loft": {
@@ -2488,10 +2870,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/design-canon-factory-silkscreen-loft.webp",
       "cardHero": "https://impeccable.style/worlds/cards/design-canon-factory-silkscreen-loft-hero.webp",
       "firstSeenAt": "2026-09-20T02:09:35.690Z",
-      "lastSeenAt": "2026-09-20T02:47:56.359Z",
+      "lastSeenAt": "2026-09-20T18:03:57.651Z",
       "modesSeen": [
         "experience",
         "persuade"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "pop-culture-shelf-streaming-title-card-wall": {
@@ -2511,10 +2896,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/pop-culture-shelf-streaming-title-card-wall.webp",
       "cardHero": "https://impeccable.style/worlds/cards/pop-culture-shelf-streaming-title-card-wall-hero.webp",
       "firstSeenAt": "2026-09-20T02:09:37.333Z",
-      "lastSeenAt": "2026-09-20T02:33:04.350Z",
+      "lastSeenAt": "2026-09-20T18:04:39.791Z",
       "modesSeen": [
         "experience",
-        "persuade"
+        "persuade",
+        "operate"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "dream-surreal-impossible-worlds-sleeping-city-fold": {
@@ -2534,10 +2923,14 @@
       "cardBoard": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-sleeping-city-fold.webp",
       "cardHero": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-sleeping-city-fold-hero.webp",
       "firstSeenAt": "2026-09-20T02:09:38.958Z",
-      "lastSeenAt": "2026-09-20T02:50:33.331Z",
+      "lastSeenAt": "2026-09-20T18:04:39.791Z",
       "modesSeen": [
         "experience",
         "persuade"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "dubois-data-portraits": {
@@ -2557,9 +2950,12 @@
       "cardBoard": "https://impeccable.style/worlds/cards/dubois-data-portraits.webp",
       "cardHero": "https://impeccable.style/worlds/cards/dubois-data-portraits-hero.webp",
       "firstSeenAt": "2026-09-20T02:09:48.788Z",
-      "lastSeenAt": "2026-09-20T02:43:42.900Z",
+      "lastSeenAt": "2026-09-20T18:00:23.028Z",
       "modesSeen": [
         "persuade"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "crouwel-grid-specimen": {
@@ -2579,11 +2975,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/crouwel-grid-specimen.webp",
       "cardHero": "https://impeccable.style/worlds/cards/crouwel-grid-specimen-hero.webp",
       "firstSeenAt": "2026-09-20T02:12:06.854Z",
-      "lastSeenAt": "2026-09-20T02:50:31.648Z",
+      "lastSeenAt": "2026-09-20T18:04:05.946Z",
       "modesSeen": [
         "read",
         "operate",
-        "experience"
+        "experience",
+        "persuade"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "massin-stage-page": {
@@ -2603,9 +3003,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/massin-stage-page.webp",
       "cardHero": "https://impeccable.style/worlds/cards/massin-stage-page-hero.webp",
       "firstSeenAt": "2026-09-20T02:12:11.802Z",
-      "lastSeenAt": "2026-09-20T02:12:11.802Z",
+      "lastSeenAt": "2026-09-20T18:01:03.362Z",
       "modesSeen": [
         "persuade"
+      ],
+      "steersSeen": [],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "vernacular-ephemera-calendar-pinup-pad": {
@@ -2625,12 +3029,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/vernacular-ephemera-calendar-pinup-pad.webp",
       "cardHero": "https://impeccable.style/worlds/cards/vernacular-ephemera-calendar-pinup-pad-hero.webp",
       "firstSeenAt": "2026-09-20T02:12:15.073Z",
-      "lastSeenAt": "2026-09-20T02:30:20.159Z",
+      "lastSeenAt": "2026-09-20T18:04:05.946Z",
       "modesSeen": [
         "operate",
         "persuade",
         "read",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "pop-culture-shelf-gothic-lolita-mook": {
@@ -2650,10 +3057,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/pop-culture-shelf-gothic-lolita-mook.webp",
       "cardHero": "https://impeccable.style/worlds/cards/pop-culture-shelf-gothic-lolita-mook-hero.webp",
       "firstSeenAt": "2026-09-20T02:15:07.557Z",
-      "lastSeenAt": "2026-09-20T02:46:24.296Z",
+      "lastSeenAt": "2026-09-20T18:03:46.062Z",
       "modesSeen": [
         "experience",
         "persuade"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "design-canon-merz-collage-page": {
@@ -2673,9 +3083,12 @@
       "cardBoard": "https://impeccable.style/worlds/cards/design-canon-merz-collage-page.webp",
       "cardHero": "https://impeccable.style/worlds/cards/design-canon-merz-collage-page-hero.webp",
       "firstSeenAt": "2026-09-20T02:15:15.727Z",
-      "lastSeenAt": "2026-09-20T02:15:15.727Z",
+      "lastSeenAt": "2026-09-20T18:04:29.953Z",
       "modesSeen": [
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "design-canon-breton-ornament-program": {
@@ -2695,10 +3108,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/design-canon-breton-ornament-program.webp",
       "cardHero": "https://impeccable.style/worlds/cards/design-canon-breton-ornament-program-hero.webp",
       "firstSeenAt": "2026-09-20T02:15:17.396Z",
-      "lastSeenAt": "2026-09-20T02:46:50.111Z",
+      "lastSeenAt": "2026-09-20T18:04:31.606Z",
       "modesSeen": [
         "experience",
         "persuade"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "variety-telop-caption-field": {
@@ -2718,11 +3134,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/variety-telop-caption-field.webp",
       "cardHero": "https://impeccable.style/worlds/cards/variety-telop-caption-field-hero.webp",
       "firstSeenAt": "2026-09-20T02:15:20.694Z",
-      "lastSeenAt": "2026-09-20T02:50:33.331Z",
+      "lastSeenAt": "2026-09-20T18:01:16.431Z",
       "modesSeen": [
         "persuade",
         "operate",
         "experience"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "graphic-worlds-publishing-ukiyoe-block-registration": {
@@ -2765,10 +3185,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/brand-identity-canon-brodovitch-bazaar-spread.webp",
       "cardHero": "https://impeccable.style/worlds/cards/brand-identity-canon-brodovitch-bazaar-spread-hero.webp",
       "firstSeenAt": "2026-09-20T02:16:19.464Z",
-      "lastSeenAt": "2026-09-20T02:38:50.241Z",
+      "lastSeenAt": "2026-09-20T18:01:05.000Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "pop-culture-shelf-insert-card-numbered-series": {
@@ -2788,10 +3211,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/pop-culture-shelf-insert-card-numbered-series.webp",
       "cardHero": "https://impeccable.style/worlds/cards/pop-culture-shelf-insert-card-numbered-series-hero.webp",
       "firstSeenAt": "2026-09-20T02:16:21.127Z",
-      "lastSeenAt": "2026-09-20T02:43:54.471Z",
+      "lastSeenAt": "2026-09-20T18:04:26.678Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "operate-c-emission-line-rail": {
@@ -2811,9 +3237,12 @@
       "cardBoard": "https://impeccable.style/worlds/cards/operate-c-emission-line-rail.webp",
       "cardHero": "https://impeccable.style/worlds/cards/operate-c-emission-line-rail-hero.webp",
       "firstSeenAt": "2026-09-20T02:16:32.542Z",
-      "lastSeenAt": "2026-09-20T02:43:52.828Z",
+      "lastSeenAt": "2026-09-20T18:02:16.126Z",
       "modesSeen": [
         "read"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "design-canon-futurist-bolted-book": {
@@ -2833,10 +3262,11 @@
       "cardBoard": "https://impeccable.style/worlds/cards/design-canon-futurist-bolted-book.webp",
       "cardHero": "https://impeccable.style/worlds/cards/design-canon-futurist-bolted-book-hero.webp",
       "firstSeenAt": "2026-09-20T02:16:37.426Z",
-      "lastSeenAt": "2026-09-20T02:17:10.242Z",
+      "lastSeenAt": "2026-09-20T17:56:05.147Z",
       "modesSeen": [
         "persuade"
-      ]
+      ],
+      "steersSeen": []
     },
     "pop-culture-shelf-elbow-panel-console": {
       "id": "pop-culture-shelf-elbow-panel-console",
@@ -2855,11 +3285,15 @@
       "cardBoard": "https://impeccable.style/worlds/cards/pop-culture-shelf-elbow-panel-console.webp",
       "cardHero": "https://impeccable.style/worlds/cards/pop-culture-shelf-elbow-panel-console-hero.webp",
       "firstSeenAt": "2026-09-20T02:16:47.231Z",
-      "lastSeenAt": "2026-09-20T02:46:45.191Z",
+      "lastSeenAt": "2026-09-20T18:01:06.626Z",
       "modesSeen": [
         "operate",
         "experience",
         "persuade"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "ink-pigment-printmaking-screenprint-transparent-overlap": {
@@ -2879,10 +3313,17 @@
       "cardBoard": "https://impeccable.style/worlds/cards/ink-pigment-printmaking-screenprint-transparent-overlap.webp",
       "cardHero": "https://impeccable.style/worlds/cards/ink-pigment-printmaking-screenprint-transparent-overlap-hero.webp",
       "firstSeenAt": "2026-09-20T02:17:00.417Z",
-      "lastSeenAt": "2026-09-20T02:50:33.331Z",
+      "lastSeenAt": "2026-09-20T18:04:33.240Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "steersSeen": [
+        "bolder"
+      ],
+      "scopesSeen": [
+        "direction",
+        "surface"
       ]
     },
     "design-canon-blast-manifesto-page": {
@@ -2902,9 +3343,12 @@
       "cardBoard": "https://impeccable.style/worlds/cards/design-canon-blast-manifesto-page.webp",
       "cardHero": "https://impeccable.style/worlds/cards/design-canon-blast-manifesto-page-hero.webp",
       "firstSeenAt": "2026-09-20T02:17:06.957Z",
-      "lastSeenAt": "2026-09-20T02:17:06.957Z",
+      "lastSeenAt": "2026-09-20T18:00:21.361Z",
       "modesSeen": [
         "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     },
     "pop-culture-shelf-gyaru-magazine-density": {
@@ -2924,10 +3368,13 @@
       "cardBoard": "https://impeccable.style/worlds/cards/pop-culture-shelf-gyaru-magazine-density.webp",
       "cardHero": "https://impeccable.style/worlds/cards/pop-culture-shelf-gyaru-magazine-density-hero.webp",
       "firstSeenAt": "2026-09-20T02:18:45.705Z",
-      "lastSeenAt": "2026-09-20T02:47:56.359Z",
+      "lastSeenAt": "2026-09-20T17:59:43.072Z",
       "modesSeen": [
         "persuade",
         "experience"
+      ],
+      "scopesSeen": [
+        "direction"
       ]
     },
     "digital-design-canon-emergency-signal-degradation": {
@@ -2969,13 +3416,756 @@
       "cardBoard": "https://impeccable.style/worlds/cards/pop-culture-shelf-bollywood-painted-poster.webp",
       "cardHero": "https://impeccable.style/worlds/cards/pop-culture-shelf-bollywood-painted-poster-hero.webp",
       "firstSeenAt": "2026-09-20T02:46:17.683Z",
-      "lastSeenAt": "2026-09-20T02:46:17.683Z",
+      "lastSeenAt": "2026-09-20T17:59:12.889Z",
       "modesSeen": [
         "persuade"
+      ],
+      "steersSeen": [],
+      "scopesSeen": [
+        "surface"
+      ]
+    },
+    "wayfinding-cartography-signage-night-market-sign-river": {
+      "id": "wayfinding-cartography-signage-night-market-sign-river",
+      "name": "Night Market Sign River",
+      "form": "a night-market sign river, where lantern color, stall awnings, steam, handwritten boards, and sound lead visitors through a temporary street",
+      "spark": "A river of saffron lanterns bends past blue fish awnings, disappears in dumpling steam, and resurfaces as hand-painted arrows toward a midnight music court.",
+      "system": [
+        "Palette/material: saffron lantern glow over wet asphalt black, blue awning and red banner inks, steam white as soft divider, lantern gold marking the open stall",
+        "Type/composition: hand-painted brush characters beside marker-on-cardboard prices, each stall's sign its own voice, the river of lanterns the only shared order",
+        "Topology/navigation: Follow temporary sign families through food, craft, performance, rest, and exit districts.",
+        "Controls/state: Choose interests, reveal crowd-friendly alternatives, and save a stall by its visual landmark.",
+        "Responsive/motion: Keep the nearest sign and district edge dominant on phones while retaining a simple escape route."
+      ],
+      "webLeverage": "Live vendor openings, short-range location, and offline visual landmark cards adapt to a market that changes nightly.",
+      "wellTier": "graphic",
+      "cardBoard": "https://impeccable.style/worlds/cards/wayfinding-cartography-signage-night-market-sign-river.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/wayfinding-cartography-signage-night-market-sign-river-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:19.418Z",
+      "lastSeenAt": "2026-09-20T17:59:19.418Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "cyworld-minihompy-room": {
+      "id": "cyworld-minihompy-room",
+      "name": "Cyworld Minihompy Room",
+      "form": "a minihompy room, where a furnishable isometric miniature space, an acorn economy, and a visitor ledger make identity something you decorate",
+      "spark": "A pastel room holds a tiny record player bought last week; the visitor counter ticks past 1,004, today's mood is a small rain cloud, and a friend leaves a note in the guest ledger.",
+      "system": [
+        "Palette/material: pastel wallpaper and floor tiles in an isometric frame, sticker-like furnishings with soft outlines; the room itself is the profile",
+        "Type/composition: compact rounded labels on panels around the room, the diary column beside it, counters and mood marks as small honest chrome",
+        "Topology/navigation: Move by room, by diary entry, and by friend link.",
+        "Controls/state: Furnish, rearrange, and visit; placing an item changes the room for every visitor.",
+        "Responsive/motion: The room stays whole at every size while panels restack around it; furnishing lands with one soft settle."
+      ],
+      "webLeverage": "A persistent decoratable isometric scene as the identity surface, with real furnishing state",
+      "wellTier": "interaction",
+      "cardBoard": "https://impeccable.style/worlds/cards/cyworld-minihompy-room.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/cyworld-minihompy-room-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:19.418Z",
+      "lastSeenAt": "2026-09-20T17:59:36.385Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "pop-culture-shelf-football-kit-crest": {
+      "id": "pop-culture-shelf-football-kit-crest",
+      "name": "Football Kit Crest",
+      "form": "a football kit wall, embroidered crests over the heart, drop-shadow number typography across the back, sponsor lockups and sleeve patch grammar, home and away colorway logic",
+      "spark": "You hold the new shirt up to the light, thumb finding the raised gold thread of the crest, then turn it around to see your own name arched over a nine in drop-shadow numerals.",
+      "system": [
+        "Palette/material: home colors saturated on polyester weave, the away kit their inverse, gold embroidery thread on the crest, the captain's armband hue as active accent",
+        "Type/composition: drop-shadow numerals filling the back panel, the player name arched above in spaced caps, crest and sponsor lockup balancing the chest line",
+        "Topology/navigation: the crest is home, always over the heart; the back number identifies, the sleeve patches say which competition you are in tonight",
+        "Controls/state: switching context swaps home for away colorway with the crest untouched, a sleeve patch appears per active competition, retired numbers lock",
+        "Responsive/motion: narrow screens show the chest first and a tap spins to the number back; motion is a fabric ripple on the swap"
+      ],
+      "webLeverage": "variable font weight plus svg filters build the drop-shadow numeral style; css custom properties swap the colorway",
+      "wellTier": "graphic",
+      "cardBoard": "https://impeccable.style/worlds/cards/pop-culture-shelf-football-kit-crest.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/pop-culture-shelf-football-kit-crest-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:21.058Z",
+      "lastSeenAt": "2026-09-20T17:59:21.058Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "japanese-high-density-web": {
+      "id": "japanese-high-density-web",
+      "name": "Japanese High Density Web",
+      "form": "a Japanese contemporary high-density site, where tiny type, boxed modules, and utility-red accents pack far more onto one screen than a Western grid would dare",
+      "spark": "Dozens of boxed modules tile a single scroll, each ruled with hairlines and headed by a small red tab; prices, badges, and nav rails crowd in at tiny sizes, and nothing wastes a pixel of the packed grid.",
+      "system": [
+        "Palette/material: bright white ground, dense black text, a signal utility-red for tabs and prices, cool grays for module borders and fills",
+        "Type/composition: a compact gothic sans at small sizes with tight leading; a mosaic of ruled rectangular modules, each with its own small header tab, packed edge to edge.",
+        "Topology/navigation: Move by scanning the dense module mosaic, by a persistent multi-row nav rail, and by expandable category accordions in a left rail.",
+        "Controls/state: Hovering a module raises its border and reveals secondary actions; tabs switch content in place; badges mark new, sale, and limited states.",
+        "Responsive/motion: motion is minimal and functional, and reduced-motion keeps only instant state swaps."
+      ],
+      "webLeverage": "Build the module mosaic as a dense CSS grid with named template areas and a strict hairline border system, so hundreds of small blocks tile without the whitespace inflation of a default SaaS grid.",
+      "wellTier": "graphic",
+      "cardBoard": "https://impeccable.style/worlds/cards/japanese-high-density-web.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/japanese-high-density-web-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:21.058Z",
+      "lastSeenAt": "2026-09-20T17:59:21.058Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "medium-native-crt-arcade-pixel-glow": {
+      "id": "medium-native-crt-arcade-pixel-glow",
+      "name": "CRT Arcade Pixel Glow",
+      "form": "a pixel-art arcade cabinet screen, where fat luminous pixels, scanlines, and phosphor bloom turn a 240-line grid into a stage with real glow",
+      "spark": "Up close it is just squares; at play distance the squares fuse into a hero, and the black between scanlines is doing half the work.",
+      "system": [
+        "Palette/material: a sixteen-color sprite palette over phosphor black, scanline gaps doing half the shading, flashing white-gold reserved by law for power-ups",
+        "Type/composition: eight-by-eight pixel caps for score and menus pinned to the top edge, the playfield composing in whole tiles with nothing allowed off-grid",
+        "Topology/navigation: space is a tile grid with screen-by-screen rooms; the camera moves in whole-pixel steps.",
+        "Controls/state: states are sprite swaps with strict palette discipline; damage, power, and rarity are palette laws.",
+        "Responsive/motion: integer scaling preserves the grid at every size; bloom and scanlines are togglable capability layers."
+      ],
+      "webLeverage": "Crisp integer-scaled canvas with shader scanline glow, and every sprite state addressable in code.",
+      "wellTier": "interaction",
+      "cardBoard": "https://impeccable.style/worlds/cards/medium-native-crt-arcade-pixel-glow.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/medium-native-crt-arcade-pixel-glow-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:21.058Z",
+      "lastSeenAt": "2026-09-20T17:59:21.058Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "textiles-weave-drape-fashion-industrial-quote-grammar": {
+      "id": "textiles-weave-drape-fashion-industrial-quote-grammar",
+      "name": "Industrial Quote Grammar",
+      "form": "an industrial streetwear grammar, ordinary words set in straight quotation marks, zip-tie tags left on, diagonal hazard stripes crossing white cotton and black nylon",
+      "spark": "You lift a jacket and the zip-tie tag clacks against the hanger; across the back, giant caps in straight quotes name the obvious, and a hazard stripe runs diagonally under the fluorescent light of the stockroom.",
+      "system": [
+        "Palette/material: stockroom white cotton and black nylon as ground and ink, black-on-white hazard diagonals for structure, safety orange zip-tie tags as the accent",
+        "Type/composition: bold industrial caps inside straight quotation marks naming the obvious, label plates set square on the grid like stenciled crates",
+        "Topology/navigation: every zone is labeled with its literal quoted name, wayfinding is reading, and the hazard stripe runs diagonally under whatever matters",
+        "Controls/state: the active item keeps its orange zip tie on, toggles read \"ON\" and \"OFF\" in quotes, disabled things take the diagonal stripe across them",
+        "Responsive/motion: stripes hold 45 degrees at every width while label plates stack; motion is a tag swinging once on selection"
+      ],
+      "webLeverage": "css repeating-linear-gradient hazard stripes at 45deg, generated content wrapping every label in straight quotes via ::before and ::after",
+      "wellTier": "atmosphere",
+      "cardBoard": "https://impeccable.style/worlds/cards/textiles-weave-drape-fashion-industrial-quote-grammar.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/textiles-weave-drape-fashion-industrial-quote-grammar-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:22.720Z",
+      "lastSeenAt": "2026-09-20T17:59:22.720Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "design-canon-op-art-textile-repeat": {
+      "id": "design-canon-op-art-textile-repeat",
+      "name": "Op Art Textile Repeat",
+      "form": "a printed textile whose repeat is engineered to disappear, a hard black and white wave distorting across the cloth so the eye cannot find where the screen restarted, the whole bolt reading as one continuous flex",
+      "spark": "It is a repeat, it has to be, but stare as long as you like and you will not find the place where the screen started again.",
+      "system": [
+        "Palette/material: hard black on white with no gray whatsoever, printed on matte cloth so the optical flex comes purely from geometry",
+        "Type/composition: a wave whose amplitude changes continuously across the field, engineered so the repeat boundary never lands on a symmetry",
+        "Topology/navigation: the field is continuous with no visible seam, so navigation slides across a surface that never announces a boundary",
+        "Controls/state: controls are wave regions, the active one increases amplitude locally, and inactive ones return to the base frequency",
+        "Responsive/motion: the wave regenerates its distortion to any width without exposing the join, and motion is a slow amplitude breath"
+      ],
+      "webLeverage": "a generative svg wave regenerating seamlessly at any width, local amplitude bound to pointer state, and a slow breath animation",
+      "wellTier": "graphic",
+      "cardBoard": "https://impeccable.style/worlds/cards/design-canon-op-art-textile-repeat.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/design-canon-op-art-textile-repeat-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:22.720Z",
+      "lastSeenAt": "2026-09-20T17:59:22.720Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "posters-covers-sleeves-taller-grafica-linocut": {
+      "id": "posters-covers-sleeves-taller-grafica-linocut",
+      "name": "Taller Grafica Linocut",
+      "form": "a workshop linocut broadside cut for a strike or a literacy campaign, monumental figures gouged from black with white chisel strokes, a slab of demand lettering carved into the same block",
+      "spark": "a fist and a forearm gouged out of black lino, seen from below so they fill the sheet, and the words underneath were cut with the same knife into the same block by somebody in a hurry.",
+      "system": [
+        "Palette/material: one black relief ink on cheap manila or newsprint, all modeling made by the width and direction of the gouge",
+        "Type/composition: demand lettering carved into the block itself in heavy irregular caps, the figure filling three quarters of the sheet from below",
+        "Topology/navigation: each sheet is one demand, so navigation moves between demands rather than through them, always at the same low angle",
+        "Controls/state: controls are carved lettering blocks, pressing one floods it solid black, and inactive ones stay as outline gouges",
+        "Responsive/motion: the figure crops from the edges inward and never scales down, and motion is a single heavy press impression"
+      ],
+      "webLeverage": "svg gouge-textured artwork, a press-impression animation on control state, and edge-crop responsive behavior",
+      "wellTier": "graphic",
+      "cardBoard": "https://impeccable.style/worlds/cards/posters-covers-sleeves-taller-grafica-linocut.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/posters-covers-sleeves-taller-grafica-linocut-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:24.394Z",
+      "lastSeenAt": "2026-09-20T17:59:24.394Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "brand-identity-canon-push-pin-poster": {
+      "id": "brand-identity-canon-push-pin-poster",
+      "name": "Push Pin Poster",
+      "form": "a push pin studios poster, victorian and nouveau contours revived in flat candy color, an aubergine silhouette crowned with ribboned rainbow hair, illustrated warmth on modern structure",
+      "spark": "you unfold the poster from the record sleeve and a jet black profile blooms into ribbons of pink, teal, and orange hair, each lock a flat cut of candy color with no shadow anywhere",
+      "system": [
+        "Palette/material: cream poster stock ground, flat candy fills of pink teal marigold and lilac, one jet black silhouette anchoring, the active item takes the warmest fill",
+        "Type/composition: hand-drawn slab and nouveau display lettering for titles, tidy modern text below, ornament framed inside clear geometric structure",
+        "Topology/navigation: one emblematic silhouette anchors each section and smaller vignettes orbit it, you move between posters, not pages",
+        "Controls/state: flat fills swap hue on state with no shading, hover blooms one more ribbon from the silhouette, disabled art drops to single-line contour",
+        "Responsive/motion: vignettes fold under the anchor silhouette on small screens; ribbons unfurl as drawn paths"
+      ],
+      "webLeverage": "svg paths carry the contour line art; css flat fills recolor per state without gradients",
+      "wellTier": "graphic",
+      "cardBoard": "https://impeccable.style/worlds/cards/brand-identity-canon-push-pin-poster.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/brand-identity-canon-push-pin-poster-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:24.394Z",
+      "lastSeenAt": "2026-09-20T17:59:24.394Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "posters-covers-sleeves-dong-ho-shell-ground": {
+      "id": "posters-covers-sleeves-dong-ho-shell-ground",
+      "name": "Dong Ho Shell Ground",
+      "form": "a folk woodblock print pulled onto paper coated with crushed shell, each colour cut as its own block and printed separately over a ground that glitters faintly under the flat pigment",
+      "spark": "The paper itself glitters because it is painted with crushed shell, so the flat colours printed on top of it never sit quite still.",
+      "system": [
+        "Palette/material: crushed shell ground paper that catches light beneath flat mineral pigments in red, yellow, green and indigo, with a final black keyblock",
+        "Type/composition: a single subject centred with a short block of characters at one side, colours printed as separate flat areas under a black outline",
+        "Topology/navigation: the print builds colour by colour, so navigation adds a block rather than moving to a new view",
+        "Controls/state: controls are colour blocks, the active one prints its layer, and the keyblock always prints last",
+        "Responsive/motion: the composition crops around its centred subject, and motion is each block registering in printing order"
+      ],
+      "webLeverage": "layered svg colour blocks over a shimmering ground texture, print-order reveal animation, and centred responsive cropping",
+      "wellTier": "graphic",
+      "cardBoard": "https://impeccable.style/worlds/cards/posters-covers-sleeves-dong-ho-shell-ground.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/posters-covers-sleeves-dong-ho-shell-ground-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:26.093Z",
+      "lastSeenAt": "2026-09-20T17:59:26.093Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "digital-design-canon-console-dashboard-atmosphere": {
+      "id": "digital-design-canon-console-dashboard-atmosphere",
+      "name": "Console Dashboard Atmosphere",
+      "form": "a sixth-generation system menu in black void, memory towers drifting like monoliths in fog, cubic rooms of ambient particle light standing in for chrome",
+      "spark": "you turn the camera in the dark and a tower of saved memories drifts past, motes of light rising around it like dust in a projector beam, a low hum as the cube you chose swells forward out of the fog",
+      "system": [
+        "Palette/material: deep black-blue void as ground, milky translucent towers and cubes lit from within, drifting white particle motes, the selected object glows warm amber",
+        "Type/composition: sparse thin sans labels floating beside objects, no panels or rules, composition is objects arranged in depth with generous void between them",
+        "Topology/navigation: each area is a room in the dark, you glide the camera between floating objects, entering one swells it to fill the space while the rest recede",
+        "Controls/state: selection makes an object rise, brighten, and hum, its options orbit it as smaller satellites, empty slots read as dark hollows in the row",
+        "Responsive/motion: small screens flatten rooms into a single row of glowing objects, motes drift constantly and the camera eases"
+      ],
+      "webLeverage": "webgl fog and particles build the void; css 3d perspective glides the camera between the object rooms",
+      "wellTier": "graphic",
+      "cardBoard": "https://impeccable.style/worlds/cards/digital-design-canon-console-dashboard-atmosphere.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/digital-design-canon-console-dashboard-atmosphere-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:26.093Z",
+      "lastSeenAt": "2026-09-20T17:59:26.093Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "food-fermentation-culinary-theater-pickling-brine-calendar": {
+      "id": "food-fermentation-culinary-theater-pickling-brine-calendar",
+      "name": "Pickling Brine Calendar",
+      "form": "a pickling brine calendar, where salt, acidity, spice, vegetable, vessel, temperature, and crunch mature through bright seasonal jars",
+      "spark": "Spring radishes tint one jar coral, summer cucumbers cloud another with dill, and a winter cabbage crock slowly turns ruby as bubbles climb its stone weight.",
+      "system": [
+        "Palette/material: clear jar glass and pale brine haze as ground, radish coral and cabbage ruby as seasonal accents, dill green for fresh states, labels in kraft brown",
+        "Type/composition: hand-lettered jar-label script over stamped date caps, jars ranked on shelf lines, each label banded with harvest, brine, and day count",
+        "Topology/navigation: Browse jars by harvest, brine, fermentation stage, sensory change, and safe storage.",
+        "Controls/state: Mix a brine, log a taste, vent or chill a vessel, and compare batches over days.",
+        "Responsive/motion: Arrange jars as a vertical seasonal shelf on phones with safety thresholds stated in text."
+      ],
+      "webLeverage": "Batch timers, optional pH and temperature input, and photo comparison connect daily observation to safe, sensory maturation.",
+      "wellTier": "atmosphere",
+      "cardBoard": "https://impeccable.style/worlds/cards/food-fermentation-culinary-theater-pickling-brine-calendar.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/food-fermentation-culinary-theater-pickling-brine-calendar-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:26.093Z",
+      "lastSeenAt": "2026-09-20T17:59:26.093Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "pop-culture-shelf-viewfinder-bracket-hud": {
+      "id": "pop-culture-shelf-viewfinder-bracket-hud",
+      "name": "Viewfinder Bracket Hud",
+      "form": "a camcorder viewfinder built from framing tools, corner focus brackets, a zoom bar gliding W to T, zebra stripes crawling over blown highlights and a tape counter in segmented digits, the scene always full-bleed beneath",
+      "spark": "You half-press and the corner brackets tighten around her face, zebra crawling on the bright window behind her, the amber bar easing from W toward T as the counter climbs quietly in its corner.",
+      "system": [
+        "Palette/material: white segmented OSD ink over live imagery, amber for the zoom bar and cautions, diagonal zebra stripes as the only texture, black letterbox bars as the ground",
+        "Type/composition: segmented monospace caps pinned just inside the safe-area corners, the center always empty for the subject, readouts ranked one per corner",
+        "Topology/navigation: one full-bleed frame is the whole space, the zoom bar maps depth, W for overview and T for detail, and the counter wheel scrubs between sections like tape",
+        "Controls/state: focus brackets snap thin around the targeted element, anything overexposed or overdue wears zebra stripes, and locked settings show a small closed bracket pair",
+        "Responsive/motion: brackets hug the safe area at any aspect ratio, and motion is the zoom bar's glide with a single-frame cut between views"
+      ],
+      "webLeverage": "css blend modes composite the OSD over any content while an svg counter and zoom bar animate with stepped easing",
+      "wellTier": "graphic",
+      "cardBoard": "https://impeccable.style/worlds/cards/pop-culture-shelf-viewfinder-bracket-hud.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/pop-culture-shelf-viewfinder-bracket-hud-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:27.761Z",
+      "lastSeenAt": "2026-09-20T17:59:27.761Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "luxury-fashion-flagship": {
+      "id": "luxury-fashion-flagship",
+      "name": "Luxury Fashion Flagship",
+      "form": "the digital flagship of a fashion house, where monumental editorial type and vast negative space frame slow full-bleed imagery like a printed lookbook come to life",
+      "spark": "A single garment fills the screen against acres of bone-white space, one enormous serif word set low; scroll and the image holds, then cuts slowly to the next look as a hairline nav waits quietly overhead.",
+      "system": [
+        "Palette/material: near-monochrome bone-white and ink, one restrained seasonal accent, full-bleed photography as the only texture, and generous matte negative space.",
+        "Type/composition: a monumental high-contrast serif for display against a spare grotesk for labels and product data",
+        "Topology/navigation: Move by slow full-bleed look-to-look scroll, by a hairline top nav of few words, and into a spare product grid and a quiet cart drawer.",
+        "Controls/state: Hover fades between garment views; add-to-cart slides a minimal drawer from the edge; size and color selectors are set as understated type rather than chips.",
+        "Responsive/motion: reveals are slow full-bleed fades, and reduced-motion cuts directly between looks."
+      ],
+      "webLeverage": "Drive the full-bleed look transitions with scroll-snap sections and slow object-fit:cover crossfades, keeping a persistent hairline nav and a slide-in cart drawer across routes.",
+      "wellTier": "graphic",
+      "cardBoard": "https://impeccable.style/worlds/cards/luxury-fashion-flagship.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/luxury-fashion-flagship-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:27.761Z",
+      "lastSeenAt": "2026-09-20T17:59:27.761Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "growth-metamorphosis-branching-ikebana-ma-arrangement": {
+      "id": "growth-metamorphosis-branching-ikebana-ma-arrangement",
+      "name": "Growth Metamorphosis Branching Ikebana Ma Arrangement",
+      "form": "a tokonoma alcove holding an ikebana arrangement of one weathered pine branch, three irises, and an off-center bronze suiban, where line, asymmetry, season, and ma make the surrounding emptiness active",
+      "spark": "One pine branch rises through the quiet alcove, bends toward three blue irises, and leaves a charged triangle of empty plaster more vivid than another flower could fill.",
+      "system": [
+        "Palette/material: pale plaster alcove as ground, weathered gray-brown pine for body, three iris-blue stems marking the active accent, a dark bronze suiban at the base",
+        "Type/composition: a few vertical characters set off-center, primary secondary and supporting lines forming an asymmetric triangle, empty plaster left charged as ma",
+        "Topology/navigation: Move among primary, secondary, and supporting lines while vessel, viewing front, seasonal material, and active emptiness remain related.",
+        "Controls/state: Trim, angle, rotate, place, and remove stems with budding, open, balanced, crowded, fading, and renewed states.",
+        "Responsive/motion: Preserve the arrangement's viewing front and proportional emptiness on small screens; use plan and elevation views instead of decorative reflow."
+      ],
+      "webLeverage": "Direct manipulation can preserve stem-angle, balance, and negative-space constraints, while a time scrub connects each plant's seasonal and fading state to the whole composition.",
+      "wellTier": "atmosphere",
+      "cardBoard": "https://impeccable.style/worlds/cards/growth-metamorphosis-branching-ikebana-ma-arrangement.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/growth-metamorphosis-branching-ikebana-ma-arrangement-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:27.761Z",
+      "lastSeenAt": "2026-09-20T17:59:27.761Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "metal-forging-patina-blacksmith-scale-shower": {
+      "id": "metal-forging-patina-blacksmith-scale-shower",
+      "name": "Blacksmith Scale Shower",
+      "form": "a white-hot iron bar drawn under a power hammer, where each blow sends black scale outward and lengthens the metal with brutal clarity",
+      "spark": "The hammer falls; a halo of black scale leaps from orange iron, and the square billet becomes visibly longer in a single strike.",
+      "system": [
+        "Palette/material: forge-dark ground with anvil-gray steel, the workpiece graded from black through cherry to white heat, scale flecks as black particle texture",
+        "Type/composition: heavy stenciled industrial caps with tabular force numerals, one blow per full-width row, measurements ruled like a smith's chalk marks",
+        "Topology/navigation: Move through heats and blows while cross-section, length, and force remain registered.",
+        "Controls/state: Heat, strike, rotate, and measure with cold, forging-hot, scaling, distorted, and normalized states.",
+        "Responsive/motion: Present one blow per deliberate step and replace impact animation with before-after geometry and force values."
+      ],
+      "webLeverage": "Fast local deformation and particle shedding can be bounded to user-triggered moments while measured state stays in the DOM.",
+      "wellTier": "atmosphere",
+      "cardBoard": "https://impeccable.style/worlds/cards/metal-forging-patina-blacksmith-scale-shower.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/metal-forging-patina-blacksmith-scale-shower-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:27.761Z",
+      "lastSeenAt": "2026-09-20T17:59:27.761Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "digital-design-canon-fansite-shrine-page": {
+      "id": "digital-design-canon-fansite-shrine-page",
+      "name": "Fansite Shrine Page",
+      "form": "a devoted single-subject fan page, a tiled background behind a centered table layout, animated dividers between every section and a hit counter, guestbook link and last-updated date stacked at the very bottom",
+      "spark": "A seamless tile of stars behind the whole thing, a centered table, seven animated dividers, and at the bottom a counter insisting you are visitor 4,182.",
+      "system": [
+        "Palette/material: a small seamless tile repeating behind everything, saturated web-safe colors, and animated rules separating each section",
+        "Type/composition: a centered fixed-width table, headings as image banners, and every section closed by an animated divider bar",
+        "Topology/navigation: the page is one long devoted column, so navigation scrolls through somebody's entire enthusiasm in their chosen order",
+        "Controls/state: controls are section links, the active one gains a marching border, and visited ones change to a second link color",
+        "Responsive/motion: the fixed-width table refuses to adapt gracefully, and motion is a looping divider and a blinking update notice"
+      ],
+      "webLeverage": "a seamless css background tile, looping divider animation, and visit-count state persisted local",
+      "wellTier": "graphic",
+      "cardBoard": "https://impeccable.style/worlds/cards/digital-design-canon-fansite-shrine-page.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/digital-design-canon-fansite-shrine-page-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:29.629Z",
+      "lastSeenAt": "2026-09-20T17:59:29.629Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "light-shadow-caustics-indoor-weather-sun": {
+      "id": "light-shadow-caustics-indoor-weather-sun",
+      "name": "Indoor Weather Sun",
+      "form": "an indoor weather sun, a monofrequency semicircle doubled to a full disc by a mirrored ceiling, mist haze filling a vast hall where crowds lie inside their own silhouettes",
+      "spark": "You lie on the concrete floor of a vast hall, haze thick with amber; far above, the mirrored ceiling shows your tiny silhouette waving back beside a hundred strangers, and the half sun on the wall completes itself into a disc.",
+      "system": [
+        "Palette/material: monofrequency sodium amber flattening every color, hazed amber as ground, silhouette black for body ink, the mirror's doubled sun as the accent",
+        "Type/composition: silhouette-black grotesk set low against a long horizon line, one vast horizontal band, captions small and scattered like lying figures",
+        "Topology/navigation: one hall with a half sun at its far wall, the mirrored ceiling doubling everything; you navigate by walking the long axis toward the light",
+        "Controls/state: your pointer is a silhouette, hover deepens a figure to full black, selection appears twice, once on the floor and once in the ceiling mirror",
+        "Responsive/motion: the semicircle scales with the wall and its mirror half collapses first on short screens; motion is drifting mist"
+      ],
+      "webLeverage": "backdrop-filter haze over a css scaleY(-1) reflection building the mirrored ceiling, blend mode flattening all color to amber duotone",
+      "wellTier": "atmosphere",
+      "cardBoard": "https://impeccable.style/worlds/cards/light-shadow-caustics-indoor-weather-sun.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/light-shadow-caustics-indoor-weather-sun-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:29.629Z",
+      "lastSeenAt": "2026-09-20T17:59:29.629Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "signals-instruments-night-flight-six-pack": {
+      "id": "signals-instruments-night-flight-six-pack",
+      "name": "Night Flight Six Pack",
+      "form": "a small aircraft's night instrument six-pack, where six luminous gauges hold a pilot's trust through cloud with nothing outside the glass",
+      "spark": "Outside is ink; inside, six calm dials agree with each other, and the practiced eye sweeps them in a quiet ritual of cross-checks.",
+      "system": [
+        "Palette/material: matte black panel ground, instrument faces near-black with luminous white markings, radium-green glow for needles; amber and red lamps only for caution",
+        "Type/composition: white aviation numerals and tick scales on round dials, terse placard caps beneath each gauge; two ranked rows of three set the fixed composition",
+        "Topology/navigation: a fixed constellation of instruments, each owning one truth; the cross-check sweep is the reading order.",
+        "Controls/state: deviations tilt needles before alarms; every gauge shows trend as well as value.",
+        "Responsive/motion: the six-pack stacks by criticality on phones; needle motion is damped and physical, never snapped."
+      ],
+      "webLeverage": "Real-time data binds to SVG gauges with damped spring physics and a screen-reader flight summary.",
+      "wellTier": "interaction",
+      "cardBoard": "https://impeccable.style/worlds/cards/signals-instruments-night-flight-six-pack.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/signals-instruments-night-flight-six-pack-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:29.629Z",
+      "lastSeenAt": "2026-09-20T17:59:29.629Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "galaxies-nebulae-deep-time-accretion-disk-threshold": {
+      "id": "galaxies-nebulae-deep-time-accretion-disk-threshold",
+      "name": "Galaxies Nebulae Deep Time Accretion Disk Threshold",
+      "form": "a black-hole accretion disk at the edge of disappearance, with warped horizons, time-dilated rings, and matter crossing an irreversible threshold",
+      "spark": "A bright disk folds over itself while one glowing fragment slows, reddens, and vanishes at the horizon.",
+      "system": [
+        "Palette/material: void black ground, disk light graded blue-white toward approach and ember red in recession, a photon-ring gold arc as the active accent",
+        "Type/composition: hairline technical grotesk with lining numerals bent along concentric ring bands, labels orbiting the rim, the center held as unmarked black",
+        "Topology/navigation: Navigate outer disk, photon ring, horizon, and observer viewpoints through guided anchors.",
+        "Controls/state: Change viewpoint, trace matter, and show orbiting, plunging, redshifted, and lost states.",
+        "Responsive/motion: Replace free orbit with sectional viewpoints on phones"
+      ],
+      "webLeverage": "Relativistic shader approximation bends light and color around an interactive horizon.",
+      "wellTier": "atmosphere",
+      "cardBoard": "https://impeccable.style/worlds/cards/galaxies-nebulae-deep-time-accretion-disk-threshold.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/galaxies-nebulae-deep-time-accretion-disk-threshold-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:31.314Z",
+      "lastSeenAt": "2026-09-20T17:59:31.314Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "medium-native-one-bit-desktop": {
+      "id": "medium-native-one-bit-desktop",
+      "name": "One Bit Desktop",
+      "form": "an early one-bit desktop, dithered gray patterns standing in for every tone, window chrome with title bars and close boxes, marching-ants selections, and 32-pixel icons drawn from two colors",
+      "spark": "You drag a window and its gray dither shears into moire as it moves; the trash can's lid pops open pixel by pixel, and the marching ants around your selection never stop walking.",
+      "system": [
+        "Palette/material: black and white pixels only, ordered stipple dithers standing in for every gray, selection inverting to solid black over a fifty-percent dither ground",
+        "Type/composition: bold Chicago-style pixel caps in title bars over small Geneva-style labels, windows composing as overlapping rectangles with one-pixel black chrome",
+        "Topology/navigation: overlapping windows on one desktop plane, folders opening into new windows while a zoom rectangle animates the lineage between them",
+        "Controls/state: pressing inverts, dragging shows a dotted outline, selections wear marching ants; dimmed dither means disabled and a checkmark marks the chosen item",
+        "Responsive/motion: windows tile edge to edge on small screens at whole-pixel scale"
+      ],
+      "webLeverage": "image-rendering pixelated canvas keeps dithers crisp at integer scale, and CSS steps() animation drives the marching-ants selection border",
+      "wellTier": "interaction",
+      "cardBoard": "https://impeccable.style/worlds/cards/medium-native-one-bit-desktop.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/medium-native-one-bit-desktop-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:31.314Z",
+      "lastSeenAt": "2026-09-20T17:59:43.072Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "signals-instruments-phosphor-terminal-midnight": {
+      "id": "signals-instruments-phosphor-terminal-midnight",
+      "name": "Phosphor Terminal Midnight",
+      "form": "a green-phosphor terminal in a midnight machine room, where a blinking cursor, scanline glow, and afterimage trails make text feel alive on glass",
+      "spark": "The cursor breathes; each typed line lands with a faint bloom and its ghost lingers a half-second after the scroll.",
+      "system": [
+        "Palette/material: P1 phosphor green on near-black curved glass, dimmer green afterimage for history, bright bloom for the cursor line; the tube's dark ground holds all",
+        "Type/composition: one monospaced bitmap face in a fixed 80-column field, no other type exists; hierarchy is made of indentation, case, and full-width rules",
+        "Topology/navigation: the surface is one continuous scrolling transcript; place is position in the conversation's history.",
+        "Controls/state: input is a first-class typed dialogue; system states print themselves rather than appearing as chrome.",
+        "Responsive/motion: phosphor bloom and trails scale with capability"
+      ],
+      "webLeverage": "A live transcript log with CSS phosphor glow, searchable history, and full keyboard-first operation.",
+      "wellTier": "interaction",
+      "cardBoard": "https://impeccable.style/worlds/cards/signals-instruments-phosphor-terminal-midnight.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/signals-instruments-phosphor-terminal-midnight-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:31.314Z",
+      "lastSeenAt": "2026-09-20T17:59:34.742Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "rw-copy-shop-zine-interior": {
+      "id": "rw-copy-shop-zine-interior",
+      "name": "Rw Copy Shop Zine Interior",
+      "form": "the interior page of a photocopied zine, one typed column of argument running down a sheet of coloured copy-shop stock under the same typing enlarged on the platen until its letters break up and the last word runs off the edge of the paper",
+      "spark": "A goldenrod sheet still warm from the copier, a single typed column running its full length, the heading enlarged until the counters have filled in and the last word is cut clean off by the edge of the paper.",
+      "system": [
+        "Palette/material: colour is the sheet, never the mark. One stock per sheet: bond, goldenrod, cherry, orbit orange, solar yellow, terra green, lunar blue, gamma violet, grey pulp.",
+        "Type/composition: Letter Gothic at 16-17px on 1.7 leading, fixed 65-character measure; display is the same face in caps, platen-enlarged to 200 or 400 percent until counters fill.",
+        "Topology/navigation: one sheet is square to the frame at full size, its neighbours present only as an 8-12mm strip of their stock at the edge. Stock maps territory, never state.",
+        "Controls/state: unset is the typed cell [ ], set it overstruck with an X, chosen a hand-ink stamp out of register; rank is copier magnification, 100 percent against 74 or 64.",
+        "Responsive/motion: motion is paper feed and platen scan at a constant sheet per second, linear, never a curve or a fade. Width shows more sheet edges, never a wider column."
+      ],
+      "webLeverage": "A real copy-generation filter: feTurbulence displacement, a dilate, and a discrete feComponentTransfer threshold, exposed as generations 0-3 on a data attribute and seeded from element position, over a fibre ground tiled from turbulence.",
+      "wellTier": "graphic",
+      "cardBoard": "https://impeccable.style/worlds/cards/rw-copy-shop-zine-interior.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/rw-copy-shop-zine-interior-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:34.742Z",
+      "lastSeenAt": "2026-09-20T17:59:34.742Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "notation-diagram-systems-star-atlas": {
+      "id": "notation-diagram-systems-star-atlas",
+      "name": "Star Atlas",
+      "form": "a celestial star atlas chart, magnitudes as ranked dot sizes on a coordinate sphere, constellation lines and mythic figures faint beneath the data",
+      "spark": "Under a red flashlight at two in the morning, a cold thumb traces from the chart's inked dots up to the actual sky, and Orion's belt agrees with the paper exactly.",
+      "system": [
+        "Palette/material: deep navy chart ground with chalk-white stars, red-flashlight amber for annotations, the object under the eye ringed in that same night-vision red",
+        "Type/composition: light serif italic names the constellations, small tabular figures label coordinates, dot diameter carries the hierarchy the type declines to",
+        "Topology/navigation: the sky splits into overlapping charts with matched edges, coordinates gridline the field and an index of named objects points into each plate",
+        "Controls/state: importance is dot diameter on a fixed magnitude ramp, variable objects wear distinct rings, the mythic figure layer fades up only on request",
+        "Responsive/motion: each plate crops around its brightest anchors at small sizes; panning drifts like slow sidereal motion"
+      ],
+      "webLeverage": "Canvas plots thousands of magnitude-scaled points with smooth zoom between chart plates.",
+      "wellTier": "graphic",
+      "cardBoard": "https://impeccable.style/worlds/cards/notation-diagram-systems-star-atlas.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/notation-diagram-systems-star-atlas-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:36.385Z",
+      "lastSeenAt": "2026-09-20T17:59:36.385Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "pop-culture-shelf-pulp-rocketship-plate": {
+      "id": "pop-culture-shelf-pulp-rocketship-plate",
+      "name": "Pulp Rocketship Plate",
+      "form": "a pulp magazine interior plate of a finned rocket over a red planet, airbrushed chrome hull and porthole rings against a starfield, the story title lettered in streamlined caps trailing speed lines",
+      "spark": "a rocket with fins it does not need, crossing a red sky on a diagonal, trailing three speed lines the illustrator clearly enjoyed adding, and a title lettered like it is already going fast.",
+      "system": [
+        "Palette/material: oxidized red and deep space blue over pulp paper that yellows at the edges, hull rendered in airbrushed grays with no true white",
+        "Type/composition: streamlined caps trailing speed lines, the craft crossing on a strong diagonal, and a ruled caption box in one lower corner",
+        "Topology/navigation: everything travels a diagonal trajectory, so navigation follows the flight path from one plate to the next",
+        "Controls/state: controls are porthole rings, the active one lights from within, and inactive ones stay as dark rimmed circles",
+        "Responsive/motion: the diagonal re-angles to the frame and the craft holds scale, and motion is a speed-line trail with a slight drift"
+      ],
+      "webLeverage": "an svg flight path that re-angles responsive, speed-line trail animation, and porthole controls with lit state",
+      "wellTier": "graphic",
+      "cardBoard": "https://impeccable.style/worlds/cards/pop-culture-shelf-pulp-rocketship-plate.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/pop-culture-shelf-pulp-rocketship-plate-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:36.385Z",
+      "lastSeenAt": "2026-09-20T17:59:36.385Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "digital-design-canon-monochrome-product-marketing": {
+      "id": "digital-design-canon-monochrome-product-marketing",
+      "name": "Monochrome Product Marketing",
+      "form": "a software marketing surface built almost entirely in one neutral scale, near-black on near-white with a single restrained accent, dense product screenshots framed on subtle gradients and every claim paired with an interface detail proving it",
+      "spark": "Almost no color at all, one accent used maybe four times on the whole page, and every sentence immediately followed by a screenshot that proves it.",
+      "system": [
+        "Palette/material: a fine neutral scale from near-white to near-black with one accent used sparingly, and screenshots framed on soft radial grounds",
+        "Type/composition: a tight geometric sans at two weights, sentence-case headings, and a strict grid with generous vertical rhythm between claims",
+        "Topology/navigation: sections alternate claim and proof, so navigation descends through paired assertions rather than a feature list",
+        "Controls/state: controls are ghost buttons with a hairline border, the primary action fills solid in the accent, and secondary actions stay outline",
+        "Responsive/motion: the grid folds from two columns to one preserving pair order, and motion is a soft rise as each proof enters"
+      ],
+      "webLeverage": "a neutral scale as css custom properties, intersection-driven rise animation, and responsive claim-and-proof pairing",
+      "wellTier": "graphic",
+      "cardBoard": "https://impeccable.style/worlds/cards/digital-design-canon-monochrome-product-marketing.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/digital-design-canon-monochrome-product-marketing-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:38.048Z",
+      "lastSeenAt": "2026-09-20T17:59:38.048Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "webgl-shader-portal": {
+      "id": "webgl-shader-portal",
+      "name": "Webgl Shader Portal",
+      "form": "the full-bleed portal of an experiential studio, where a GPU shader scene fills the screen and the interface floats as thin type over living pixels",
+      "spark": "A full-screen shader breathes in slow color, a custom cursor trailing a soft distortion where it moves; a loader counts to one hundred, then thin uppercase links dissolve the mesh into the next scene as you click through.",
+      "system": [
+        "Palette/material: a deep single-hue ground driven by a fragment shader, fine film grain, one incandescent accent for hovers",
+        "Type/composition: an oversized variable grotesk for a single hero word against tiny tracked-out labels at the margins",
+        "Topology/navigation: Move by hovering the shader to displace it, by clicking thin corner links, and by letting inertial scroll drift the camera through the scene.",
+        "Controls/state: The cursor warps the field under it; page changes trigger a mesh transition that dissolves one scene into the next behind a percentage loader.",
+        "Responsive/motion: physics-scroll inertia eases all movement, and reduced-motion freezes the scene and disables the custom cursor."
+      ],
+      "webLeverage": "Render the background as a single fullscreen WebGL fragment shader with a mouse-uniform displacement, and drive route changes through a shader dissolve transition rather than DOM swaps.",
+      "wellTier": "interaction",
+      "cardBoard": "https://impeccable.style/worlds/cards/webgl-shader-portal.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/webgl-shader-portal-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:39.718Z",
+      "lastSeenAt": "2026-09-20T17:59:39.718Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "design-canon-googie-starburst-diner": {
+      "id": "design-canon-googie-starburst-diner",
+      "name": "Googie Starburst Diner",
+      "form": "a Googie roadside diner under a starburst sign, where boomerang counters, cantilevered roofs, and atomic orbits sell coffee as the space age",
+      "spark": "The roofline launches upward, the sign spins a neon starburst, and even the laminate counter orbits with boomerangs: the future, served all night.",
+      "system": [
+        "Palette/material: turquoise and coral counter laminate over chrome trim, charcoal boomerang speckle as texture, neon starburst white saved for the active state",
+        "Type/composition: exclamatory script for feature names over slab caps for the menu board, baselines allowed to tilt with the cantilever, prices set inside atomic starbursts",
+        "Topology/navigation: one swooping cantilever line carries the eye from sign to counter to booth; sections hang off it.",
+        "Controls/state: interactive elements orbit on atomic paths; active states snap into the starburst.",
+        "Responsive/motion: the swoop becomes a vertical spine on phones; orbits become static constellations under"
+      ],
+      "webLeverage": "CSS offset-path orbits and animated neon SVG strokes run the sign's physics natively in the browser.",
+      "wellTier": "graphic",
+      "cardBoard": "https://impeccable.style/worlds/cards/design-canon-googie-starburst-diner.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/design-canon-googie-starburst-diner-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:39.718Z",
+      "lastSeenAt": "2026-09-20T17:59:39.718Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "digital-design-canon-dark-first-developer-console": {
+      "id": "digital-design-canon-dark-first-developer-console",
+      "name": "Dark First Developer Console",
+      "form": "a dark-first working surface where a graphite ground carries syntax-derived accent colors, panels divide with hairline seams rather than shadow, and every destructive action is separated from its neighbors by deliberate empty space",
+      "spark": "Everything is graphite and separated by lines one pixel wide, and the delete button sits on its own with nothing near enough to hit by accident.",
+      "system": [
+        "Palette/material: a graphite ground with panels distinguished by hairline seams and one step of elevation, and syntax-derived accents for state only",
+        "Type/composition: a compact sans with monospaced figures, panel headers in small caps, and destructive actions given deliberate isolation",
+        "Topology/navigation: panels tile the surface and persist, so navigation changes panel contents rather than replacing the layout",
+        "Controls/state: controls are panel actions, the primary takes a single accent, and destructive ones stay outline until deliberately focused",
+        "Responsive/motion: panels collapse by declared priority into a stack, and motion is a panel expanding along one axis only"
+      ],
+      "webLeverage": "a dark-first token scale, priority-based responsive panel collapse, and focus-gated destructive actions",
+      "wellTier": "graphic",
+      "cardBoard": "https://impeccable.style/worlds/cards/digital-design-canon-dark-first-developer-console.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/digital-design-canon-dark-first-developer-console-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:41.391Z",
+      "lastSeenAt": "2026-09-20T17:59:41.391Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "typography-calligraphy-writing-illuminated-initial-vine": {
+      "id": "typography-calligraphy-writing-illuminated-initial-vine",
+      "name": "Illuminated Initial Vine",
+      "form": "a single illuminated initial growing into a margin of gold leaf, blue vine, beasts, and tiny narrative scenes, an inhabited threshold compressed into one letter",
+      "spark": "A red letter opens into a gold chamber; a blue vine escapes its stem, circles three lines of text, and ends in a fox playing a lute.",
+      "system": [
+        "Palette/material: burnished gold leaf chambers on vellum cream, lapis blue vine as the wayfinding line, minium red initials marking every entry point into the text",
+        "Type/composition: one giant historiated initial outranking three lines of compact gothic bookhand, the margin composed as an inhabited frame around the measured text block",
+        "Topology/navigation: Enter through initial, branch, marginal figure, text passage, and referenced story while return remains obvious.",
+        "Controls/state: Open, trace, gloss, and compare with letter, ornament, scene, annotation, and restored states.",
+        "Responsive/motion: Turn the margin into a linked companion rail on phones and keep ornament optional to the reading path."
+      ],
+      "webLeverage": "Deep vector zoom can connect minute marginal scenes to semantic text without loading separate pages.",
+      "wellTier": "graphic",
+      "cardBoard": "https://impeccable.style/worlds/cards/typography-calligraphy-writing-illuminated-initial-vine.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/typography-calligraphy-writing-illuminated-initial-vine-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:41.391Z",
+      "lastSeenAt": "2026-09-20T17:59:41.391Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "craft-making-glazier-colorfield-partition": {
+      "id": "craft-making-glazier-colorfield-partition",
+      "name": "Glazier Colorfield Partition",
+      "form": "a steel-framed glass partition wall from a glazier's workshop, rectilinear panes of hand-rolled sheet glass in a black glazing grid, mostly clear and seeded white with a few saturated color fields placed like notes in a score",
+      "spark": "Down the corridor the wall reads almost clear, then one cobalt pane lights from behind and holds, a single saturated note in a grid of black bars and watery white glass.",
+      "system": [
+        "Palette/material: matte black glazing bars as the only line ink, clear and seeded-white panes as the calm ground, cobalt, amber and oxblood glass reserved for what matters now",
+        "Type/composition: a quiet grotesque set inside a pane and never across a bar, one pane one statement, hierarchy carried by pane size and glass color rather than type weight",
+        "Topology/navigation: the wall elevation is the map read left to right, heavier mullions bound the sections, and each pane is one destination you step up to",
+        "Controls/state: daylight is rest, hover backlights a pane, selection floods it with its assigned color, and disabled panes frost to translucent white",
+        "Responsive/motion: bays restack into a single column keeping true bar thickness, and motion is the slow brightening of glass, nothing slides"
+      ],
+      "webLeverage": "css grid draws the glazing bars at true thickness while backdrop-filter and background transitions light the panes",
+      "wellTier": "atmosphere",
+      "cardBoard": "https://impeccable.style/worlds/cards/craft-making-glazier-colorfield-partition.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/craft-making-glazier-colorfield-partition-hero.webp",
+      "firstSeenAt": "2026-09-20T17:59:43.072Z",
+      "lastSeenAt": "2026-09-20T17:59:43.072Z",
+      "modesSeen": [],
+      "scopesSeen": [
+        "direction"
+      ]
+    },
+    "pop-culture-shelf-sticker-album-spread": {
+      "id": "pop-culture-shelf-sticker-album-spread",
+      "name": "Album Spread",
+      "form": "a collector album spread of numbered empty slots, each printed with a ghosted outline of the sticker that belongs there, filled positions sitting slightly proud of the page and gaps advertising exactly what is missing",
+      "spark": "Forty-two of the fifty slots are filled and glossy, and the eight that are not tell you exactly which ones you still need in pale gray outline.",
+      "system": [
+        "Palette/material: matte album paper printed with pale ghosted outlines, against glossy stickers that sit visibly proud of the page surface",
+        "Type/composition: numbered slots ranged on a fixed grid with team or section headers, and every empty slot printing what should fill it",
+        "Topology/navigation: the album is a fixed set, so navigation moves between numbered positions and absence is as informative as presence",
+        "Controls/state: controls are slots, a filled one gains gloss and a shadow, and an empty one keeps its ghost outline and number",
+        "Responsive/motion: the slot grid reflows in whole positions, and motion is a sticker pressing down into its outline"
+      ],
+      "webLeverage": "a whole-slot responsive grid, collection state persisted local, and a press-down animation seating each sticker",
+      "wellTier": "graphic",
+      "cardBoard": "https://impeccable.style/worlds/cards/pop-culture-shelf-sticker-album-spread.webp",
+      "cardHero": "https://impeccable.style/worlds/cards/pop-culture-shelf-sticker-album-spread-hero.webp",
+      "firstSeenAt": "2026-09-20T18:00:31.191Z",
+      "lastSeenAt": "2026-09-20T18:04:01.002Z",
+      "modesSeen": [
+        "persuade",
+        "experience"
+      ],
+      "scopesSeen": [
+        "surface"
       ]
     }
   },
   "lastApprovedCount": 306,
   "lastCatalogCount": 564,
-  "lastCollectAt": "2026-09-20T02:50:33.331Z"
+  "lastCollectAt": "2026-09-20T18:04:41.419Z"
 }

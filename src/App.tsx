@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Coverage, World } from "../shared/types";
-import { WELL_TIERS } from "../shared/types";
+import { DEFAULT_COLLECT_MODES, WELL_TIERS } from "../shared/types";
 import type { WorldSort } from "../shared/catalog";
 import { sortWorlds } from "../shared/catalog";
 import { CoverageStrip } from "./components/CoverageStrip";
@@ -72,6 +72,8 @@ export function App() {
   );
   const [collecting, setCollecting] = useState(false);
   const [collectFeedback, setCollectFeedback] = useState<CollectFeedback>(null);
+  const [includeDirection, setIncludeDirection] = useState(false);
+  const [selectedModes, setSelectedModes] = useState<string[]>([]);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
   const [howItWorksOpen, setHowItWorksOpen] = useState(false);
@@ -181,11 +183,24 @@ export function App() {
     document.title = base;
   }, [drawerId, selected]);
 
+  function toggleMode(mode: string) {
+    setSelectedModes((current) =>
+      current.includes(mode)
+        ? current.filter((item) => item !== mode)
+        : DEFAULT_COLLECT_MODES.filter(
+            (item) => item === mode || current.includes(item),
+          ),
+    );
+  }
+
   async function onCollect() {
-    setCollectFeedback({ tone: "progress", text: "Fetching new directions…" });
+    setCollectFeedback({ tone: "progress", text: "Surface (neutral)…" });
     setCollecting(true);
     try {
-      const stats = await collectWorlds();
+      const stats = await collectWorlds({
+        direction: includeDirection,
+        modes: selectedModes,
+      });
       setCollectFeedback(formatCollectOutcome(stats));
       await refresh();
     } catch (err) {
@@ -230,13 +245,9 @@ export function App() {
 
   const liveText = collectFeedback?.text ?? "";
   const liveClass =
-    !collectFeedback ||
-    collectFeedback.tone === "progress" ||
-    emptyKind === "error"
-      ? "sr-only"
-      : collectFeedback.tone === "error"
-        ? "banner"
-        : "notice";
+    collectFeedback?.tone === "success" && emptyKind !== "error"
+      ? "notice"
+      : "sr-only";
 
   return (
     <>
@@ -342,6 +353,13 @@ export function App() {
             <CoverageStrip
               coverage={coverage}
               collecting={collecting}
+              error={
+                collectFeedback?.tone === "error" ? collectFeedback.text : null
+              }
+              includeDirection={includeDirection}
+              selectedModes={selectedModes}
+              onToggleDirection={() => setIncludeDirection((on) => !on)}
+              onToggleMode={toggleMode}
               onCollect={() => void onCollect()}
             />
           ) : null}
@@ -385,6 +403,11 @@ export function App() {
               }
               onCollect={
                 emptyKind === "none" && isCollectAllowed()
+                  ? () => void onCollect()
+                  : undefined
+              }
+              onRetry={
+                emptyKind === "error" && !loadError && isCollectAllowed()
                   ? () => void onCollect()
                   : undefined
               }

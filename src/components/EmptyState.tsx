@@ -3,6 +3,7 @@ interface EmptyStateProps {
   heading?: string;
   message?: string;
   onCollect?: () => void;
+  onRetry?: () => void;
   onClear?: () => void;
   collecting?: boolean;
 }
@@ -12,6 +13,7 @@ export function EmptyState({
   heading,
   message,
   onCollect,
+  onRetry,
   onClear,
   collecting,
 }: EmptyStateProps) {
@@ -29,6 +31,17 @@ export function EmptyState({
       <div className="empty" role="alert">
         <h2>{heading ?? "Could not load the catalog"}</h2>
         <p>{message ?? "The catalog could not be reached."}</p>
+        {onRetry ? (
+          <button
+            type="button"
+            className="btn"
+            onClick={onRetry}
+            disabled={collecting}
+            aria-busy={collecting}
+          >
+            {collecting ? "Fetching…" : "Retry"}
+          </button>
+        ) : null}
       </div>
     );
   }

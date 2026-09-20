@@ -21,6 +21,7 @@ export interface WorldRecord {
   firstSeenAt: string;
   lastSeenAt: string;
   modesSeen: string[];
+  scopesSeen?: string[];
 }
 
 export interface World extends WorldRecord {
@@ -30,6 +31,7 @@ export interface World extends WorldRecord {
 export interface CollectRequest {
   maxRolls?: number;
   modes?: string[];
+  direction?: boolean;
 }
 
 export type CollectStopReason =
@@ -43,16 +45,20 @@ export type CollectStopReason =
 export interface CollectStats {
   rollsRun: number;
   newIds: number;
+  duplicatesSkipped: number;
   indexedCount: number;
   stopReason: CollectStopReason | string;
   error?: string;
+  passLabel?: string;
 }
 
 export interface CollectProgress {
   inProgress: boolean;
   rollsRun: number;
   newIds: number;
+  duplicatesSkipped: number;
   indexedCount: number;
+  passLabel?: string;
   stopReason?: string;
   error?: string;
 }

@@ -107,6 +107,7 @@ select {
 button:focus-visible,
 input:focus-visible,
 select:focus-visible,
+summary:focus-visible,
 a:focus-visible {
   outline: 2px solid #000;
   outline-offset: 2px;
@@ -177,6 +178,9 @@ h1 {
 .legal,
 .coverage-meta,
 .coverage-note,
+.coverage-banner,
+.coverage-error,
+.coverage-option-label,
 .kicker,
 .legend,
 .empty p {
@@ -299,13 +303,31 @@ h1 {
 }
 
 .coverage {
+  display: grid;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+
+.coverage-banner,
+.coverage-error {
+  margin: 0;
+  padding: 8px 10px;
+  border: 1px dashed #000;
+  font-size: 0.82rem;
+}
+
+.coverage-error {
+  border-style: solid;
+  color: #000;
+}
+
+.coverage-main {
   display: flex;
   justify-content: space-between;
   gap: 16px;
   align-items: center;
-  padding: 12px 14px;
-  background: #fff;
-  border: 1px solid var(--line);
 }
 
 .coverage-copy {
@@ -327,6 +349,51 @@ h1 {
 
 .coverage-note {
   max-width: 72ch;
+}
+
+.coverage-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex: 0 0 auto;
+  align-items: center;
+}
+
+.coverage-options {
+  border-top: 1px solid var(--line);
+  padding-top: 8px;
+}
+
+.coverage-options summary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  user-select: none;
+}
+
+.coverage-options-body {
+  display: grid;
+  gap: 12px;
+  padding: 4px 0 8px;
+}
+
+.coverage-option-block {
+  display: grid;
+  gap: 8px;
+}
+
+.coverage-option-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.coverage-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .results-bar {
@@ -907,10 +974,14 @@ h1 {
 }
 
 @media (max-width: 720px) {
-  .coverage,
+  .coverage-main,
   .detail-actions {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .coverage-actions .btn {
+    flex: 1 1 auto;
   }
 
   .controls label,

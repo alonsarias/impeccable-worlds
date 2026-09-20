@@ -55,6 +55,12 @@ export function humanizeStopReason(reason: string): string {
   return STOP_COPY[reason] ?? reason.replaceAll("_", " ");
 }
 
+export const COLLECT_LOCAL_BANNER =
+  "Local only — collect isn’t available on the public site.";
+
+export const COLLECT_COVERAGE_HELPER =
+  "Direction and Modes explore more dealer pools. This still isn’t 100% of Impeccable — and it doesn’t replace using Impeccable.";
+
 export function humanizeCollectError(message: string): string {
   if (/collect failed/i.test(message)) return "Could not fetch new directions.";
   return message;
@@ -95,8 +101,8 @@ export function formatCatalogStatus(coverage: Coverage | null): {
 
 export function formatCollectProgress(coverage: Coverage | null): string {
   const progress = coverage?.collecting;
-  if (!progress) return "Fetching new directions…";
-  return `Fetching new directions… ${progress.rollsRun} rolls · ${progress.newIds} new so far`;
+  if (!progress?.inProgress) return "Surface (neutral)…";
+  return progress.passLabel ?? "Surface (neutral)…";
 }
 
 export function formatCollectOutcome(stats: CollectStats): {
@@ -121,10 +127,10 @@ export function formatCollectOutcome(stats: CollectStats): {
   if (stats.newIds > 0) {
     return {
       tone: "success",
-      text: `Added ${stats.newIds} new ${directionNoun(stats.newIds)}.`,
+      text: `+${stats.newIds} new · ${stats.duplicatesSkipped ?? 0} duplicates skipped`,
     };
   }
-  return { tone: "success", text: "No new directions this run." };
+  return { tone: "success", text: "No new worlds this pass." };
 }
 
 export const TIER_LEGEND = WELL_TIERS.map((tier) => {

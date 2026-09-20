@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-Open the printed local URL (Vite, usually `http://localhost:5173`). The API is served from the same process at `/api/*`. Collect more is enabled here.
+Open the printed local URL (Vite, usually `http://localhost:5173`). The API is served from the same process at `/api/*`. Fetch new directions is enabled here.
 
 Optional: copy `.env.example` to `.env` (or set the same keys on Vercel) to override:
 
@@ -20,7 +20,7 @@ Optional: copy `.env.example` to `.env` (or set the same keys on Vercel) to over
 
 ## Use
 
-1. Locally, click **Collect** / **Collect more** to fetch rolls from `https://impeccable.style/api/roll`.
+1. Locally, click **Fetch new directions** for a neutral surface pass. Open **Coverage options** to add a **Direction** pass and optional modes (`persuade`, `operate`, `read`, `experience`).
 2. Browse the grid. Search name, form, spark, and system text. Filter by `wellTier` or favorites.
 3. Open a world to read the full direction. **Copy direction prompt** puts paste-ready text on the clipboard.
 4. Favorites live in the browser (`localStorage`). They are per-visitor and do not need a git push.
@@ -33,7 +33,7 @@ Production reads the JSON shipped in git. After you collect locally:
 
 ```text
 1. npm run dev
-2. Click Collect more until satisfied
+2. Click Fetch new directions until satisfied
 3. git add data/worlds.json
 4. git commit -m "chore: update worlds catalog"
 5. git push                  # Vercel redeploys the read-only site
@@ -50,10 +50,10 @@ No production route calls `impeccable.style/api/roll`.
 The collector is deliberately slow and incomplete, and **local-only**:
 
 - About **1.5s** between roll requests.
-- Default cap of **40** rolls per collect, or stop after **8** consecutive rolls that add no new ids.
+- Default cap of **40** rolls **per pass**, or stop a pass after **8** consecutive rolls that add no new ids.
 - Each roll key is chained with `reroll` 0–8 (the API’s max), then a new key is minted.
-- Optional `mode` rotation (`persuade`, `operate`, `read`, `experience`) to widen the pool. Send `{ "modes": [] }` on `POST /api/collect` to omit `mode`.
-- On `429` or network failure it stops and the UI shows the error. It does not retry in a tight loop.
+- Default POST `{}` is Neutral (`scope=surface`, no `mode`). `{ "direction": true }` adds a Direction pass (`scope=direction`). `{ "modes": ["persuade", "operate"] }` adds one surface pass per selected mode. Dedupe is by world `id`.
+- On `429` or network failure it stops and the UI shows the error plus **Retry**. It does not retry in a tight loop.
 
 `GET /api/coverage` reports `indexedCount` vs the last seen API `approvedCount` stored in the shipped JSON. Those numbers will not match a “full deck,” and the UI does not claim they do.
 

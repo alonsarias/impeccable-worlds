@@ -1,7 +1,13 @@
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { coverageFromStore, worldsFromStore } from "../shared/catalog";
-import type { CollectProgress, Coverage, World, WorldRecord, WorldsStoreFile } from "../shared/types";
+import type {
+  CollectProgress,
+  Coverage,
+  World,
+  WorldRecord,
+  WorldsStoreFile,
+} from "../shared/types";
 
 const dataDir = path.resolve(process.cwd(), "data");
 const worldsPath = path.join(dataDir, "worlds.json");
@@ -78,19 +84,34 @@ export function upsertWorld(incoming: WorldRecord): boolean {
     store.worlds[incoming.id] = incoming;
     return true;
   }
-  store.worlds[incoming.id] = {
+  const merged: WorldRecord = {
     ...existing,
     ...incoming,
     firstSeenAt: existing.firstSeenAt,
     lastSeenAt: incoming.lastSeenAt,
-    modesSeen: [...new Set([...existing.modesSeen, ...incoming.modesSeen])],
+    modesSeen: [
+      ...new Set([...(existing.modesSeen ?? []), ...incoming.modesSeen]),
+    ],
+    scopesSeen: [
+      ...new Set([
+        ...(existing.scopesSeen ?? []),
+        ...(incoming.scopesSeen ?? []),
+      ]),
+    ],
     system: incoming.system ?? existing.system,
   };
+  delete (merged as WorldRecord & { steersSeen?: string[] }).steersSeen;
+  store.worlds[incoming.id] = merged;
   return false;
 }
 
-export function recordCoverage(approvedCount: number | null, catalogCount: number | null, collectedAt: string): void {
-  if (typeof approvedCount === "number") store.lastApprovedCount = approvedCount;
+export function recordCoverage(
+  approvedCount: number | null,
+  catalogCount: number | null,
+  collectedAt: string,
+): void {
+  if (typeof approvedCount === "number")
+    store.lastApprovedCount = approvedCount;
   if (typeof catalogCount === "number") store.lastCatalogCount = catalogCount;
   store.lastCollectAt = collectedAt;
 }

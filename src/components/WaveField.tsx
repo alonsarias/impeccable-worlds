@@ -10,7 +10,7 @@ function vantageFor(box: DOMRect): "far" | "mid" | "near" {
   return "far";
 }
 
-export function WaveField({ token = 0 }: { token?: number }) {
+export function WaveField({ token = 0 }: { token?: number | string }) {
   useEffect(() => {
     function markCards() {
       document.querySelectorAll<HTMLElement>(".card").forEach((card) => {

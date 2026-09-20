@@ -1,5 +1,5 @@
 import type { Coverage } from "../../shared/types";
-import { displayValue } from "../lib/display";
+import { formatCatalogStatus, formatCollectProgress } from "../lib/statusCopy";
 
 interface CoverageStripProps {
   coverage: Coverage | null;
@@ -7,29 +7,30 @@ interface CoverageStripProps {
   onCollect: () => void;
 }
 
-export function CoverageStrip({ coverage, collecting, onCollect }: CoverageStripProps) {
-  const progress = coverage?.collecting;
-  const approved = coverage ? displayValue(coverage.lastApprovedCount?.toString()) : displayValue(undefined);
-  const indexed = coverage?.indexedCount ?? 0;
-
-  let status = `Indexed ${indexed}`;
-  if (collecting && progress) {
-    status = `Collecting · ${progress.rollsRun} rolls · ${progress.newIds} new · indexed ${progress.indexedCount}`;
-  } else if (progress?.stopReason && !progress.inProgress) {
-    status = `Indexed ${indexed} · last stop: ${progress.stopReason}`;
-  }
+export function CoverageStrip({
+  coverage,
+  collecting,
+  onCollect,
+}: CoverageStripProps) {
+  const { primary, note, detail } = formatCatalogStatus(coverage);
+  const progress = collecting ? formatCollectProgress(coverage) : null;
 
   return (
-    <section className="coverage" aria-live="polite">
-      <p className="coverage-meta">
-        <span>{status}</span>
-        <span className="dot" aria-hidden="true">
-          ·
-        </span>
-        <span>API approved {approved} (last seen)</span>
-      </p>
-      <button type="button" className="btn" onClick={onCollect} disabled={collecting}>
-        {collecting ? "Collecting…" : "Collect more"}
+    <section className="coverage" aria-busy={collecting}>
+      <div className="coverage-copy">
+        <p className="coverage-meta" title={detail}>
+          {progress ?? primary}
+        </p>
+        <p className="coverage-note">{note}</p>
+      </div>
+      <button
+        type="button"
+        className="btn"
+        onClick={onCollect}
+        disabled={collecting}
+        aria-busy={collecting}
+      >
+        {collecting ? "Fetching…" : "Fetch new directions"}
       </button>
     </section>
   );

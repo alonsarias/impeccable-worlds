@@ -1,23 +1,53 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Coverage, World } from "../shared/types";
 import { WELL_TIERS } from "../shared/types";
+import type { WorldSort } from "../shared/catalog";
+import { sortWorlds } from "../shared/catalog";
 import { CoverageStrip } from "./components/CoverageStrip";
 import { DetailDrawer } from "./components/DetailDrawer";
 import { EmptyState } from "./components/EmptyState";
 import { GitHubMark } from "./components/GitHubMark";
+import { ResultsBar } from "./components/ResultsBar";
 import { WaveField } from "./components/WaveField";
+import type { CardLayout } from "./components/WorldGrid";
 import { WorldGrid } from "./components/WorldGrid";
-import { sortWorldsByName } from "../shared/catalog";
-import { collectWorlds, fetchCoverage, fetchWorlds, toggleFavorite } from "./lib/api";
+import {
+  collectWorlds,
+  fetchCoverage,
+  fetchWorlds,
+  toggleFavorite,
+} from "./lib/api";
 import { isCollectAllowed } from "./lib/collectAllowed";
 import { GITHUB_REPO_URL } from "./lib/github";
+import {
+  formatCollectOutcome,
+  formatCollectProgress,
+  formatEmptyEcho,
+  humanizeCollectError,
+  titleCaseTier,
+} from "./lib/statusCopy";
 
-function matches(world: World, query: string, tier: string, favoritesOnly: boolean): boolean {
+type CollectFeedback = {
+  tone: "progress" | "success" | "error";
+  text: string;
+} | null;
+
+function matches(
+  world: World,
+  query: string,
+  tier: string,
+  favoritesOnly: boolean,
+): boolean {
   if (favoritesOnly && !world.favorite) return false;
   if (tier !== "all" && world.wellTier !== tier) return false;
   const needle = query.trim().toLowerCase();
   if (!needle) return true;
-  const haystack = [world.name, world.form, world.spark, ...(world.system ?? [])]
+  const haystack = [
+    world.name,
+    world.form,
+    world.spark,
+    ...(world.system ?? []),
+  ]
     .filter(Boolean)
     .join("\n")
     .toLowerCase();
@@ -29,15 +59,21 @@ export function App() {
   const [coverage, setCoverage] = useState<Coverage | null>(null);
   const [query, setQuery] = useState("");
   const [tier, setTier] = useState("all");
+  const [sort, setSort] = useState<WorldSort>("name");
+  const [layout, setLayout] = useState<CardLayout>("comfortable");
   const [favoritesOnly, setFavoritesOnly] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [collecting, setCollecting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [collectFeedback, setCollectFeedback] = useState<CollectFeedback>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
+  const searchRef = useRef<HTMLInputElement>(null);
 
   const refresh = useCallback(async () => {
-    const [nextWorlds, nextCoverage] = await Promise.all([fetchWorlds(), fetchCoverage()]);
+    const [nextWorlds, nextCoverage] = await Promise.all([
+      fetchWorlds(),
+      fetchCoverage(),
+    ]);
     setWorlds(nextWorlds);
     setCoverage(nextCoverage);
     setReady(true);
@@ -45,7 +81,9 @@ export function App() {
 
   useEffect(() => {
     void refresh().catch((err: unknown) => {
-      setLoadError(err instanceof Error ? err.message : "Could not load the catalog.");
+      setLoadError(
+        err instanceof Error ? err.message : "Could not load the catalog.",
+      );
       setReady(true);
     });
   }, [refresh]);
@@ -58,24 +96,41 @@ export function App() {
     return () => window.clearInterval(timer);
   }, [collecting]);
 
+  useEffect(() => {
+    if (!collecting) return;
+    setCollectFeedback({
+      tone: "progress",
+      text: formatCollectProgress(coverage),
+    });
+  }, [collecting, coverage]);
+
   const visible = useMemo(
-    () => sortWorldsByName(worlds.filter((world) => matches(world, query, tier, favoritesOnly))),
-    [worlds, query, tier, favoritesOnly],
+    () =>
+      sortWorlds(
+        worlds.filter((world) => matches(world, query, tier, favoritesOnly)),
+        sort,
+      ),
+    [worlds, query, tier, favoritesOnly, sort],
   );
 
   const selected = worlds.find((world) => world.id === selectedId) ?? null;
 
   async function onCollect() {
-    setError(null);
+    setCollectFeedback({ tone: "progress", text: "Fetching new directions…" });
     setCollecting(true);
     try {
       const stats = await collectWorlds();
-      if (stats.error || stats.stopReason === "rate_limited" || stats.stopReason === "request_failed") {
-        setError(stats.error ?? "Collect failed.");
-      }
+      setCollectFeedback(formatCollectOutcome(stats));
       await refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Collect failed.");
+      setCollectFeedback({
+        tone: "error",
+        text: humanizeCollectError(
+          err instanceof Error
+            ? err.message
+            : "Could not fetch new directions.",
+        ),
+      });
     } finally {
       setCollecting(false);
     }
@@ -83,12 +138,23 @@ export function App() {
 
   function onFavorite(id: string) {
     const favorite = toggleFavorite(id);
-    setWorlds((current) => current.map((world) => (world.id === id ? { ...world, favorite } : world)));
+    setWorlds((current) =>
+      current.map((world) =>
+        world.id === id ? { ...world, favorite } : world,
+      ),
+    );
+  }
+
+  function onClearFilters() {
+    setQuery("");
+    setTier("all");
+    setFavoritesOnly(false);
+    searchRef.current?.focus();
   }
 
   const emptyKind = !ready
     ? "loading"
-    : loadError || (error && worlds.length === 0)
+    : loadError || (collectFeedback?.tone === "error" && worlds.length === 0)
       ? "error"
       : worlds.length === 0
         ? "none"
@@ -96,96 +162,177 @@ export function App() {
           ? "filtered"
           : null;
 
+  const liveText = collectFeedback?.text ?? "";
+  const liveClass =
+    !collectFeedback ||
+    collectFeedback.tone === "progress" ||
+    emptyKind === "error"
+      ? "sr-only"
+      : collectFeedback.tone === "error"
+        ? "banner"
+        : "notice";
+
   return (
     <>
-      <WaveField token={visible.length} />
-      <div className="app">
-      <div className="catalog" inert={selected ? true : undefined}>
-        <header className="top">
-          <div className="masthead">
-            <div>
-              <h1>Impeccable Worlds</h1>
-              <p className="lede">Browse, filter, and copy a direction — not an official or complete deck.</p>
-            </div>
-            <a
-              className="github-link"
-              href={GITHUB_REPO_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="View on GitHub"
-              title="View on GitHub"
-            >
-              <GitHubMark />
-            </a>
-          </div>
-          <div className="controls">
-            <label className="search">
-              <span>Search</span>
-              <input
-                type="search"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Name, form, spark, system"
-              />
-            </label>
-            <label>
-              <span>wellTier</span>
-              <select value={tier} onChange={(event) => setTier(event.target.value)}>
-                <option value="all">All</option>
-                {WELL_TIERS.map((value) => (
-                  <option key={value} value={value}>
-                    {value}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="check">
-              <input
-                type="checkbox"
-                checked={favoritesOnly}
-                onChange={(event) => setFavoritesOnly(event.target.checked)}
-              />
-              Favorites only
-            </label>
-          </div>
-        </header>
-
-        {isCollectAllowed() ? (
-          <CoverageStrip coverage={coverage} collecting={collecting} onCollect={() => void onCollect()} />
-        ) : null}
-
-        {error && worlds.length > 0 ? (
-          <p className="banner" role="alert">
-            {error}
-          </p>
-        ) : null}
-
-        {emptyKind ? (
-          <EmptyState
-            kind={emptyKind}
-            message={loadError ?? error ?? undefined}
-            onCollect={emptyKind === "none" && isCollectAllowed() ? () => void onCollect() : undefined}
-            collecting={collecting}
-          />
-        ) : (
-          <WorldGrid worlds={visible} onOpen={setSelectedId} onFavorite={onFavorite} />
-        )}
-
-        <footer className="legal">
-          World names, direction text, and card images come from Impeccable (impeccable.style). This is a personal/lab
-          index for choosing a direction by eye. It is not an official Impeccable product, and it does not claim a complete
-          catalog.
-        </footer>
-      </div>
-
-      <DetailDrawer
-        world={selected}
-        queue={visible}
-        onClose={() => setSelectedId(null)}
-        onFavorite={onFavorite}
-        onSelect={setSelectedId}
+      <WaveField
+        token={`${layout}-${sort}-${visible.length}-${visible[0]?.id ?? ""}`}
       />
-    </div>
+      <div className="app">
+        <div className="catalog" inert={selected ? true : undefined}>
+          <header className="top">
+            <div className="masthead">
+              <div>
+                <h1>Impeccable Worlds</h1>
+                <p className="lede">
+                  Browse, filter, and copy a direction — not an official or
+                  complete deck.
+                </p>
+              </div>
+              <a
+                className="github-link"
+                href={GITHUB_REPO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View on GitHub"
+                title="View on GitHub"
+              >
+                <GitHubMark />
+              </a>
+            </div>
+            <div className="controls">
+              <label className="search">
+                <span>Search</span>
+                <input
+                  ref={searchRef}
+                  type="search"
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  placeholder="Name, form, spark, system"
+                />
+              </label>
+              <label>
+                <span>Direction type</span>
+                <select
+                  value={tier}
+                  onChange={(event) => setTier(event.target.value)}
+                  aria-describedby="tier-legend"
+                >
+                  <option value="all">All</option>
+                  {WELL_TIERS.map((value) => (
+                    <option key={value} value={value}>
+                      {titleCaseTier(value)}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                <span>Sort</span>
+                <select
+                  value={sort}
+                  onChange={(event) => setSort(event.target.value as WorldSort)}
+                >
+                  <option value="name">Alphabetical</option>
+                  <option value="newest">Newest</option>
+                  <option value="tier">Direction type</option>
+                </select>
+              </label>
+              <label>
+                <span>Layout</span>
+                <select
+                  value={layout}
+                  onChange={(event) =>
+                    setLayout(event.target.value as CardLayout)
+                  }
+                >
+                  <option value="comfortable">Larger cards</option>
+                  <option value="compact">Dense cards</option>
+                  <option value="list">List</option>
+                </select>
+              </label>
+              <label className="check">
+                <input
+                  type="checkbox"
+                  checked={favoritesOnly}
+                  onChange={(event) => setFavoritesOnly(event.target.checked)}
+                />
+                Favorites only
+              </label>
+            </div>
+          </header>
+
+          {isCollectAllowed() ? (
+            <CoverageStrip
+              coverage={coverage}
+              collecting={collecting}
+              onCollect={() => void onCollect()}
+            />
+          ) : null}
+
+          <p className={liveClass} aria-live="polite" aria-atomic="true">
+            {liveText}
+          </p>
+
+          {loadError ? null : (
+            <ResultsBar
+              count={visible.length}
+              query={query}
+              tier={tier}
+              favoritesOnly={favoritesOnly}
+              ready={ready}
+            />
+          )}
+
+          {emptyKind ? (
+            <EmptyState
+              kind={emptyKind}
+              heading={
+                emptyKind === "error"
+                  ? loadError
+                    ? "Could not load the catalog"
+                    : "Could not fetch new directions"
+                  : undefined
+              }
+              message={
+                emptyKind === "filtered"
+                  ? formatEmptyEcho({ query, tier, favoritesOnly })
+                  : (loadError ??
+                    (collectFeedback?.tone === "error"
+                      ? collectFeedback.text
+                      : undefined))
+              }
+              onCollect={
+                emptyKind === "none" && isCollectAllowed()
+                  ? () => void onCollect()
+                  : undefined
+              }
+              onClear={emptyKind === "filtered" ? onClearFilters : undefined}
+              collecting={collecting}
+            />
+          ) : (
+            <WorldGrid
+              worlds={visible}
+              layout={layout}
+              onOpen={setSelectedId}
+              onFavorite={onFavorite}
+            />
+          )}
+
+          <footer className="legal">
+            World names, direction text, and card images come from Impeccable
+            (impeccable.style). This is a personal/lab index for choosing a
+            direction by eye. It is not an official Impeccable product, and it
+            does not claim a complete catalog.
+          </footer>
+        </div>
+
+        <DetailDrawer
+          world={selected}
+          queue={visible}
+          onClose={() => setSelectedId(null)}
+          onFavorite={onFavorite}
+          onSelect={setSelectedId}
+        />
+      </div>
     </>
   );
 }

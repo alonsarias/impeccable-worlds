@@ -1,11 +1,20 @@
 interface EmptyStateProps {
   kind: "none" | "filtered" | "error" | "loading";
+  heading?: string;
   message?: string;
   onCollect?: () => void;
+  onClear?: () => void;
   collecting?: boolean;
 }
 
-export function EmptyState({ kind, message, onCollect, collecting }: EmptyStateProps) {
+export function EmptyState({
+  kind,
+  heading,
+  message,
+  onCollect,
+  onClear,
+  collecting,
+}: EmptyStateProps) {
   if (kind === "loading") {
     return (
       <div className="empty">
@@ -18,8 +27,8 @@ export function EmptyState({ kind, message, onCollect, collecting }: EmptyStateP
   if (kind === "error") {
     return (
       <div className="empty" role="alert">
-        <h2>Collect failed</h2>
-        <p>{message ?? "The roll API could not be reached."}</p>
+        <h2>{heading ?? "Could not load the catalog"}</h2>
+        <p>{message ?? "The catalog could not be reached."}</p>
       </div>
     );
   }
@@ -28,7 +37,15 @@ export function EmptyState({ kind, message, onCollect, collecting }: EmptyStateP
     return (
       <div className="empty">
         <h2>No matching worlds</h2>
-        <p>Nothing in the local index matches this search or filter.</p>
+        <p>
+          {message ??
+            "Nothing in the local index matches this search or filter."}
+        </p>
+        {onClear ? (
+          <button type="button" className="btn" onClick={onClear}>
+            Clear search and filters
+          </button>
+        ) : null}
       </div>
     );
   }
@@ -38,12 +55,18 @@ export function EmptyState({ kind, message, onCollect, collecting }: EmptyStateP
       <h2>No worlds yet</h2>
       <p>
         {onCollect
-          ? "Collect from Impeccable’s public roll API to start a local index. Coverage grows by unique ids — this is never a complete catalog."
-          : "This deploy has no shipped worlds. Collect locally, then git push data/worlds.json."}
+          ? "Fetch from Impeccable’s public roll API to start a local index. Coverage grows by unique ids — this is never a complete catalog."
+          : "This deploy has no shipped worlds. Fetch locally, then git push data/worlds.json."}
       </p>
       {onCollect ? (
-        <button type="button" className="btn primary" onClick={onCollect} disabled={collecting}>
-          {collecting ? "Collecting…" : "Collect"}
+        <button
+          type="button"
+          className="btn primary"
+          onClick={onCollect}
+          disabled={collecting}
+          aria-busy={collecting}
+        >
+          {collecting ? "Fetching…" : "Fetch new directions"}
         </button>
       ) : null}
     </div>

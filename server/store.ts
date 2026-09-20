@@ -1,10 +1,10 @@
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { coverageFromStore, worldsFromStore } from "../shared/catalog";
 import type { CollectProgress, Coverage, World, WorldRecord, WorldsStoreFile } from "../shared/types";
 
 const dataDir = path.resolve(process.cwd(), "data");
 const worldsPath = path.join(dataDir, "worlds.json");
-const favoritesPath = path.join(dataDir, "favorites.json");
 
 const emptyStore = (): WorldsStoreFile => ({
   worlds: {},
@@ -14,7 +14,6 @@ const emptyStore = (): WorldsStoreFile => ({
 });
 
 let store: WorldsStoreFile = emptyStore();
-let favorites = new Set<string>();
 let loaded = false;
 let writeQueue: Promise<void> = Promise.resolve();
 
@@ -45,7 +44,6 @@ async function writeJson(file: string, value: unknown): Promise<void> {
 function persist(): Promise<void> {
   writeQueue = writeQueue.then(async () => {
     await writeJson(worldsPath, store);
-    await writeJson(favoritesPath, [...favorites]);
   });
   return writeQueue;
 }
@@ -59,19 +57,11 @@ export async function loadStore(): Promise<void> {
     lastCatalogCount: parsed.lastCatalogCount ?? null,
     lastCollectAt: parsed.lastCollectAt ?? null,
   };
-  const favs = await readJson<string[]>(favoritesPath, []);
-  favorites = new Set(Array.isArray(favs) ? favs.filter((id) => typeof id === "string") : []);
   loaded = true;
 }
 
 export function listWorlds(): World[] {
-  return Object.values(store.worlds)
-    .map((world) => ({ ...world, favorite: favorites.has(world.id) }))
-    .sort((a, b) => {
-      const seen = b.lastSeenAt.localeCompare(a.lastSeenAt);
-      if (seen !== 0) return seen;
-      return (a.name ?? a.id).localeCompare(b.name ?? b.id);
-    });
+  return worldsFromStore(store);
 }
 
 export function indexedCount(): number {
@@ -79,13 +69,7 @@ export function indexedCount(): number {
 }
 
 export function getCoverage(): Coverage {
-  return {
-    indexedCount: indexedCount(),
-    lastApprovedCount: store.lastApprovedCount,
-    lastCatalogCount: store.lastCatalogCount,
-    lastCollectAt: store.lastCollectAt,
-    collecting: collectProgress,
-  };
+  return coverageFromStore(store, collectProgress);
 }
 
 export function upsertWorld(incoming: WorldRecord): boolean {
@@ -113,13 +97,4 @@ export function recordCoverage(approvedCount: number | null, catalogCount: numbe
 
 export async function flushStore(): Promise<void> {
   await persist();
-}
-
-export function toggleFavorite(id: string): boolean {
-  if (favorites.has(id)) {
-    favorites.delete(id);
-    return false;
-  }
-  favorites.add(id);
-  return true;
 }

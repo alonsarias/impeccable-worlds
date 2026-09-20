@@ -1,6 +1,7 @@
 import { randomBytes } from "node:crypto";
 import type { CollectRequest, CollectStats, WorldRecord } from "../shared/types";
 import { DEFAULT_COLLECT_MODES } from "../shared/types";
+import { COLLECT_FORBIDDEN, isCollectAllowed } from "./collectAllowed";
 import {
   collectProgress,
   flushStore,
@@ -105,6 +106,15 @@ function asFiniteInt(value: unknown): number | null {
 }
 
 export async function runCollector(request: CollectRequest = {}): Promise<CollectStats> {
+  if (!isCollectAllowed()) {
+    return {
+      rollsRun: 0,
+      newIds: 0,
+      indexedCount: indexedCount(),
+      stopReason: "invalid_request",
+      error: COLLECT_FORBIDDEN.error,
+    };
+  }
   if (collectProgress?.inProgress) {
     return {
       rollsRun: collectProgress.rollsRun,

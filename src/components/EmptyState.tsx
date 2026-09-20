@@ -36,7 +36,11 @@ export function EmptyState({ kind, message, onCollect, collecting }: EmptyStateP
   return (
     <div className="empty">
       <h2>No worlds yet</h2>
-      <p>Collect from Impeccable’s public roll API to start a local index. Coverage grows by unique ids — this is never a complete catalog.</p>
+      <p>
+        {onCollect
+          ? "Collect from Impeccable’s public roll API to start a local index. Coverage grows by unique ids — this is never a complete catalog."
+          : "This deploy has no shipped worlds. Collect locally, then git push data/worlds.json."}
+      </p>
       {onCollect ? (
         <button type="button" className="btn primary" onClick={onCollect} disabled={collecting}>
           {collecting ? "Collecting…" : "Collect"}

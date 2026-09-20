@@ -6,6 +6,7 @@ import { DetailDrawer } from "./components/DetailDrawer";
 import { EmptyState } from "./components/EmptyState";
 import { WorldGrid } from "./components/WorldGrid";
 import { collectWorlds, fetchCoverage, fetchWorlds, toggleFavorite } from "./lib/api";
+import { isCollectAllowed } from "./lib/collectAllowed";
 
 function matches(world: World, query: string, tier: string, favoritesOnly: boolean): boolean {
   if (favoritesOnly && !world.favorite) return false;
@@ -76,8 +77,8 @@ export function App() {
     }
   }
 
-  async function onFavorite(id: string) {
-    const favorite = await toggleFavorite(id);
+  function onFavorite(id: string) {
+    const favorite = toggleFavorite(id);
     setWorlds((current) => current.map((world) => (world.id === id ? { ...world, favorite } : world)));
   }
 
@@ -130,7 +131,12 @@ export function App() {
         </div>
       </header>
 
-      <CoverageStrip coverage={coverage} collecting={collecting} onCollect={() => void onCollect()} />
+      <CoverageStrip
+        coverage={coverage}
+        collecting={collecting}
+        collectAllowed={isCollectAllowed()}
+        onCollect={() => void onCollect()}
+      />
 
       {error && worlds.length > 0 ? (
         <p className="banner" role="alert">
@@ -142,11 +148,11 @@ export function App() {
         <EmptyState
           kind={emptyKind}
           message={loadError ?? error ?? undefined}
-          onCollect={emptyKind === "none" ? () => void onCollect() : undefined}
+          onCollect={emptyKind === "none" && isCollectAllowed() ? () => void onCollect() : undefined}
           collecting={collecting}
         />
       ) : (
-        <WorldGrid worlds={visible} onOpen={setSelectedId} onFavorite={(id) => void onFavorite(id)} />
+        <WorldGrid worlds={visible} onOpen={setSelectedId} onFavorite={onFavorite} />
       )}
 
       <footer className="legal">
@@ -155,7 +161,7 @@ export function App() {
         catalog.
       </footer>
 
-      <DetailDrawer world={selected} onClose={() => setSelectedId(null)} onFavorite={(id) => void onFavorite(id)} />
+      <DetailDrawer world={selected} onClose={() => setSelectedId(null)} onFavorite={onFavorite} />
     </div>
   );
 }

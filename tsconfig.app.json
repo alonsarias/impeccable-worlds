@@ -17,7 +17,8 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "resolveJsonModule": true
   },
-  "include": ["src", "shared"]
+  "include": ["src", "shared", "data/worlds.json"]
 }

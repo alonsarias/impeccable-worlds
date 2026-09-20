@@ -1,30 +1,48 @@
 # Impeccable Worlds
 
-A local, browsable catalog of Impeccable design worlds. Roll the public API, index unique worlds by `id`, then search, filter, favorite, and copy a direction prompt into Cursor.
+A browsable catalog of Impeccable design worlds. Collect rolls **only on a local machine**, then commit and push `data/worlds.json`. The Vercel site is **public and read-only**: visitors can explore the catalog; they cannot run Collect or call Impeccable’s roll API.
 
 This is a personal/lab tool. It is **not** an official Impeccable product and it does **not** contain a complete catalog. There is no official dump; coverage only grows by collecting rolls and deduping.
 
-## Run
+## Run locally
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open the printed local URL (Vite, usually `http://localhost:5173`). The API is served from the same process at `/api/*`.
+Open the printed local URL (Vite, usually `http://localhost:5173`). The API is served from the same process at `/api/*`. Collect more is enabled here.
 
 ## Use
 
-1. Click **Collect** / **Collect more** to fetch rolls from `https://impeccable.style/api/roll`.
+1. Locally, click **Collect** / **Collect more** to fetch rolls from `https://impeccable.style/api/roll`.
 2. Browse the grid. Search name, form, spark, and system text. Filter by `wellTier` or favorites.
 3. Open a world to read the full direction. **Copy direction prompt** puts paste-ready text on the clipboard.
-4. Favorites persist in `data/favorites.json` across reloads.
+4. Favorites live in the browser (`localStorage`). They are per-visitor and do not need a git push.
 
-Worlds are stored in `data/worlds.json`. Missing fields render as `No value` — nothing is invented.
+Worlds are stored in `data/worlds.json`. Missing fields render as `No value` — nothing is invented. Card images stay hotlinked from `impeccable.style`.
+
+## Publish catalog
+
+Production reads the JSON shipped in git. After you collect locally:
+
+```text
+1. npm run dev
+2. Click Collect more until satisfied
+3. git add data/worlds.json
+4. git commit -m "chore: update worlds catalog"
+5. git push                  # Vercel redeploys the read-only site
+```
+
+Connect this repo to Vercel (Vite). The public deploy hides Collect more and `POST /api/collect` returns 403:
+
+`{ "error": "Collect is local-only. Catalog is updated via git push." }`
+
+No production route calls `impeccable.style/api/roll`.
 
 ## Collector politeness
 
-The collector is deliberately slow and incomplete:
+The collector is deliberately slow and incomplete, and **local-only**:
 
 - About **1.5s** between roll requests.
 - Default cap of **40** rolls per collect, or stop after **8** consecutive rolls that add no new ids.
@@ -32,7 +50,7 @@ The collector is deliberately slow and incomplete:
 - Optional `mode` rotation (`persuade`, `operate`, `read`, `experience`) to widen the pool. Send `{ "modes": [] }` on `POST /api/collect` to omit `mode`.
 - On `429` or network failure it stops and the UI shows the error. It does not retry in a tight loop.
 
-`GET /api/coverage` reports `indexedCount` vs the last seen API `approvedCount`. Those numbers will not match a “full deck,” and the UI does not claim they do.
+`GET /api/coverage` reports `indexedCount` vs the last seen API `approvedCount` stored in the shipped JSON. Those numbers will not match a “full deck,” and the UI does not claim they do.
 
 ## Attribution
 

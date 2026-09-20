@@ -16,7 +16,8 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "types": ["node"]
+    "types": ["node"],
+    "resolveJsonModule": true
   },
-  "include": ["vite.config.ts", "server", "shared"]
+  "include": ["vite.config.ts", "server", "shared", "api", "data/worlds.json"]
 }

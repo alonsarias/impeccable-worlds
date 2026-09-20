@@ -1,7 +1,8 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import type { CollectRequest } from "../shared/types";
+import { COLLECT_FORBIDDEN, isCollectAllowed } from "./collectAllowed";
 import { runCollector } from "./collector";
-import { flushStore, getCoverage, listWorlds, loadStore, toggleFavorite } from "./store";
+import { getCoverage, listWorlds, loadStore } from "./store";
 
 function sendJson(res: ServerResponse, status: number, body: unknown): void {
   res.statusCode = status;
@@ -52,26 +53,11 @@ export async function handleApi(req: IncomingMessage, res: ServerResponse): Prom
     return true;
   }
 
-  if (method === "POST" && url.pathname === "/api/favorites") {
-    let body: unknown;
-    try {
-      body = await parseJsonBody(req);
-    } catch {
-      sendJson(res, 400, { error: "Invalid JSON body." });
-      return true;
-    }
-    const id = body && typeof body === "object" ? (body as { id?: unknown }).id : undefined;
-    if (typeof id !== "string" || id.trim() === "") {
-      sendJson(res, 400, { error: "id is required." });
-      return true;
-    }
-    const favorite = toggleFavorite(id);
-    await flushStore();
-    sendJson(res, 200, { id, favorite });
-    return true;
-  }
-
   if (method === "POST" && url.pathname === "/api/collect") {
+    if (!isCollectAllowed()) {
+      sendJson(res, 403, COLLECT_FORBIDDEN);
+      return true;
+    }
     let body: unknown;
     try {
       body = await parseJsonBody(req);

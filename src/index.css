@@ -190,6 +190,45 @@ h1 {
   background: #fff;
 }
 
+.purpose {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 1rem;
+}
+
+.purpose .lede {
+  flex: 1 1 36ch;
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin: 0;
+  padding: 0 6px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  cursor: pointer;
+}
+
+.legal .text-link {
+  min-height: 0;
+  padding: 8px 6px;
+  margin: -8px 0;
+  vertical-align: baseline;
+}
+
+.text-link:hover {
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+}
+
 .controls {
   display: flex;
   flex-wrap: wrap;
@@ -559,6 +598,68 @@ h1 {
 .fav.is-on {
   background: #000;
   color: #fff;
+}
+
+.how-dialog {
+  width: min(36rem, calc(100% - 32px));
+  max-height: min(36rem, calc(100% - 48px));
+  margin: auto;
+  padding: 0;
+  border: 1px solid #000;
+  background: #fff;
+  color: #000;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: #000 #fff;
+  scrollbar-width: thin;
+}
+
+.how-dialog::backdrop {
+  background: rgb(255 255 255 / 0.86);
+}
+
+.how-panel {
+  padding: 22px 22px 24px;
+  display: grid;
+  gap: 16px;
+}
+
+.how-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 16px;
+}
+
+.how-dialog h2 {
+  margin: 0;
+  padding-top: 8px;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+.how-steps {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 10px;
+}
+
+.how-steps a {
+  color: inherit;
+  text-underline-offset: 0.18em;
+}
+
+.how-steps a:hover {
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+}
+
+.how-soft {
+  margin: 0;
+  max-width: 52ch;
 }
 
 .detail-root {

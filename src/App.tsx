@@ -7,6 +7,7 @@ import { CoverageStrip } from "./components/CoverageStrip";
 import { DetailDrawer } from "./components/DetailDrawer";
 import { EmptyState } from "./components/EmptyState";
 import { GitHubMark } from "./components/GitHubMark";
+import { HowItWorksDialog } from "./components/HowItWorksDialog";
 import { ResultsBar } from "./components/ResultsBar";
 import { WaveField } from "./components/WaveField";
 import type { CardLayout } from "./components/WorldGrid";
@@ -67,6 +68,7 @@ export function App() {
   const [collectFeedback, setCollectFeedback] = useState<CollectFeedback>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
+  const [howItWorksOpen, setHowItWorksOpen] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
 
   const refresh = useCallback(async () => {
@@ -183,10 +185,21 @@ export function App() {
             <div className="masthead">
               <div>
                 <h1>Impeccable Worlds</h1>
-                <p className="lede">
-                  Browse, filter, and copy a direction — not an official or
-                  complete deck.
-                </p>
+                <div className="purpose">
+                  <p className="lede">
+                    A browsable catalog of Impeccable design worlds. Search,
+                    preview, and copy a direction into your coding agent.
+                  </p>
+                  <button
+                    type="button"
+                    className="text-link"
+                    aria-haspopup="dialog"
+                    aria-expanded={howItWorksOpen}
+                    onClick={() => setHowItWorksOpen(true)}
+                  >
+                    How it works
+                  </button>
+                </div>
               </div>
               <a
                 className="github-link"
@@ -321,9 +334,23 @@ export function App() {
             World names, direction text, and card images come from Impeccable
             (impeccable.style). This is a personal/lab index for choosing a
             direction by eye. It is not an official Impeccable product, and it
-            does not claim a complete catalog.
+            does not claim a complete catalog.{" "}
+            <button
+              type="button"
+              className="text-link"
+              aria-haspopup="dialog"
+              aria-expanded={howItWorksOpen}
+              onClick={() => setHowItWorksOpen(true)}
+            >
+              About
+            </button>
           </footer>
         </div>
+
+        <HowItWorksDialog
+          open={howItWorksOpen}
+          onClose={() => setHowItWorksOpen(false)}
+        />
 
         <DetailDrawer
           world={selected}

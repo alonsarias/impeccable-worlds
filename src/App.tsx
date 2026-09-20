@@ -97,7 +97,7 @@ export function App() {
       <header className="top">
         <div>
           <h1>Impeccable Worlds</h1>
-          <p className="lede">Local catalog. Browse, filter, and copy a direction — not an official or complete deck.</p>
+          <p className="lede">Browse, filter, and copy a direction — not an official or complete deck.</p>
         </div>
         <div className="controls">
           <label className="search">
@@ -131,12 +131,9 @@ export function App() {
         </div>
       </header>
 
-      <CoverageStrip
-        coverage={coverage}
-        collecting={collecting}
-        collectAllowed={isCollectAllowed()}
-        onCollect={() => void onCollect()}
-      />
+      {isCollectAllowed() ? (
+        <CoverageStrip coverage={coverage} collecting={collecting} onCollect={() => void onCollect()} />
+      ) : null}
 
       {error && worlds.length > 0 ? (
         <p className="banner" role="alert">

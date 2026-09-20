@@ -34,7 +34,7 @@ Production reads the JSON shipped in git. After you collect locally:
 5. git push                  # Vercel redeploys the read-only site
 ```
 
-Connect this repo to Vercel (Vite). The public deploy hides Collect more and `POST /api/collect` returns 403:
+Connect this repo to Vercel (Vite). The public deploy hides the coverage/Collect strip and `POST /api/collect` returns 403:
 
 `{ "error": "Collect is local-only. Catalog is updated via git push." }`
 

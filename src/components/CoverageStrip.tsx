@@ -4,11 +4,10 @@ import { displayValue } from "../lib/display";
 interface CoverageStripProps {
   coverage: Coverage | null;
   collecting: boolean;
-  collectAllowed: boolean;
   onCollect: () => void;
 }
 
-export function CoverageStrip({ coverage, collecting, collectAllowed, onCollect }: CoverageStripProps) {
+export function CoverageStrip({ coverage, collecting, onCollect }: CoverageStripProps) {
   const progress = coverage?.collecting;
   const approved = coverage ? displayValue(coverage.lastApprovedCount?.toString()) : displayValue(undefined);
   const indexed = coverage?.indexedCount ?? 0;
@@ -28,20 +27,10 @@ export function CoverageStrip({ coverage, collecting, collectAllowed, onCollect 
           ·
         </span>
         <span>API approved {approved} (last seen)</span>
-        {!collectAllowed ? (
-          <>
-            <span className="dot" aria-hidden="true">
-              ·
-            </span>
-            <span>Production is read-only. Collect locally, then push.</span>
-          </>
-        ) : null}
       </p>
-      {collectAllowed ? (
-        <button type="button" className="btn" onClick={onCollect} disabled={collecting}>
-          {collecting ? "Collecting…" : "Collect more"}
-        </button>
-      ) : null}
+      <button type="button" className="btn" onClick={onCollect} disabled={collecting}>
+        {collecting ? "Collecting…" : "Collect more"}
+      </button>
     </section>
   );
 }

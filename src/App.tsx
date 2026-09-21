@@ -84,20 +84,35 @@ function useWideCatalog() {
 function MobileFold({
   label,
   wide,
+  collapseWhen = false,
+  className,
   children,
 }: {
   label: string;
   wide: boolean;
+  collapseWhen?: boolean;
+  className?: string;
   children: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
+  const skipToggle = useRef(false);
+
+  useEffect(() => {
+    if (wide || !collapseWhen) return;
+    skipToggle.current = true;
+    setOpen(false);
+  }, [wide, collapseWhen]);
 
   return (
     <details
-      className="fold"
+      className={className ? `fold ${className}` : "fold"}
       open={wide || open}
       onToggle={(event) => {
         if (wide) return;
+        if (skipToggle.current) {
+          skipToggle.current = false;
+          return;
+        }
         setOpen(event.currentTarget.open);
       }}
     >
@@ -356,7 +371,11 @@ export function App() {
                   </a>
                 </div>
               </header>
-              <MobileFold label="Search and filters" wide={wide}>
+              <MobileFold
+                label="Search and filters"
+                wide={wide}
+                collapseWhen={emptyKind === "filtered"}
+              >
                 <div className="controls">
                   <label className="search">
                     <span>Search</span>
@@ -424,7 +443,12 @@ export function App() {
             </div>
 
             {isCollectAllowed() ? (
-              <MobileFold label="Collect" wide={wide}>
+              <MobileFold
+                className="collect-fold"
+                label="Collect"
+                wide={wide}
+                collapseWhen={emptyKind === "filtered"}
+              >
                 <CoverageStrip
                   coverage={coverage}
                   collecting={collecting}

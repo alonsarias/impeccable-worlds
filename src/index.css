@@ -770,6 +770,19 @@ h1 {
   outline: none;
   display: flex;
   flex-direction: column;
+  touch-action: pan-y;
+  overscroll-behavior-x: none;
+}
+
+.detail-root *,
+.image-viewer * {
+  touch-action: pan-y;
+}
+
+.detail-root.is-swiping,
+.image-viewer.is-swiping {
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .detail {
@@ -895,6 +908,8 @@ h1 {
   z-index: 4;
   background: #fff;
   outline: none;
+  touch-action: pan-y;
+  overscroll-behavior-x: none;
 }
 
 .image-viewer-bar {

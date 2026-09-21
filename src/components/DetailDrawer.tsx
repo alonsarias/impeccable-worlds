@@ -1,8 +1,9 @@
-import { useEffect, useId, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import type { World } from "../../shared/types";
 import { copyText } from "../lib/clipboard";
 import { buildDirectionPrompt } from "../lib/directionPrompt";
 import { displayValue } from "../lib/display";
+import { useSwipeNavigate } from "../lib/useSwipeNavigate";
 import { worldShareUrl } from "../lib/worldPath";
 
 interface DetailDrawerProps {
@@ -96,23 +97,39 @@ export function DetailDrawer({
     });
   }
 
-  function stepViewer(delta: number) {
-    if (viewerImages.length < 2) return;
-    setViewerIndex((current) => {
-      if (current === null) return current;
-      return (current + delta + viewerImages.length) % viewerImages.length;
-    });
-  }
-
-  useEffect(() => {
-    if (!open) return;
-
-    const step = (delta: number) => {
+  const stepWorld = useCallback(
+    (delta: number) => {
       if (!world || queue.length === 0) return;
       const current = queue.findIndex((entry) => entry.id === world.id);
       const from = current >= 0 ? current : delta > 0 ? -1 : 0;
       onSelect(queue[(from + delta + queue.length) % queue.length].id);
-    };
+    },
+    [world, queue, onSelect],
+  );
+
+  const stepViewer = useCallback(
+    (delta: number) => {
+      if (viewerImages.length < 2) return;
+      setViewerIndex((current) => {
+        if (current === null) return current;
+        return (current + delta + viewerImages.length) % viewerImages.length;
+      });
+    },
+    [viewerImages.length],
+  );
+
+  useSwipeNavigate(paneRef, {
+    enabled: open && canStep && viewerIndex === null && Boolean(world),
+    onStep: stepWorld,
+  });
+
+  useSwipeNavigate(viewerRef, {
+    enabled: viewerIndex !== null && viewerImages.length > 1,
+    onStep: stepViewer,
+  });
+
+  useEffect(() => {
+    if (!open) return;
 
     const onKey = (event: KeyboardEvent) => {
       if (
@@ -175,11 +192,11 @@ export function DetailDrawer({
       if (!canStep) return;
       if (event.key === "ArrowLeft") {
         event.preventDefault();
-        step(-1);
+        stepWorld(-1);
       }
       if (event.key === "ArrowRight") {
         event.preventDefault();
-        step(1);
+        stepWorld(1);
       }
     };
 
@@ -187,11 +204,10 @@ export function DetailDrawer({
     return () => window.removeEventListener("keydown", onKey);
   }, [
     open,
-    world,
-    queue,
     canStep,
     onClose,
-    onSelect,
+    stepWorld,
+    stepViewer,
     viewerIndex,
     viewerImages.length,
   ]);
@@ -259,13 +275,6 @@ export function DetailDrawer({
   const position =
     index >= 0 ? `${index + 1} / ${queue.length}` : `${queue.length} in view`;
 
-  function step(delta: number) {
-    if (queue.length === 0) return;
-    const current = queue.findIndex((entry) => entry.id === selected.id);
-    const from = current >= 0 ? current : delta > 0 ? -1 : 0;
-    onSelect(queue[(from + delta + queue.length) % queue.length].id);
-  }
-
   async function copyPrompt() {
     const ok = await copyText(buildDirectionPrompt(selected));
     setCopied(ok ? "prompt" : null);
@@ -281,7 +290,11 @@ export function DetailDrawer({
       aria-describedby={descId}
       tabIndex={-1}
     >
-      <div className="detail" inert={viewerIndex !== null ? true : undefined}>
+      <div
+        className="detail"
+        data-swipe-motion
+        inert={viewerIndex !== null ? true : undefined}
+      >
         <header className="detail-head">
           <div>
             <p className={`tier tier-${selected.wellTier ?? "unknown"}`}>
@@ -296,7 +309,7 @@ export function DetailDrawer({
             <button
               type="button"
               className="icon-btn"
-              onClick={() => step(-1)}
+              onClick={() => stepWorld(-1)}
               disabled={!canStep}
               aria-label="Previous world"
               title="Previous world"
@@ -306,7 +319,7 @@ export function DetailDrawer({
             <button
               type="button"
               className="icon-btn"
-              onClick={() => step(1)}
+              onClick={() => stepWorld(1)}
               disabled={!canStep}
               aria-label="Next world"
               title="Next world"
@@ -324,8 +337,8 @@ export function DetailDrawer({
           </div>
         </header>
         <p id={descId} className="sr-only">
-          {displayValue(selected.form)}. Use the left and right arrow keys to
-          move between worlds. Open an image to view it full size.
+          {displayValue(selected.form)}. Use the left and right arrow keys, or
+          swipe, to move between worlds. Open an image to view it full size.
         </p>
 
         <div className="detail-scroll" ref={scrollRef}>
@@ -466,7 +479,11 @@ export function DetailDrawer({
               ×
             </button>
           </div>
-          <div className="image-viewer-stage" onClick={closeViewer}>
+          <div
+            className="image-viewer-stage"
+            data-swipe-motion
+            onClick={closeViewer}
+          >
             <img
               src={viewerImages[viewerIndex]}
               alt={name}

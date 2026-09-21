@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import type { Coverage, World } from "../shared/types";
 import { DEFAULT_COLLECT_MODES, WELL_TIERS } from "../shared/types";
 import type { WorldSort } from "../shared/catalog";
@@ -59,6 +66,47 @@ function matches(
   return haystack.includes(needle);
 }
 
+const WIDE_CATALOG = "(min-width: 721px)";
+
+function useWideCatalog() {
+  const [wide, setWide] = useState(() => window.matchMedia(WIDE_CATALOG).matches);
+
+  useEffect(() => {
+    const media = window.matchMedia(WIDE_CATALOG);
+    const update = () => setWide(media.matches);
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  return wide;
+}
+
+function MobileFold({
+  label,
+  wide,
+  children,
+}: {
+  label: string;
+  wide: boolean;
+  children: ReactNode;
+}) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <details
+      className="fold"
+      open={wide || open}
+      onToggle={(event) => {
+        if (wide) return;
+        setOpen(event.currentTarget.open);
+      }}
+    >
+      <summary>{label}</summary>
+      {children}
+    </details>
+  );
+}
+
 export function App() {
   const [worlds, setWorlds] = useState<World[]>([]);
   const [coverage, setCoverage] = useState<Coverage | null>(null);
@@ -77,6 +125,7 @@ export function App() {
   const [loadError, setLoadError] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
   const [howItWorksOpen, setHowItWorksOpen] = useState(false);
+  const wide = useWideCatalog();
   const searchRef = useRef<HTMLInputElement>(null);
 
   const refresh = useCallback(async () => {
@@ -272,132 +321,146 @@ export function App() {
       />
       <div className="app">
         <div className="catalog" inert={drawerId ? true : undefined}>
-          <header className="top">
-            <div className="masthead">
-              <div>
-                <h1>Impeccable Worlds</h1>
-                <div className="purpose">
-                  <p className="lede">
-                    A browsable catalog of Impeccable design worlds. Search,
-                    preview, and copy a direction into your coding agent.
-                  </p>
-                  <button
-                    type="button"
-                    className="text-link"
-                    aria-haspopup="dialog"
-                    aria-expanded={howItWorksOpen}
-                    aria-controls={HOW_IT_WORKS_DIALOG_ID}
-                    onClick={() => setHowItWorksOpen(true)}
+          <div className="catalog-chrome">
+            <div className="catalog-stick">
+              <header className="top">
+                <div className="masthead">
+                  <div>
+                    <h1>Impeccable Worlds</h1>
+                    <div className="purpose">
+                      <p className="lede">
+                        A browsable catalog of Impeccable design worlds. Search,
+                        preview, and copy a direction into your coding agent.
+                      </p>
+                      <button
+                        type="button"
+                        className="text-link"
+                        aria-haspopup="dialog"
+                        aria-expanded={howItWorksOpen}
+                        aria-controls={HOW_IT_WORKS_DIALOG_ID}
+                        onClick={() => setHowItWorksOpen(true)}
+                      >
+                        How it works
+                      </button>
+                    </div>
+                  </div>
+                  <a
+                    className="github-link"
+                    href={GITHUB_REPO_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View on GitHub"
+                    title="View on GitHub"
                   >
-                    How it works
-                  </button>
+                    <GitHubMark />
+                  </a>
                 </div>
-              </div>
-              <a
-                className="github-link"
-                href={GITHUB_REPO_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="View on GitHub"
-                title="View on GitHub"
-              >
-                <GitHubMark />
-              </a>
+              </header>
+              <MobileFold label="Search and filters" wide={wide}>
+                <div className="controls">
+                  <label className="search">
+                    <span>Search</span>
+                    <input
+                      ref={searchRef}
+                      type="search"
+                      value={query}
+                      onChange={(event) => setQuery(event.target.value)}
+                      placeholder="Name, form, spark, system"
+                    />
+                  </label>
+                  <label>
+                    <span>Direction type</span>
+                    <select
+                      value={tier}
+                      onChange={(event) => setTier(event.target.value)}
+                      aria-describedby="tier-legend"
+                    >
+                      <option value="all">All</option>
+                      {WELL_TIERS.map((value) => (
+                        <option key={value} value={value}>
+                          {titleCaseTier(value)}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <label>
+                    <span>Sort</span>
+                    <select
+                      value={sort}
+                      onChange={(event) =>
+                        setSort(event.target.value as WorldSort)
+                      }
+                    >
+                      <option value="name">Alphabetical</option>
+                      <option value="newest">Newest</option>
+                      <option value="tier">Direction type</option>
+                    </select>
+                  </label>
+                  <label>
+                    <span>Layout</span>
+                    <select
+                      value={layout}
+                      onChange={(event) =>
+                        setLayout(event.target.value as CardLayout)
+                      }
+                    >
+                      <option value="comfortable">Larger cards</option>
+                      <option value="compact">Dense cards</option>
+                      <option value="list">List</option>
+                    </select>
+                  </label>
+                  <label className="check">
+                    <input
+                      type="checkbox"
+                      checked={favoritesOnly}
+                      onChange={(event) =>
+                        setFavoritesOnly(event.target.checked)
+                      }
+                    />
+                    Favorites only
+                  </label>
+                </div>
+              </MobileFold>
             </div>
-            <div className="controls">
-              <label className="search">
-                <span>Search</span>
-                <input
-                  ref={searchRef}
-                  type="search"
-                  value={query}
-                  onChange={(event) => setQuery(event.target.value)}
-                  placeholder="Name, form, spark, system"
-                />
-              </label>
-              <label>
-                <span>Direction type</span>
-                <select
-                  value={tier}
-                  onChange={(event) => setTier(event.target.value)}
-                  aria-describedby="tier-legend"
-                >
-                  <option value="all">All</option>
-                  {WELL_TIERS.map((value) => (
-                    <option key={value} value={value}>
-                      {titleCaseTier(value)}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                <span>Sort</span>
-                <select
-                  value={sort}
-                  onChange={(event) => setSort(event.target.value as WorldSort)}
-                >
-                  <option value="name">Alphabetical</option>
-                  <option value="newest">Newest</option>
-                  <option value="tier">Direction type</option>
-                </select>
-              </label>
-              <label>
-                <span>Layout</span>
-                <select
-                  value={layout}
-                  onChange={(event) =>
-                    setLayout(event.target.value as CardLayout)
+
+            {isCollectAllowed() ? (
+              <MobileFold label="Collect" wide={wide}>
+                <CoverageStrip
+                  coverage={coverage}
+                  collecting={collecting}
+                  error={
+                    collectFeedback?.tone === "error"
+                      ? collectFeedback.text
+                      : null
                   }
-                >
-                  <option value="comfortable">Larger cards</option>
-                  <option value="compact">Dense cards</option>
-                  <option value="list">List</option>
-                </select>
-              </label>
-              <label className="check">
-                <input
-                  type="checkbox"
-                  checked={favoritesOnly}
-                  onChange={(event) => setFavoritesOnly(event.target.checked)}
+                  includeDirection={includeDirection}
+                  selectedModes={selectedModes}
+                  onToggleDirection={() => setIncludeDirection((on) => !on)}
+                  onToggleMode={toggleMode}
+                  onCollect={() => void onCollect()}
                 />
-                Favorites only
-              </label>
-            </div>
-          </header>
+              </MobileFold>
+            ) : null}
 
-          {isCollectAllowed() ? (
-            <CoverageStrip
-              coverage={coverage}
-              collecting={collecting}
-              error={
-                collectFeedback?.tone === "error" ? collectFeedback.text : null
-              }
-              includeDirection={includeDirection}
-              selectedModes={selectedModes}
-              onToggleDirection={() => setIncludeDirection((on) => !on)}
-              onToggleMode={toggleMode}
-              onCollect={() => void onCollect()}
-            />
-          ) : null}
+            <p
+              className={liveClass}
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+            >
+              {liveText}
+            </p>
 
-          <p
-            className={liveClass}
-            role="status"
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            {liveText}
-          </p>
-
-          {loadError ? null : (
-            <ResultsBar
-              count={visible.length}
-              query={query}
-              tier={tier}
-              favoritesOnly={favoritesOnly}
-              ready={ready}
-            />
-          )}
+            {loadError ? null : (
+              <ResultsBar
+                count={visible.length}
+                query={query}
+                tier={tier}
+                favoritesOnly={favoritesOnly}
+                ready={ready}
+              />
+            )}
+          </div>
 
           {emptyKind ? (
             <EmptyState

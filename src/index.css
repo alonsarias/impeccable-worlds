@@ -133,6 +133,56 @@ a:focus-visible {
   z-index: 1;
 }
 
+.catalog-chrome,
+.catalog-stick {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.catalog-chrome {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  margin-bottom: -18px;
+  padding-bottom: 18px;
+  background: #fff;
+}
+
+.fold > summary {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .catalog-chrome {
+    display: contents;
+  }
+
+  .catalog-stick {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    margin: 0 -16px;
+    padding: max(8px, env(safe-area-inset-top)) 16px 12px;
+    background: #fff;
+  }
+
+  .fold[open] {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .fold > summary {
+    display: list-item;
+    min-height: 44px;
+    padding-block: 10px;
+    cursor: pointer;
+    font-size: 0.82rem;
+    user-select: none;
+  }
+}
+
 .top {
   display: flex;
   flex-direction: column;

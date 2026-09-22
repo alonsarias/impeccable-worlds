@@ -19,5 +19,5 @@
     "types": ["node"],
     "resolveJsonModule": true
   },
-  "include": ["vite.config.ts", "server", "shared", "api", "data/worlds.json"]
+  "include": ["vite.config.ts", "server", "shared", "api", "scripts", "data/worlds.json"]
 }

@@ -1,6 +1,7 @@
-import { useState } from "react";
 import type { World } from "../../shared/types";
+import { blobCardUrl } from "../lib/cardImages";
 import { displayValue } from "../lib/display";
+import { useCardSource } from "../lib/useCardSource";
 import { shouldAllowNativeLink, worldPath } from "../lib/worldPath";
 import { CanvasFrame } from "./WaveField";
 
@@ -18,7 +19,10 @@ export function WorldCard({
   onFavorite,
 }: WorldCardProps) {
   const thumb = world.cardHero ?? world.cardBoard;
-  const [broken, setBroken] = useState(false);
+  const image = useCardSource(
+    thumb,
+    blobCardUrl(world.id, world.cardHero ? "hero" : "board"),
+  );
   const name = displayValue(world.name);
   const tier = displayValue(world.wellTier);
 
@@ -35,13 +39,13 @@ export function WorldCard({
         }}
       >
         <div className="card-thumb">
-          {thumb && !broken ? (
+          {image.src ? (
             <img
-              src={thumb}
+              src={image.src}
               alt=""
               loading="lazy"
               decoding="async"
-              onError={() => setBroken(true)}
+              onError={image.onError}
             />
           ) : (
             <span className="missing">No value</span>

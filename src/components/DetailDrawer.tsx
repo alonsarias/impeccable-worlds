@@ -1,8 +1,10 @@
 import { useEffect, useId, useRef, useState } from "react";
 import type { World } from "../../shared/types";
+import { blobCardUrl } from "../lib/cardImages";
 import { copyText } from "../lib/clipboard";
 import { buildDirectionPrompt } from "../lib/directionPrompt";
 import { displayValue } from "../lib/display";
+import { useCardSource } from "../lib/useCardSource";
 import { worldShareUrl } from "../lib/worldPath";
 
 interface DetailDrawerProps {
@@ -55,12 +57,26 @@ export function DetailDrawer({
 
   const open = requestedId !== null;
   const shareId = world?.id ?? requestedId;
-  const preview = world ? (world.cardHero ?? world.cardBoard) : undefined;
-  const board =
-    world?.cardBoard && world.cardBoard !== preview ? world.cardBoard : null;
-  const viewerImages = [preview, board].filter((src): src is string =>
-    Boolean(src),
-  );
+  const previewUpstream = world
+    ? (world.cardHero ?? world.cardBoard)
+    : undefined;
+  const previewFallback = world
+    ? blobCardUrl(world.id, world.cardHero ? "hero" : "board")
+    : null;
+  const boardUpstream =
+    world?.cardBoard && world.cardBoard !== previewUpstream
+      ? world.cardBoard
+      : undefined;
+  const boardFallback =
+    world && boardUpstream ? blobCardUrl(world.id, "board") : null;
+  const previewImage = useCardSource(previewUpstream, previewFallback);
+  const boardImage = useCardSource(boardUpstream, boardFallback);
+  const viewerPreview = useCardSource(previewUpstream, previewFallback);
+  const viewerBoard = useCardSource(boardUpstream, boardFallback);
+  const viewerImages = [
+    previewUpstream ? viewerPreview : null,
+    boardUpstream ? viewerBoard : null,
+  ].filter((source): source is typeof viewerPreview => source !== null);
 
   useEffect(() => {
     setCopied(null);
@@ -330,7 +346,7 @@ export function DetailDrawer({
 
         <div className="detail-scroll" ref={scrollRef}>
           <div className="previews">
-            {preview ? (
+            {previewImage.src ? (
               <div className="preview-stage">
                 <button
                   ref={(node) => {
@@ -342,27 +358,31 @@ export function DetailDrawer({
                   aria-haspopup="dialog"
                   aria-label={`View ${name} full size`}
                 >
-                  <img src={preview} alt="" />
+                  <img src={previewImage.src} alt="" onError={previewImage.onError} />
                 </button>
               </div>
             ) : (
               <div className="missing-block">No value</div>
             )}
-            {board ? (
-              <div className="preview-stage">
-                <button
-                  ref={(node) => {
-                    previewBtnRefs.current[1] = node;
-                  }}
-                  type="button"
-                  className="preview-open"
-                  onClick={() => setViewerIndex(1)}
-                  aria-haspopup="dialog"
-                  aria-label={`View ${name} board full size`}
-                >
-                  <img src={board} alt="" />
-                </button>
-              </div>
+            {boardUpstream ? (
+              boardImage.src ? (
+                <div className="preview-stage">
+                  <button
+                    ref={(node) => {
+                      previewBtnRefs.current[1] = node;
+                    }}
+                    type="button"
+                    className="preview-open"
+                    onClick={() => setViewerIndex(1)}
+                    aria-haspopup="dialog"
+                    aria-label={`View ${name} board full size`}
+                  >
+                    <img src={boardImage.src} alt="" onError={boardImage.onError} />
+                  </button>
+                </div>
+              ) : (
+                <div className="missing-block">No value</div>
+              )
             ) : null}
           </div>
 
@@ -467,11 +487,16 @@ export function DetailDrawer({
             </button>
           </div>
           <div className="image-viewer-stage" onClick={closeViewer}>
-            <img
-              src={viewerImages[viewerIndex]}
-              alt={name}
-              onClick={(event) => event.stopPropagation()}
-            />
+            {viewerImages[viewerIndex].src ? (
+              <img
+                src={viewerImages[viewerIndex].src}
+                alt={name}
+                onError={viewerImages[viewerIndex].onError}
+                onClick={(event) => event.stopPropagation()}
+              />
+            ) : (
+              <span className="missing">No value</span>
+            )}
           </div>
         </div>
       ) : null}

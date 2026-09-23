@@ -1,5 +1,6 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig, loadEnv, type Plugin } from "vite";
+import { worldOgPlugin } from "./server/worldOgPlugin";
 import { apiPlugin } from "./server/vite-plugin";
 
 const SITE_TITLE = "Impeccable Worlds";
@@ -40,7 +41,15 @@ function seoUrlsPlugin(siteUrl: string): Plugin {
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "VITE_");
   return {
-    plugins: [react(), apiPlugin(), seoUrlsPlugin(env.VITE_SITE_URL ?? "")],
+    plugins: [
+      react(),
+      apiPlugin(),
+      seoUrlsPlugin(env.VITE_SITE_URL ?? ""),
+      worldOgPlugin({
+        siteUrl: env.VITE_SITE_URL ?? "",
+        blobBase: env.VITE_BLOB_CARDS_BASE_URL ?? "",
+      }),
+    ],
     server: {
       allowedHosts: [".trycloudflare.com"],
     },

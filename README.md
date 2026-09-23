@@ -16,8 +16,8 @@ Open the printed local URL (Vite, usually `http://localhost:5173`). The API is s
 Optional public Vite keys go in `.env.local` (gitignored) or on Vercel:
 
 - `VITE_GITHUB_REPO_URL` — header **View on GitHub** URL. Default: `https://github.com/alonsarias/impeccable-worlds`.
-- `VITE_SITE_URL` — public origin for the canonical URL and absolute Open Graph / Twitter image (`/og.png`). No trailing slash. Example: `https://your-deployment.vercel.app`. If unset, canonical and `og:url` are omitted and the share image is the relative path `/og.png`.
-- `VITE_BLOB_CARDS_BASE_URL` — public Blob origin used only when an upstream card image fails. No trailing slash. See [Card images](#card-images).
+- `VITE_SITE_URL` — public https origin, no trailing slash. Home uses it for the canonical URL and the absolute Open Graph image (`/og.png`). World share pages use it for `og:url` and canonical. Example: `https://impeccableworlds.vercel.app`. If unset, those absolute URLs are omitted and the home share image is the relative path `/og.png`.
+- `VITE_BLOB_CARDS_BASE_URL` — public Blob origin, no trailing slash. The page falls back to it when an upstream card image fails. Share previews prefer it for the hero image. See [Card images](#card-images) and [Share previews](#share-previews).
 
 ## Use
 
@@ -61,7 +61,7 @@ The collector is deliberately slow and incomplete, and **local-only**:
 
 ## Card images
 
-The grid, detail drawer, and lightbox request `cardHero` / `cardBoard` from `impeccable.style` first. If that image fails to load, the client retries the public Blob copy. Blob is not the primary source.
+The grid, detail drawer, and lightbox request `cardHero` / `cardBoard` from `impeccable.style` first. If that image fails to load, the client retries the public Blob copy. Blob is not the primary source on the page. Share previews are separate: they prefer the Blob hero. See [Share previews](#share-previews).
 
 Pathnames are derived from the world id. They are not copied into `data/worlds.json`:
 
@@ -88,6 +88,59 @@ npm run sync:cards
 Run it once to fill the store. Run it again after a Collect that adds worlds (or changes card URLs). Re-runs overwrite the same pathnames. The script logs `ok` or `fail` per world id and exits non-zero if any image fails.
 
 `.env.local` is gitignored. Do not commit it. `VITE_BLOB_CARDS_BASE_URL` is already set on Vercel for Production, Preview, and Development. Keep the same value in `.env.local` for local fallback.
+
+## Share previews
+
+Copy link shares `/w/{slug}`. Slack, iMessage, X, and LinkedIn read Open Graph tags from the first HTML response. They do not run the React app, so updating `document.title` in the client is not enough.
+
+The production build writes a static copy of the SPA shell for every catalog world:
+
+- `dist/w/{slug}/index.html`
+- `dist/w/{id}/index.html` when the public slug is not the world id
+
+Vercel checks the filesystem before the `/w/:id` rewrite in `vercel.json`, so a known world is served from that file. The JavaScript is still the same SPA: it opens that world, and copy link and favorites behave as they do on any other load. An id that is not in the catalog has no file, the rewrite serves the site shell, and the app still opens the missing-world drawer.
+
+Each world file sets:
+
+- `og:title`, `twitter:title`, and `<title>`: `{World name} · Impeccable Worlds`
+- `og:description`, `twitter:description`, and `description`: the spark, collapsed to one line and cut at a word boundary so it stays within 160 characters. If the spark is empty, the form is used. If both are empty: `Choose a direction by eye. Copy the prompt.`
+- `og:image` and `twitter:image`: `{VITE_BLOB_CARDS_BASE_URL}/cards/{worldId}-hero.webp` when that origin is `https`. Otherwise the catalog `cardHero` URL. The path uses the world id, not the slug. It is the hero only — not the board, and not `/og.png`.
+- `twitter:card`: `summary_large_image`
+- `og:url` and canonical: `{VITE_SITE_URL}/w/{slug}`
+
+`/` is unchanged and still uses `/og.png`.
+
+`VITE_SITE_URL` has to be present at build time (it is set on Vercel) or world pages omit absolute `og:url` and canonical. `VITE_BLOB_CARDS_BASE_URL` has to be an `https` origin or the image falls back to `cardHero`.
+
+In `npm run dev`, the same tags are injected on the fly. `og:url` uses the dev server origin so a local fetch matches the URL you requested. A production build bakes `VITE_SITE_URL` instead.
+
+### Check a preview
+
+With the dev server running:
+
+```bash
+curl -s http://localhost:5173/w/miura-orbit-sheet | grep -E 'og:title|og:description|og:image"|og:url|twitter:card'
+curl -s http://localhost:5173/ | grep 'og:image'
+```
+
+The world response should include `Miura Orbit Sheet · Impeccable Worlds` and a hero `og:image` ending in `paper-folds-pleats-deployable-miura-orbit-sheet-hero.webp`. The home response should still point at `og.png`.
+
+To inspect the files Vercel will serve, build with the public origin and start the preview server:
+
+```bash
+VITE_SITE_URL=https://impeccableworlds.vercel.app npm run build
+npm run preview
+```
+
+Then:
+
+```bash
+curl -s http://127.0.0.1:4173/w/miura-orbit-sheet | grep og:url
+```
+
+Vite prints the preview port; 4173 is the default. `og:url` should be `https://impeccableworlds.vercel.app/w/miura-orbit-sheet`.
+
+After deploy, fetch `https://impeccableworlds.vercel.app/w/miura-orbit-sheet` the same way, then paste that URL into [opengraph.xyz](https://www.opengraph.xyz/) or the Facebook Sharing Debugger. Those tools cache cards. Scrape again after a new deploy.
 
 ## Attribution
 

@@ -73,25 +73,62 @@ export function HowItWorksDialog({ open, onClose }: HowItWorksDialogProps) {
         </header>
 
         <div className="how-body">
-          <ol id={descId} className="how-steps">
+          <p id={descId} className="how-lede">
+            This catalog helps you pick a visual direction by eye, then build
+            with Impeccable — even if you have never used Impeccable before.
+          </p>
+
+          <ol className="how-steps">
             <li>
-              Browse design worlds — visual directions — with a preview and the
-              system rules.
+              <div className="how-step">
+                <p>In the project you will build, install Impeccable:</p>
+                <pre>
+                  <code>npx impeccable install</code>
+                </pre>
+                <p>
+                  Run <code>/impeccable init</code> once (product context only —
+                  not the look).
+                </p>
+              </div>
             </li>
             <li>
-              Search or filter, open a world, and copy a direction prompt into
-              your coding agent.
+              <div className="how-step">
+                <p>
+                  Browse this site, open a world, click Copy direction prompt.
+                </p>
+                <p>That text tells the agent to keep the world you chose.</p>
+              </div>
             </li>
             <li>
-              Each world has its own link. Share it and the other person lands
-              on that world.
+              <div className="how-step">
+                <p>
+                  In your coding agent, send one message: load Impeccable, say
+                  what to build, paste the prompt. Example:
+                </p>
+                <pre>
+                  <code>
+                    {`/impeccable
+Design a landing page for …
+[paste the direction prompt]`}
+                  </code>
+                </pre>
+              </div>
             </li>
             <li>
-              This index helps you pick a direction. It does not install or
-              replace Impeccable.
+              <p>
+                Impeccable may still show a “Choose a direction” screen with
+                several options. Keep the world you pasted (confirm it). You do
+                not need a new random set unless you want a different look.
+              </p>
             </li>
-            <li>
-              A companion to Impeccable by Paul Bakaus — not affiliated.{" "}
+          </ol>
+
+          <div className="how-notes">
+            <p>Each world has its own share link.</p>
+            <p>This site does not install or replace Impeccable.</p>
+            <p>The public site is read-only.</p>
+            <p>Companion to Impeccable by Paul Bakaus — not affiliated.</p>
+            <p>
               <a
                 href="https://impeccable.style"
                 target="_blank"
@@ -99,17 +136,8 @@ export function HowItWorksDialog({ open, onClose }: HowItWorksDialogProps) {
               >
                 Learn more about Impeccable
               </a>
-            </li>
-            <li>
-              The public site is read-only. Collecting new worlds is a local git
-              workflow.
-            </li>
-          </ol>
-
-          <p className="how-soft">
-            To apply a copied direction in an agent, use Impeccable in your
-            project.
-          </p>
+            </p>
+          </div>
         </div>
       </div>
     </dialog>

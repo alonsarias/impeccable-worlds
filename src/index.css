@@ -884,7 +884,7 @@ h1 {
 
 .how-dialog {
   width: min(36rem, calc(100% - 32px));
-  max-height: min(36rem, calc(100% - 48px));
+  max-height: min(52rem, calc(100% - 48px));
   margin: auto;
   padding: 0;
   border: 1px solid #000;
@@ -941,27 +941,63 @@ h1 {
   letter-spacing: -0.03em;
 }
 
+.how-lede,
+.how-notes p,
+.how-step p,
+.how-steps > li > p {
+  margin: 0;
+}
+
 .how-steps {
   margin: 0;
   padding-left: 1.2rem;
   display: grid;
-  gap: 10px;
+  gap: 14px;
 }
 
-.how-steps a {
+.how-step {
+  display: grid;
+  gap: 8px;
+}
+
+.how-body a {
   color: inherit;
   text-underline-offset: 0.18em;
 }
 
-.how-steps a:hover {
+.how-body a:hover {
   background: #000;
   color: #fff;
   text-decoration: none;
 }
 
-.how-soft {
+.how-dialog pre,
+.how-dialog code {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+
+.how-dialog code {
+  font-size: 0.92em;
+}
+
+.how-dialog pre {
   margin: 0;
-  max-width: 52ch;
+  padding: 10px 12px;
+  border: 1px solid #000;
+  background: #fff;
+  color: #000;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.how-notes {
+  display: grid;
+  gap: 8px;
+  margin-top: 4px;
+  padding-top: 16px;
+  border-top: 1px solid #000;
 }
 
 .detail-root {

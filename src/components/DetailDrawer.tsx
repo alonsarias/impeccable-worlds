@@ -6,15 +6,20 @@ import { buildDirectionPrompt } from "../lib/directionPrompt";
 import { displayValue } from "../lib/display";
 import { useCardSource } from "../lib/useCardSource";
 import { worldShareUrl } from "../lib/worldPath";
+import { MoreLikeThis } from "./MoreLikeThis";
 
 interface DetailDrawerProps {
   world: World | null;
   requestedId: string | null;
   queue: World[];
   catalog: World[];
+  compareFull: boolean;
+  inCompare: (id: string) => boolean;
+  suspendKeys: boolean;
   onClose: () => void;
   onFavorite: (id: string) => void;
   onSelect: (id: string) => void;
+  onCompare: (id: string) => void;
 }
 
 type CopiedKind = "prompt" | "link" | null;
@@ -40,9 +45,13 @@ export function DetailDrawer({
   requestedId,
   queue,
   catalog,
+  compareFull,
+  inCompare,
+  suspendKeys,
   onClose,
   onFavorite,
   onSelect,
+  onCompare,
 }: DetailDrawerProps) {
   const titleId = useId();
   const descId = useId();
@@ -91,10 +100,7 @@ export function DetailDrawer({
         ? document.activeElement
         : null;
     paneRef.current?.focus();
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
     return () => {
-      document.body.style.overflow = previousOverflow;
       opener?.focus();
     };
   }, [open]);
@@ -131,6 +137,7 @@ export function DetailDrawer({
     };
 
     const onKey = (event: KeyboardEvent) => {
+      if (suspendKeys) return;
       if (
         event.defaultPrevented ||
         event.altKey ||
@@ -210,6 +217,7 @@ export function DetailDrawer({
     onSelect,
     viewerIndex,
     viewerImages.length,
+    suspendKeys,
   ]);
 
   if (!open) return null;
@@ -232,6 +240,7 @@ export function DetailDrawer({
         aria-labelledby={titleId}
         aria-describedby={descId}
         tabIndex={-1}
+        inert={suspendKeys ? true : undefined}
       >
         <div className="detail">
           <header className="detail-head">
@@ -296,6 +305,7 @@ export function DetailDrawer({
       aria-labelledby={titleId}
       aria-describedby={descId}
       tabIndex={-1}
+      inert={suspendKeys ? true : undefined}
     >
       <div className="detail" inert={viewerIndex !== null ? true : undefined}>
         <header className="detail-head">
@@ -358,7 +368,11 @@ export function DetailDrawer({
                   aria-haspopup="dialog"
                   aria-label={`View ${name} full size`}
                 >
-                  <img src={previewImage.src} alt="" onError={previewImage.onError} />
+                  <img
+                    src={previewImage.src}
+                    alt=""
+                    onError={previewImage.onError}
+                  />
                 </button>
               </div>
             ) : (
@@ -377,7 +391,11 @@ export function DetailDrawer({
                     aria-haspopup="dialog"
                     aria-label={`View ${name} board full size`}
                   >
-                    <img src={boardImage.src} alt="" onError={boardImage.onError} />
+                    <img
+                      src={boardImage.src}
+                      alt=""
+                      onError={boardImage.onError}
+                    />
                   </button>
                 </div>
               ) : (
@@ -414,6 +432,15 @@ export function DetailDrawer({
               <dd>{displayValue(world.webLeverage)}</dd>
             </div>
           </dl>
+
+          <MoreLikeThis
+            world={selected}
+            catalog={catalog}
+            compareFull={compareFull}
+            inCompare={inCompare}
+            onOpen={onSelect}
+            onCompare={onCompare}
+          />
         </div>
 
         <footer className="detail-actions">
@@ -438,6 +465,21 @@ export function DetailDrawer({
             aria-pressed={world.favorite}
           >
             {world.favorite ? "Favorited" : "Favorite"}
+          </button>
+          <button
+            type="button"
+            className={`btn ghost${inCompare(selected.id) ? " is-on" : ""}`}
+            aria-pressed={inCompare(selected.id)}
+            aria-label={
+              inCompare(selected.id)
+                ? `Remove ${name} from compare`
+                : compareFull
+                  ? `Add ${name} to compare, replacing the other side`
+                  : `Add ${name} to compare`
+            }
+            onClick={() => onCompare(selected.id)}
+          >
+            Compare
           </button>
         </footer>
       </div>

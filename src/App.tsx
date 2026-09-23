@@ -38,6 +38,17 @@ import {
   titleCaseTier,
 } from "./lib/statusCopy";
 import { resolveWorld, worldKeyFromPathname, worldPath } from "./lib/worldPath";
+import { ComparePanel } from "./components/ComparePanel";
+import { CompareToast, CompareTray } from "./components/CompareTray";
+import {
+  createCompareState,
+  dismissCompareUndo,
+  focusCompareSlot,
+  removeFromCompare,
+  toggleCompare,
+  undoCompareReplace,
+  type SlotIndex,
+} from "./lib/compare";
 
 type CollectFeedback = {
   tone: "progress" | "success" | "error";
@@ -69,7 +80,9 @@ function matches(
 const WIDE_CATALOG = "(min-width: 721px)";
 
 function useWideCatalog() {
-  const [wide, setWide] = useState(() => window.matchMedia(WIDE_CATALOG).matches);
+  const [wide, setWide] = useState(
+    () => window.matchMedia(WIDE_CATALOG).matches,
+  );
 
   useEffect(() => {
     const media = window.matchMedia(WIDE_CATALOG);
@@ -140,8 +153,13 @@ export function App() {
   const [loadError, setLoadError] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
   const [howItWorksOpen, setHowItWorksOpen] = useState(false);
+  const [compare, setCompare] = useState(createCompareState);
+  const [compareOpen, setCompareOpen] = useState(false);
   const wide = useWideCatalog();
   const searchRef = useRef<HTMLInputElement>(null);
+  const openCompareRef = useRef<HTMLButtonElement>(null);
+  const compareOpenerRef = useRef<HTMLElement | null>(null);
+  const restoreCompareFocus = useRef(false);
 
   const refresh = useCallback(async () => {
     const [nextWorlds, nextCoverage] = await Promise.all([
@@ -297,6 +315,102 @@ export function App() {
     }
   }
 
+  const compareWorlds: [World | null, World | null] = [
+    compare.slots[0] ? (resolveWorld(worlds, compare.slots[0]) ?? null) : null,
+    compare.slots[1] ? (resolveWorld(worlds, compare.slots[1]) ?? null) : null,
+  ];
+  const compareFull = compare.slots[0] !== null && compare.slots[1] !== null;
+  const trayVisible =
+    !compareOpen && (compare.slots[0] !== null || compare.slots[1] !== null);
+  const undoWorld = compare.undo
+    ? resolveWorld(worlds, compare.undo.previousId)
+    : undefined;
+  const undoMessage = compare.undo
+    ? `Replaced ${undoWorld?.name?.trim() || "the other world"}.`
+    : "";
+
+  function inCompare(id: string) {
+    return compare.slots[0] === id || compare.slots[1] === id;
+  }
+
+  function openCompare(opener?: HTMLElement | null) {
+    const active = document.activeElement;
+    compareOpenerRef.current =
+      opener ?? (active instanceof HTMLElement ? active : null);
+    setCompareOpen(true);
+  }
+
+  function closeCompare() {
+    setCompareOpen(false);
+  }
+
+  function onCardCompare(id: string) {
+    setCompare((prev) => toggleCompare(prev, id));
+  }
+
+  function onRemoveCompare(index: SlotIndex) {
+    setCompare((prev) => removeFromCompare(prev, index));
+  }
+
+  useEffect(() => {
+    if (!ready) return;
+    setCompare((prev) => {
+      let changed = false;
+      const slots = prev.slots.map((id) => {
+        if (id && !resolveWorld(worlds, id)) {
+          changed = true;
+          return null;
+        }
+        return id;
+      }) as [string | null, string | null];
+      if (!changed) return prev;
+      const focusedSlot: SlotIndex =
+        slots[prev.focusedSlot] !== null
+          ? prev.focusedSlot
+          : slots[0]
+            ? 0
+            : slots[1]
+              ? 1
+              : 0;
+      return { ...prev, slots, focusedSlot, undo: null };
+    });
+  }, [ready, worlds]);
+
+  useEffect(() => {
+    document.body.classList.toggle("has-compare-tray", trayVisible);
+    document.body.classList.toggle("has-compare-toast", compare.undo !== null);
+    return () => {
+      document.body.classList.remove("has-compare-tray");
+      document.body.classList.remove("has-compare-toast");
+    };
+  }, [trayVisible, compare.undo]);
+
+  useEffect(() => {
+    document.body.style.overflow = drawerId || compareOpen ? "hidden" : "";
+  }, [drawerId, compareOpen]);
+
+  useEffect(() => {
+    if (compareOpen && compare.slots[0] === null && compare.slots[1] === null) {
+      setCompareOpen(false);
+    }
+  }, [compareOpen, compare.slots]);
+
+  useEffect(() => {
+    if (compareOpen) {
+      restoreCompareFocus.current = true;
+      return;
+    }
+    if (!restoreCompareFocus.current) return;
+    restoreCompareFocus.current = false;
+    const opener = compareOpenerRef.current;
+    compareOpenerRef.current = null;
+    if (opener && document.contains(opener)) {
+      opener.focus();
+      return;
+    }
+    (openCompareRef.current ?? searchRef.current)?.focus();
+  }, [compareOpen]);
+
   function onFavorite(id: string) {
     const favorite = toggleFavorite(id);
     setWorlds((current) =>
@@ -335,7 +449,10 @@ export function App() {
         token={`${layout}-${sort}-${visible.length}-${visible[0]?.id ?? ""}`}
       />
       <div className="app">
-        <div className="catalog" inert={drawerId ? true : undefined}>
+        <div
+          className="catalog"
+          inert={drawerId || compareOpen ? true : undefined}
+        >
           <div className="catalog-chrome">
             <div className="catalog-stick">
               <header className="top">
@@ -522,8 +639,11 @@ export function App() {
               worlds={visible}
               catalog={worlds}
               layout={layout}
+              compareFull={compareFull}
+              inCompare={inCompare}
               onOpen={openWorld}
               onFavorite={onFavorite}
+              onCompare={onCardCompare}
             />
           )}
 
@@ -557,9 +677,51 @@ export function App() {
           requestedId={drawerId}
           queue={visible}
           catalog={worlds}
+          compareFull={compareFull}
+          inCompare={inCompare}
+          suspendKeys={compareOpen}
           onClose={closeWorld}
           onFavorite={onFavorite}
           onSelect={stepWorld}
+          onCompare={onCardCompare}
+        />
+
+        {trayVisible ? (
+          <CompareTray
+            slots={compareWorlds}
+            focusedSlot={compare.focusedSlot}
+            onFocus={(index) =>
+              setCompare((prev) => focusCompareSlot(prev, index))
+            }
+            onRemove={onRemoveCompare}
+            onOpen={(opener) => openCompare(opener)}
+            openButtonRef={openCompareRef}
+          />
+        ) : null}
+
+        {compare.undo && !compareOpen ? (
+          <CompareToast
+            message={undoMessage}
+            onUndo={() => setCompare((prev) => undoCompareReplace(prev))}
+            onDismiss={() => setCompare((prev) => dismissCompareUndo(prev))}
+          />
+        ) : null}
+
+        <ComparePanel
+          open={compareOpen}
+          slots={compareWorlds}
+          notice={
+            compare.undo ? (
+              <CompareToast
+                embedded
+                message={undoMessage}
+                onUndo={() => setCompare((prev) => undoCompareReplace(prev))}
+                onDismiss={() => setCompare((prev) => dismissCompareUndo(prev))}
+              />
+            ) : null
+          }
+          onClose={closeCompare}
+          onRemove={onRemoveCompare}
         />
       </div>
     </>

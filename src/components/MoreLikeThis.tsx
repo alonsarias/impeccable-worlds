@@ -1,41 +1,45 @@
+import { useId, useMemo } from "react";
 import type { World } from "../../shared/types";
 import { blobCardUrl } from "../lib/cardImages";
 import { displayValue } from "../lib/display";
+import { moreLikeThis } from "../lib/similarWorlds";
 import { useCardSource } from "../lib/useCardSource";
 import { shouldAllowNativeLink, worldPath } from "../lib/worldPath";
-import { CanvasFrame } from "./WaveField";
 import { CompareMark } from "./CompareMark";
 
-interface WorldCardProps {
+interface MoreLikeThisProps {
   world: World;
   catalog: World[];
-  inCompare: boolean;
   compareFull: boolean;
+  inCompare: (id: string) => boolean;
   onOpen: (id: string) => void;
-  onFavorite: (id: string) => void;
   onCompare: (id: string) => void;
 }
 
-export function WorldCard({
+function SimilarCard({
   world,
   catalog,
-  inCompare,
   compareFull,
+  inCompare,
   onOpen,
-  onFavorite,
   onCompare,
-}: WorldCardProps) {
-  const thumb = world.cardHero ?? world.cardBoard;
+}: {
+  world: World;
+  catalog: World[];
+  compareFull: boolean;
+  inCompare: boolean;
+  onOpen: (id: string) => void;
+  onCompare: (id: string) => void;
+}) {
+  const upstream = world.cardHero ?? world.cardBoard;
   const image = useCardSource(
-    thumb,
+    upstream,
     blobCardUrl(world.id, world.cardHero ? "hero" : "board"),
   );
   const name = displayValue(world.name);
-  const tier = displayValue(world.wellTier);
 
   return (
-    <article className="card" data-vantage="far">
-      <CanvasFrame />
+    <article className="card similar-card">
       <a
         className="card-main"
         href={worldPath(world, catalog)}
@@ -59,15 +63,12 @@ export function WorldCard({
           )}
         </div>
         <div className="card-body">
-          <h2>{name}</h2>
-          <span className={`tier tier-${world.wellTier ?? "unknown"}`}>
-            {tier}
-          </span>
+          <h4>{name}</h4>
         </div>
       </a>
       <button
         type="button"
-        className={`compare-toggle${inCompare ? " is-on" : ""}`}
+        className={`compare-toggle compare-toggle-tiny${inCompare ? " is-on" : ""}`}
         aria-pressed={inCompare}
         aria-label={
           inCompare
@@ -80,17 +81,41 @@ export function WorldCard({
         onClick={() => onCompare(world.id)}
       >
         <CompareMark />
-        <span className="compare-toggle-label">Compare</span>
-      </button>
-      <button
-        type="button"
-        className={`fav ${world.favorite ? "is-on" : ""}`}
-        aria-pressed={world.favorite}
-        aria-label={world.favorite ? `Unfavorite ${name}` : `Favorite ${name}`}
-        onClick={() => onFavorite(world.id)}
-      >
-        {world.favorite ? "★" : "☆"}
       </button>
     </article>
+  );
+}
+
+export function MoreLikeThis({
+  world,
+  catalog,
+  compareFull,
+  inCompare,
+  onOpen,
+  onCompare,
+}: MoreLikeThisProps) {
+  const headingId = useId();
+  const matches = useMemo(() => moreLikeThis(world, catalog), [world, catalog]);
+
+  if (matches.length === 0) return null;
+
+  return (
+    <section className="more-like" aria-labelledby={headingId}>
+      <h3 id={headingId}>More like this</h3>
+      <ul className="more-like-grid">
+        {matches.map((match) => (
+          <li key={match.id}>
+            <SimilarCard
+              world={match}
+              catalog={catalog}
+              compareFull={compareFull}
+              inCompare={inCompare(match.id)}
+              onOpen={onOpen}
+              onCompare={onCompare}
+            />
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }

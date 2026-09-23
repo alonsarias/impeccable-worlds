@@ -5,6 +5,14 @@ export const SITE_NAME = "Impeccable Worlds";
 export const WORLD_OG_DESCRIPTION_FALLBACK =
   "Choose a direction by eye. Copy the prompt.";
 
+/** Site share card. Same hero treatment as a world link. */
+export const SITE_OG_WORLD: OgWorld = {
+  id: "dream-surreal-impossible-worlds-alphabet-storm",
+  name: "Alphabet Storm",
+  cardHero:
+    "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-alphabet-storm-hero.webp",
+};
+
 const DESCRIPTION_MAX = 160;
 
 export type OgWorld = {
@@ -20,7 +28,7 @@ export type WorldOgSpec = {
   description: string;
   image: string;
   imageType: string;
-  /** True only for the 1200×630 site card. Hero webps omit width and height. */
+  /** True only for the legacy 1200×630 png. Hero webps omit width and height. */
   imageSized: boolean;
   pageUrl: string | null;
 };
@@ -65,6 +73,14 @@ export function worldOgSpec(
   };
 }
 
+/** Home share image: Alphabet Storm's hero, resolved like any other world card. */
+export function siteOgImage(
+  blobBase: string | null | undefined,
+  siteUrl: string,
+): { url: string; type: string; sized: boolean } {
+  return worldOgImage(SITE_OG_WORLD, blobBase, siteUrl);
+}
+
 /** Inject world Open Graph tags into an SPA shell. Home HTML is left untouched. */
 export function applyWorldOg(html: string, spec: WorldOgSpec): string {
   let next = html.replaceAll("<!--SEO_CANONICAL-->", "");
@@ -79,7 +95,7 @@ export function applyWorldOg(html: string, spec: WorldOgSpec): string {
   next = replaceMeta(next, "name", "twitter:title", spec.title);
   next = replaceMeta(next, "name", "twitter:description", spec.description);
   next = replaceMeta(next, "name", "twitter:image", spec.image);
-  next = spec.imageSized ? next : stripImageSize(next);
+  next = spec.imageSized ? ensureImageSize(next) : stripImageSize(next);
   next = upsertPageUrl(next, spec.pageUrl);
   next = upsertJsonLd(next, spec);
   assertWorldOg(next, spec);
@@ -180,6 +196,21 @@ function replaceMeta(
   );
   if (pattern.test(html)) return html.replace(pattern, tag);
   return html.replace("</head>", `    ${tag}\n  </head>`);
+}
+
+function ensureImageSize(html: string): string {
+  if (html.includes('property="og:image:width"')) return html;
+  const tags = [
+    '<meta property="og:image:width" content="1200" />',
+    '<meta property="og:image:height" content="630" />',
+  ].join("\n    ");
+  if (/<meta\s+property="og:image:type"\s+content="[^"]*"\s*\/?>/.test(html)) {
+    return html.replace(
+      /(<meta\s+property="og:image:type"\s+content="[^"]*"\s*\/?>)/,
+      `$1\n    ${tags}`,
+    );
+  }
+  return html.replace("</head>", `    ${tags}\n  </head>`);
 }
 
 function stripImageSize(html: string): string {

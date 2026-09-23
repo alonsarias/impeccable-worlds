@@ -2,26 +2,32 @@ import react from "@vitejs/plugin-react";
 import { defineConfig, loadEnv, type Plugin } from "vite";
 import { worldOgPlugin } from "./server/worldOgPlugin";
 import { apiPlugin } from "./server/vite-plugin";
+import { siteOgImage } from "./shared/worldOg";
 
 const SITE_TITLE = "Impeccable Worlds";
 const SITE_DESCRIPTION =
   "A browsable catalog of Impeccable design worlds indexed locally. Unofficial and incomplete — not an official Impeccable product.";
 
-function seoUrlsPlugin(siteUrl: string): Plugin {
+function seoUrlsPlugin(siteUrl: string, blobBase: string): Plugin {
   const origin = siteUrl.replace(/\/$/, "");
-  const ogImage = origin ? `${origin}/og.png` : "/og.png";
   const pageUrl = origin ? `${origin}/` : "";
+  const image = siteOgImage(blobBase, siteUrl);
+  const sizeBlock = image.sized
+    ? `<meta property="og:image:width" content="1200" />\n    <meta property="og:image:height" content="630" />`
+    : "";
 
   const jsonLd: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: SITE_TITLE,
     description: SITE_DESCRIPTION,
+    image: image.url,
   };
   if (pageUrl) jsonLd.url = pageUrl;
 
   const safePage = pageUrl.replaceAll("&", "&amp;").replaceAll('"', "&quot;");
-  const safeImage = ogImage.replaceAll("&", "&amp;").replaceAll('"', "&quot;");
+  const safeImage = image.url.replaceAll("&", "&amp;").replaceAll('"', "&quot;");
+  const safeType = image.type.replaceAll("&", "&amp;").replaceAll('"', "&quot;");
   const canonicalBlock = pageUrl
     ? `<link rel="canonical" href="${safePage}" />\n    <meta property="og:url" content="${safePage}" />`
     : "";
@@ -32,6 +38,8 @@ function seoUrlsPlugin(siteUrl: string): Plugin {
     transformIndexHtml(html) {
       return html
         .replaceAll("%OG_IMAGE%", safeImage)
+        .replaceAll("%OG_IMAGE_TYPE%", safeType)
+        .replace("<!--OG_IMAGE_SIZE-->", sizeBlock)
         .replace("<!--SEO_CANONICAL-->", canonicalBlock)
         .replace("<!--SEO_JSONLD-->", jsonLdBlock);
     },
@@ -44,7 +52,7 @@ export default defineConfig(({ mode }) => {
     plugins: [
       react(),
       apiPlugin(),
-      seoUrlsPlugin(env.VITE_SITE_URL ?? ""),
+      seoUrlsPlugin(env.VITE_SITE_URL ?? "", env.VITE_BLOB_CARDS_BASE_URL ?? ""),
       worldOgPlugin({
         siteUrl: env.VITE_SITE_URL ?? "",
         blobBase: env.VITE_BLOB_CARDS_BASE_URL ?? "",

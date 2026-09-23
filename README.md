@@ -16,7 +16,7 @@ Open the printed local URL (Vite, usually `http://localhost:5173`). The API is s
 Optional public Vite keys go in `.env.local` (gitignored) or on Vercel:
 
 - `VITE_GITHUB_REPO_URL` — header **View on GitHub** URL. Default: `https://github.com/alonsarias/impeccable-worlds`.
-- `VITE_SITE_URL` — public https origin, no trailing slash. Home uses it for the canonical URL and the absolute Open Graph image (`/og.png`). World share pages use it for `og:url` and canonical. Example: `https://impeccableworlds.vercel.app`. If unset, those absolute URLs are omitted and the home share image is the relative path `/og.png`.
+- `VITE_SITE_URL` — public https origin, no trailing slash. Home uses it for the canonical URL and `og:url`. World share pages use it for their own `og:url` and canonical. Example: `https://impeccableworlds.vercel.app`. If unset, those absolute URLs are omitted.
 - `VITE_BLOB_CARDS_BASE_URL` — public Blob origin, no trailing slash. The page falls back to it when an upstream card image fails. Share previews prefer it for the hero image. See [Card images](#card-images) and [Share previews](#share-previews).
 
 ## Use
@@ -108,7 +108,7 @@ Each world file sets:
 - `twitter:card`: `summary_large_image`
 - `og:url` and canonical: `{VITE_SITE_URL}/w/{slug}`
 
-`/` is unchanged and still uses `/og.png`.
+`/` keeps the site title, description, and URL. Its image is Alphabet Storm’s hero, the same kind of card as a world share: `{VITE_BLOB_CARDS_BASE_URL}/cards/dream-surreal-impossible-worlds-alphabet-storm-hero.webp` when that origin is `https`, otherwise the catalog `cardHero`.
 
 `VITE_SITE_URL` has to be present at build time (it is set on Vercel) or world pages omit absolute `og:url` and canonical. `VITE_BLOB_CARDS_BASE_URL` has to be an `https` origin or the image falls back to `cardHero`.
 
@@ -123,7 +123,7 @@ curl -s http://localhost:5173/w/miura-orbit-sheet | grep -E 'og:title|og:descrip
 curl -s http://localhost:5173/ | grep 'og:image'
 ```
 
-The world response should include `Miura Orbit Sheet · Impeccable Worlds` and a hero `og:image` ending in `paper-folds-pleats-deployable-miura-orbit-sheet-hero.webp`. The home response should still point at `og.png`.
+The world response should include `Miura Orbit Sheet · Impeccable Worlds` and a hero `og:image` ending in `paper-folds-pleats-deployable-miura-orbit-sheet-hero.webp`. The home response should keep the title `Impeccable Worlds` and an `og:image` ending in `dream-surreal-impossible-worlds-alphabet-storm-hero.webp`.
 
 To inspect the files Vercel will serve, build with the public origin and start the preview server:
 

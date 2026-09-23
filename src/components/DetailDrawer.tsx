@@ -7,6 +7,7 @@ import { displayValue } from "../lib/display";
 import { useCardSource } from "../lib/useCardSource";
 import { worldShareUrl } from "../lib/worldPath";
 import { MoreLikeThis } from "./MoreLikeThis";
+import { WorldNotes } from "./WorldNotes";
 
 interface DetailDrawerProps {
   world: World | null;
@@ -33,7 +34,7 @@ function isTypingTarget(target: EventTarget | null): boolean {
 
 function getFocusable(root: HTMLElement): HTMLElement[] {
   const nodes = root.querySelectorAll<HTMLElement>(
-    'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), summary, [tabindex]:not([tabindex="-1"])',
   );
   return [...nodes].filter(
     (el) => !el.hasAttribute("disabled") && el.getClientRects().length > 0,
@@ -404,34 +405,7 @@ export function DetailDrawer({
             ) : null}
           </div>
 
-          <dl className="facts">
-            <div>
-              <dt>Form</dt>
-              <dd>{displayValue(world.form)}</dd>
-            </div>
-            <div>
-              <dt>Spark</dt>
-              <dd>{displayValue(world.spark)}</dd>
-            </div>
-            <div>
-              <dt>System</dt>
-              <dd>
-                {world.system && world.system.length > 0 ? (
-                  <ul>
-                    {world.system.map((rule) => (
-                      <li key={rule}>{rule}</li>
-                    ))}
-                  </ul>
-                ) : (
-                  "No value"
-                )}
-              </dd>
-            </div>
-            <div>
-              <dt>Web leverage</dt>
-              <dd>{displayValue(world.webLeverage)}</dd>
-            </div>
-          </dl>
+          <WorldNotes world={selected} />
 
           <MoreLikeThis
             world={selected}

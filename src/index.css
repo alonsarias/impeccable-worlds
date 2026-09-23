@@ -438,18 +438,24 @@ h1 {
   align-items: center;
 }
 
-.coverage-options {
+.coverage-options,
+.world-notes {
   border-top: 1px solid var(--line);
   padding-top: 8px;
 }
 
-.coverage-options summary {
+.coverage-options summary,
+.world-notes summary {
   display: flex;
   align-items: center;
   min-height: 44px;
   cursor: pointer;
   font-size: 0.82rem;
   user-select: none;
+}
+
+.world-notes .facts {
+  padding: 4px 0 8px;
 }
 
 .coverage-options-body {

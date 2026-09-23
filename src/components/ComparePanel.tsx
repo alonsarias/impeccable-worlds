@@ -6,6 +6,7 @@ import type { SlotIndex } from "../lib/compare";
 import { buildDirectionPrompt } from "../lib/directionPrompt";
 import { displayValue } from "../lib/display";
 import { useCardSource } from "../lib/useCardSource";
+import { WorldNotes } from "./WorldNotes";
 
 interface ComparePanelProps {
   open: boolean;
@@ -17,7 +18,7 @@ interface ComparePanelProps {
 
 function getFocusable(root: HTMLElement): HTMLElement[] {
   const nodes = root.querySelectorAll<HTMLElement>(
-    'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), summary, [tabindex]:not([tabindex="-1"])',
   );
   return [...nodes].filter(
     (el) => !el.hasAttribute("disabled") && el.getClientRects().length > 0,
@@ -55,8 +56,6 @@ function CompareSide({
 
   const selected = world;
   const name = displayValue(selected.name);
-  const form = selected.form?.trim() ?? "";
-  const spark = selected.spark?.trim() ?? "";
 
   async function copyPrompt() {
     const ok = await copyText(buildDirectionPrompt(selected));
@@ -90,22 +89,7 @@ function CompareSide({
           Remove
         </button>
       </div>
-      {form || spark ? (
-        <dl className="facts">
-          {form ? (
-            <div>
-              <dt>Form</dt>
-              <dd>{form}</dd>
-            </div>
-          ) : null}
-          {spark ? (
-            <div>
-              <dt>Spark</dt>
-              <dd>{spark}</dd>
-            </div>
-          ) : null}
-        </dl>
-      ) : null}
+      <WorldNotes world={selected} />
     </section>
   );
 }

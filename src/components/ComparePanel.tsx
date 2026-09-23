@@ -72,6 +72,7 @@ function CompareSide({
         )}
       </div>
       <h3 id={nameId}>{name}</h3>
+      <p className="detail-spark">{displayValue(selected.spark)}</p>
       <div className="compare-actions">
         <button
           type="button"

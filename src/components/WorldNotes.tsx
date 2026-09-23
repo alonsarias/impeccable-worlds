@@ -11,10 +11,6 @@ export function WorldNotes({ world }: { world: World }) {
           <dd>{displayValue(world.form)}</dd>
         </div>
         <div>
-          <dt>Spark</dt>
-          <dd>{displayValue(world.spark)}</dd>
-        </div>
-        <div>
           <dt>System</dt>
           <dd>
             {world.system && world.system.length > 0 ? (

@@ -6,7 +6,9 @@ import { buildDirectionPrompt } from "../lib/directionPrompt";
 import { displayValue } from "../lib/display";
 import { useCardSource } from "../lib/useCardSource";
 import { worldShareUrl } from "../lib/worldPath";
+import { CompareMark } from "./CompareMark";
 import { MoreLikeThis } from "./MoreLikeThis";
+import { StarMark } from "./StarMark";
 import { WorldNotes } from "./WorldNotes";
 
 interface DetailDrawerProps {
@@ -310,11 +312,12 @@ export function DetailDrawer({
     >
       <div className="detail" inert={viewerIndex !== null ? true : undefined}>
         <header className="detail-head">
-          <div>
+          <div className="detail-title">
             <p className={`tier tier-${selected.wellTier ?? "unknown"}`}>
               {displayValue(selected.wellTier)}
             </p>
             <h2 id={titleId}>{name}</h2>
+            <p className="detail-spark">{displayValue(selected.spark)}</p>
           </div>
           <div className="detail-nav">
             <p className="detail-index" aria-live="polite">
@@ -425,36 +428,42 @@ export function DetailDrawer({
           >
             {copied === "prompt" ? "Copied prompt" : "Copy direction prompt"}
           </button>
-          <button
-            type="button"
-            className="btn ghost"
-            onClick={() => void copyLink()}
-          >
-            {copied === "link" ? "Copied link" : "Copy link"}
-          </button>
-          <button
-            type="button"
-            className={`btn ghost ${world.favorite ? "is-on" : ""}`}
-            onClick={() => onFavorite(world.id)}
-            aria-pressed={world.favorite}
-          >
-            {world.favorite ? "Favorited" : "Favorite"}
-          </button>
-          <button
-            type="button"
-            className={`btn ghost${inCompare(selected.id) ? " is-on" : ""}`}
-            aria-pressed={inCompare(selected.id)}
-            aria-label={
-              inCompare(selected.id)
-                ? `Remove ${name} from compare`
-                : compareFull
-                  ? `Add ${name} to compare, replacing the other side`
-                  : `Add ${name} to compare`
-            }
-            onClick={() => onCompare(selected.id)}
-          >
-            Compare
-          </button>
+          <div className="detail-actions-secondary">
+            <button
+              type="button"
+              className="btn ghost detail-copy-link"
+              onClick={() => void copyLink()}
+            >
+              {copied === "link" ? "Copied link" : "Copy link"}
+            </button>
+            <button
+              type="button"
+              className={`btn ghost detail-fav${world.favorite ? " is-on" : ""}`}
+              onClick={() => onFavorite(world.id)}
+              aria-pressed={world.favorite}
+            >
+              <StarMark filled={world.favorite} />
+              <span className="detail-action-label">
+                {world.favorite ? "Favorited" : "Favorite"}
+              </span>
+            </button>
+            <button
+              type="button"
+              className={`btn ghost detail-compare${inCompare(selected.id) ? " is-on" : ""}`}
+              aria-pressed={inCompare(selected.id)}
+              aria-label={
+                inCompare(selected.id)
+                  ? `Remove ${name} from compare`
+                  : compareFull
+                    ? `Add ${name} to compare, replacing the other side`
+                    : `Add ${name} to compare`
+              }
+              onClick={() => onCompare(selected.id)}
+            >
+              <CompareMark />
+              <span className="detail-action-label">Compare</span>
+            </button>
+          </div>
         </footer>
       </div>
 

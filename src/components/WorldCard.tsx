@@ -3,8 +3,9 @@ import { blobCardUrl } from "../lib/cardImages";
 import { displayValue } from "../lib/display";
 import { useCardSource } from "../lib/useCardSource";
 import { shouldAllowNativeLink, worldPath } from "../lib/worldPath";
-import { CanvasFrame } from "./WaveField";
 import { CompareMark } from "./CompareMark";
+import { StarMark } from "./StarMark";
+import { CanvasFrame } from "./WaveField";
 
 interface WorldCardProps {
   world: World;
@@ -67,7 +68,7 @@ export function WorldCard({
       </a>
       <button
         type="button"
-        className={`compare-toggle${inCompare ? " is-on" : ""}`}
+        className={`card-action compare-toggle${inCompare ? " is-on" : ""}`}
         aria-pressed={inCompare}
         aria-label={
           inCompare
@@ -80,16 +81,16 @@ export function WorldCard({
         onClick={() => onCompare(world.id)}
       >
         <CompareMark />
-        <span className="compare-toggle-label">Compare</span>
       </button>
       <button
         type="button"
-        className={`fav ${world.favorite ? "is-on" : ""}`}
+        className={`card-action fav${world.favorite ? " is-on" : ""}`}
         aria-pressed={world.favorite}
         aria-label={world.favorite ? `Unfavorite ${name}` : `Favorite ${name}`}
+        title={world.favorite ? "Favorited" : "Favorite"}
         onClick={() => onFavorite(world.id)}
       >
-        {world.favorite ? "★" : "☆"}
+        <StarMark filled={world.favorite} />
       </button>
     </article>
   );

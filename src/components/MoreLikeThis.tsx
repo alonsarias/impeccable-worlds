@@ -68,7 +68,7 @@ function SimilarCard({
       </a>
       <button
         type="button"
-        className={`compare-toggle compare-toggle-tiny${inCompare ? " is-on" : ""}`}
+        className={`card-action compare-toggle compare-toggle-tiny${inCompare ? " is-on" : ""}`}
         aria-pressed={inCompare}
         aria-label={
           inCompare

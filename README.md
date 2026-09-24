@@ -1,147 +1,247 @@
 # Impeccable Worlds
 
-A browsable catalog of Impeccable design worlds. Collect rolls **only on a local machine**, then commit and push `data/worlds.json`. The Vercel site is **public and read-only**: visitors can explore the catalog; they cannot run Collect or call Impeccable’s roll API.
+Browsable catalog of [Impeccable](https://impeccable.style) design worlds: search, preview, compare, and copy a direction into your coding agent.
 
-This is a personal/lab tool. It is **not** an official Impeccable product and it does **not** contain a complete catalog. There is no official dump; coverage only grows by collecting rolls and deduping.
+🚀 **[Live Demo](https://impeccableworlds.vercel.app/)**
 
-## Run locally
+![Impeccable Worlds](https://github.com/user-attachments/assets/da44666b-9ccf-4872-8892-950ae9892bd3)
+> Unofficial companion. Not an official Impeccable product.
 
-```bash
-npm install
-npm run dev
-```
+## Table of Contents
 
-Open the printed local URL (Vite, usually `http://localhost:5173`). The API is served from the same process at `/api/*`. Fetch new directions is enabled here.
+- [Overview](#overview)
+- [Features](#features)
+- [How It Works](#how-it-works)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Development](#development)
+- [Card images](#card-images)
+- [Share previews](#share-previews)
+- [Attribution](#attribution)
 
-Optional public Vite keys go in `.env.local` (gitignored) or on Vercel:
+## Overview
 
-- `VITE_GITHUB_REPO_URL` — header **View on GitHub** URL. Default: `https://github.com/alonsarias/impeccable-worlds`.
-- `VITE_SITE_URL` — public https origin, no trailing slash. Home uses it for the canonical URL and `og:url`. World share pages use it for their own `og:url` and canonical. Example: `https://impeccableworlds.vercel.app`. If unset, those absolute URLs are omitted.
-- `VITE_BLOB_CARDS_BASE_URL` — public Blob origin, no trailing slash. The page falls back to it when an upstream card image fails. Share previews prefer it for the hero image. See [Card images](#card-images) and [Share previews](#share-previews).
+Impeccable’s own flow is a **roll**: random challengers from `impeccable.style/api/roll`. This app is the opposite mode: **browse** a growing index so you can pick a direction by eye and paste it into Cursor (or another coding agent).
 
-## Use
+### The Problem
 
-1. Locally, click **Fetch new directions** for a neutral surface pass. Open **Coverage options** to add a **Direction** pass and optional modes (`persuade`, `operate`, `read`, `experience`).
-2. Browse the grid. Search name, form, spark, and system text. Filter by `wellTier` or favorites.
-3. Open a world to read the full direction. **Copy direction prompt** puts paste-ready text on the clipboard.
-4. Favorites live in the browser (`localStorage`). They are per-visitor and do not need a git push.
+- Rolling is great for surprise; bad when you already know the vibe you want
+- There is no official full dump of worlds
+- Direction text is hard to compare across many options without a catalog
 
-Worlds are stored in `data/worlds.json`. Missing fields render as `No value` — nothing is invented. Card images load from `impeccable.style` first, then fall back to the public Blob mirror.
+### The Solution
 
-## Publish catalog
+- 🗂️ **Shipped catalog** — worlds indexed in `data/worlds.json` (grows via local Collect + git push)
+- 🔍 **Search & filter** — name, form, spark, system text; `wellTier`; favorites
+- 🃏 **Card grid + detail** — board/hero images, full direction, notes
+- ⚖️ **Compare** — up to two worlds side by side
+- ✨ **More like this** — related worlds by tier and form/spark overlap
+- 📋 **Copy direction prompt** — paste-ready text for your agent
+- ⭐ **Favorites** — per-browser `localStorage` (not synced)
 
-Production reads the JSON shipped in git. After you collect locally:
+Missing fields render as `No value`. Nothing is invented.
+
+## Features
+
+### Catalog
+
+- Hundreds of worlds collected over time (incomplete by design)
+- Search across name, form, spark, and system rules
+- Filter by `wellTier` and favorites
+- Card images from `impeccable.style`, with public Vercel Blob fallback
+
+### Detail & share
+
+- Full direction in a drawer / `/w/:id` routes
+- Copy direction prompt to clipboard
+- Per-world Open Graph / Twitter cards for link previews
+- Local notes on a world (client-side)
+
+### Compare & discovery
+
+- Compare tray: max **2** worlds, side-by-side heroes + spark/form
+- **More like this** under the direction body (wellTier first, then form/spark overlap)
+
+### Local Collect (dev only)
+
+- **Fetch new directions** calls Impeccable’s roll API from your machine
+- Optional Direction pass and mode passes (`persuade`, `operate`, `read`, `experience`)
+- Production hides Collect; `POST /api/collect` returns **403**
+
+## How It Works
+
+1. **Browse** the grid on the live site (or local after Collect)
+2. **Open** a world to read form, spark, and system rules
+3. **Compare** or follow **More like this** if you want alternatives
+4. **Copy direction prompt** into Cursor / your agent
+5. **Grow the catalog** only locally: Collect → sync card blobs → commit `data/worlds.json` → push
+
+### Publish catalog (maintainers)
 
 ```text
 1. npm run dev
-2. Click Fetch new directions until satisfied
-3. npm run sync:cards        # mirror new card images; see Card images
+2. Fetch new directions until satisfied
+3. npm run sync:cards
 4. git add data/worlds.json
 5. git commit -m "chore: update worlds catalog"
-6. git push                  # Vercel redeploys the read-only site
+6. git push   # Vercel redeploys the read-only site
 ```
 
-Connect this repo to Vercel (Vite). The public deploy hides the coverage/Collect strip and `POST /api/collect` returns 403:
+Production never calls `impeccable.style/api/roll`.
 
-`{ "error": "Collect is local-only. Catalog is updated via git push." }`
+## Installation
 
-No production route calls `impeccable.style/api/roll`.
+### Prerequisites
 
-## Collector politeness
+- Node.js 18+
+- npm
 
-The collector is deliberately slow and incomplete, and **local-only**:
+### Setup
 
-- About **1.5s** between roll requests.
-- Default cap of **40** rolls **per pass**, or stop a pass after **8** consecutive rolls that add no new ids.
-- Each roll key is chained with `reroll` 0–8 (the API’s max), then a new key is minted.
-- Default POST `{}` is Neutral (`scope=surface`, no `mode`). `{ "direction": true }` adds a Direction pass (`scope=direction`). `{ "modes": ["persuade", "operate"] }` adds one surface pass per selected mode. Dedupe is by world `id`.
-- On `429` or network failure it stops and the UI shows the error plus **Retry**. It does not retry in a tight loop.
+1. **Clone the repository**
 
-`GET /api/coverage` reports `indexedCount` vs the last seen API `approvedCount` stored in the shipped JSON. Those numbers will not match a “full deck,” and the UI does not claim they do.
+```bash
+git clone https://github.com/alonsarias/impeccable-worlds.git
+cd impeccable-worlds
+```
+
+2. **Install dependencies**
+
+```bash
+npm install
+```
+
+3. **Start development server**
+
+```bash
+npm run dev
+```
+
+4. **Open in browser**
+
+```
+http://localhost:5173
+```
+
+The Vite process also serves `/api/*` locally. Collect is enabled here.
+
+### Optional env (`.env.local` or Vercel)
+
+| Variable | Purpose |
+| --- | --- |
+| `VITE_GITHUB_REPO_URL` | Header “View on GitHub” (default: this repo) |
+| `VITE_SITE_URL` | Public origin, no trailing slash (canonical + `og:url`) |
+| `VITE_BLOB_CARDS_BASE_URL` | Public Blob origin for card image fallback + share heroes |
+| `BLOB_READ_WRITE_TOKEN` | Local only — required for `npm run sync:cards` |
+
+### Build for production
+
+```bash
+npm run build
+npm run preview
+```
+
+## Usage
+
+### Visitors (production)
+
+1. Search or scroll the grid
+2. Star worlds to favorite (stays in this browser)
+3. Open a world → read → **Copy direction prompt**
+4. Optionally **Compare** two worlds or browse **More like this**
+5. Share `/w/{slug}` — link previews use per-world OG tags
+
+### Maintainers (local Collect)
+
+1. Run `npm run dev`
+2. Click **Fetch new directions** (neutral surface pass)
+3. Open **Coverage options** for Direction and optional modes
+4. Collector politeness: ~1.5s between rolls, default 40 rolls/pass, stop after 8 empty rolls, `reroll` 0–8 then new key; stops on `429`
+5. `npm run sync:cards` after new worlds
+6. Commit and push `data/worlds.json`
+
+## Project Structure
+
+```
+api/                     # Vercel serverless stubs (collect forbidden in prod)
+data/
+  worlds.json            # Shipped catalog
+scripts/
+  sync-card-blobs.ts     # Mirror card images to Vercel Blob
+  generate-icons.mjs
+  generate-og.mjs
+server/                  # Local Vite API: collector, store, OG plugin
+shared/                  # Types, catalog helpers, OG, collect passes
+src/
+  App.tsx                # Shell, routing, catalog UI state
+  components/            # Grid, drawer, compare, more-like-this, coverage
+  lib/                   # Favorites, prompts, similar worlds, card sources
+  index.css
+```
+
+## Development
+
+### Key technologies
+
+- **React 19** — UI
+- **TypeScript** — types
+- **Vite 7** — app + local API plugins
+- **Vercel** — static/SPA host + Blob for card mirrors
+- **@vercel/analytics** — traffic
+
+### Scripts
+
+```bash
+npm run dev         # Dev server + local Collect API
+npm run build       # Typecheck + production build (incl. per-world OG HTML)
+npm run preview     # Preview production build
+npm run sync:cards  # Upload/refresh Blob card images (needs token in .env.local)
+npm run icons       # Regenerate favicons
+npm run og          # Regenerate site og.png
+```
+
+### Architecture notes
+
+- **Catalog source of truth**: `data/worlds.json` in git; production reads the baked file (SPA). Collect writes through the local server store, then you commit.
+- **Images**: prefer upstream `cardHero` / `cardBoard`; on error, client falls back to Blob pathnames `cards/{id}.webp` and `cards/{id}-hero.webp`.
+- **Share**: build emits `dist/w/{slug}/index.html` with world-specific meta so crawlers get OG without running React.
+- **Compare / Similar**: client-only; no backend.
 
 ## Card images
 
-The grid, detail drawer, and lightbox request `cardHero` / `cardBoard` from `impeccable.style` first. If that image fails to load, the client retries the public Blob copy. Blob is not the primary source on the page. Share previews are separate: they prefer the Blob hero. See [Share previews](#share-previews).
+Grid, drawer, and lightbox request `impeccable.style` first; Blob is fallback. Share previews prefer the Blob hero when `VITE_BLOB_CARDS_BASE_URL` is an `https` origin.
 
-Pathnames are derived from the world id. They are not copied into `data/worlds.json`:
+Pathnames (not stored in JSON):
 
-- `cards/{worldId}.webp` — board (`cardBoard`)
-- `cards/{worldId}-hero.webp` — hero (`cardHero`)
+- `cards/{worldId}.webp` — board
+- `cards/{worldId}-hero.webp` — hero
 
-`VITE_BLOB_CARDS_BASE_URL` is the store origin, with no trailing slash, for example `https://renu9ixtcf2ryqbz.public.blob.vercel-storage.com`. Leave it unset to skip the fallback.
-
-The store is the existing public Blob store `impeccable-worlds-cards`, already connected to this Vercel project. Do not create another store and do not change its access mode. Image files stay out of git.
-
-### Sync
-
-Collect stays local-only. Image sync is a local script. It never prints credentials.
-
-The Blob store stays public. Its project connection is Production and Preview, using OIDC plus a static read-write token. Development is not connected, so the OIDC token from `vercel env pull` cannot upload, and Vercel will not copy `BLOB_READ_WRITE_TOKEN` into Development. Add that token to `.env.local` without removing the pulled lines. The sync script uses the token when it is set.
+Store: public Blob store `impeccable-worlds-cards` (already on the Vercel project). Images stay out of git.
 
 ```bash
 npx vercel link --yes --project impeccable-worlds
 npx vercel env pull .env.local --environment development --yes
-# add BLOB_READ_WRITE_TOKEN=... to .env.local
+# add BLOB_READ_WRITE_TOKEN=... to .env.local (OIDC alone cannot upload in Development)
 npm run sync:cards
 ```
 
-Run it once to fill the store. Run it again after a Collect that adds worlds (or changes card URLs). Re-runs overwrite the same pathnames. The script logs `ok` or `fail` per world id and exits non-zero if any image fails.
-
-`.env.local` is gitignored. Do not commit it. `VITE_BLOB_CARDS_BASE_URL` is already set on Vercel for Production, Preview, and Development. Keep the same value in `.env.local` for local fallback.
+Never commit `.env.local`. Never print the token.
 
 ## Share previews
 
-Copy link shares `/w/{slug}`. Slack, iMessage, X, and LinkedIn read Open Graph tags from the first HTML response. They do not run the React app, so updating `document.title` in the client is not enough.
+`/w/{slug}` needs server/static HTML meta. The production build writes a static shell per catalog world. Each file sets title `{Name} · Impeccable Worlds`, spark/form description, `summary_large_image`, hero `og:image`, and `og:url` / canonical from `VITE_SITE_URL`.
 
-The production build writes a static copy of the SPA shell for every catalog world:
+Home keeps the site title; its image uses Alphabet Storm’s hero (same Blob/catalog rules).
 
-- `dist/w/{slug}/index.html`
-- `dist/w/{id}/index.html` when the public slug is not the world id
-
-Vercel checks the filesystem before the `/w/:id` rewrite in `vercel.json`, so a known world is served from that file. The JavaScript is still the same SPA: it opens that world, and copy link and favorites behave as they do on any other load. An id that is not in the catalog has no file, the rewrite serves the site shell, and the app still opens the missing-world drawer.
-
-Each world file sets:
-
-- `og:title`, `twitter:title`, and `<title>`: `{World name} · Impeccable Worlds`
-- `og:description`, `twitter:description`, and `description`: the spark, collapsed to one line and cut at a word boundary so it stays within 160 characters. If the spark is empty, the form is used. If both are empty: `Choose a direction by eye. Copy the prompt.`
-- `og:image` and `twitter:image`: `{VITE_BLOB_CARDS_BASE_URL}/cards/{worldId}-hero.webp` when that origin is `https`. Otherwise the catalog `cardHero` URL. The path uses the world id, not the slug. It is the hero only — not the board, and not `/og.png`.
-- `twitter:card`: `summary_large_image`
-- `og:url` and canonical: `{VITE_SITE_URL}/w/{slug}`
-
-`/` keeps the site title, description, and URL. Its image is Alphabet Storm’s hero, the same kind of card as a world share: `{VITE_BLOB_CARDS_BASE_URL}/cards/dream-surreal-impossible-worlds-alphabet-storm-hero.webp` when that origin is `https`, otherwise the catalog `cardHero`.
-
-`VITE_SITE_URL` has to be present at build time (it is set on Vercel) or world pages omit absolute `og:url` and canonical. `VITE_BLOB_CARDS_BASE_URL` has to be an `https` origin or the image falls back to `cardHero`.
-
-In `npm run dev`, the same tags are injected on the fly. `og:url` uses the dev server origin so a local fetch matches the URL you requested. A production build bakes `VITE_SITE_URL` instead.
-
-### Check a preview
-
-With the dev server running:
+Quick check:
 
 ```bash
-curl -s http://localhost:5173/w/miura-orbit-sheet | grep -E 'og:title|og:description|og:image"|og:url|twitter:card'
-curl -s http://localhost:5173/ | grep 'og:image'
+curl -s http://localhost:5173/w/miura-orbit-sheet | grep -E 'og:title|og:image|og:url'
 ```
 
-The world response should include `Miura Orbit Sheet · Impeccable Worlds` and a hero `og:image` ending in `paper-folds-pleats-deployable-miura-orbit-sheet-hero.webp`. The home response should keep the title `Impeccable Worlds` and an `og:image` ending in `dream-surreal-impossible-worlds-alphabet-storm-hero.webp`.
-
-To inspect the files Vercel will serve, build with the public origin and start the preview server:
-
-```bash
-VITE_SITE_URL=https://impeccableworlds.vercel.app npm run build
-npm run preview
-```
-
-Then:
-
-```bash
-curl -s http://127.0.0.1:4173/w/miura-orbit-sheet | grep og:url
-```
-
-Vite prints the preview port; 4173 is the default. `og:url` should be `https://impeccableworlds.vercel.app/w/miura-orbit-sheet`.
-
-After deploy, fetch `https://impeccableworlds.vercel.app/w/miura-orbit-sheet` the same way, then paste that URL into [opengraph.xyz](https://www.opengraph.xyz/) or the Facebook Sharing Debugger. Those tools cache cards. Scrape again after a new deploy.
+After deploy, re-scrape with [opengraph.xyz](https://www.opengraph.xyz/) if the card is cached.
 
 ## Attribution
 
-World names, direction text, and card images come from [Impeccable](https://impeccable.style). Cards are loaded from `impeccable.style`, with a public Blob copy used only when an upstream image fails. Use this index to choose a direction by eye; then paste the copied prompt into Cursor when you run Impeccable.
+World names, direction text, and card images come from [Impeccable](https://impeccable.style). Use this index to choose a direction by eye; then paste the copied prompt when you run Impeccable in your agent.

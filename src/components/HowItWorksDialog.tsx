@@ -81,29 +81,36 @@ export function HowItWorksDialog({ open, onClose }: HowItWorksDialogProps) {
           <ol className="how-steps">
             <li>
               <div className="how-step">
-                <p>In the project you will build, install Impeccable:</p>
+                <p>
+                  In the project you will build, install Impeccable and init
+                  product context only (not the look):
+                </p>
                 <pre>
                   <code>npx impeccable install</code>
                 </pre>
                 <p>
-                  Run <code>/impeccable init</code> once (product context only —
-                  not the look).
+                  Then run <code>/impeccable init</code> once.
                 </p>
               </div>
             </li>
             <li>
               <div className="how-step">
                 <p>
-                  Browse this site, open a world, click Copy direction prompt.
+                  Browse this site, open a world, and click Copy direction
+                  prompt.
                 </p>
-                <p>That text tells the agent to keep the world you chose.</p>
+                <p>
+                  The paste includes this world’s QUALITY BAR image URLs and
+                  the path to keep going after the pin.
+                </p>
               </div>
             </li>
             <li>
               <div className="how-step">
                 <p>
-                  In your coding agent, send one message: load Impeccable, say
-                  what to build, paste the prompt. Example:
+                  In your coding agent, send one message:{" "}
+                  <code>/impeccable</code>, what to build, and the paste.
+                  Prefer attaching or opening the board and hero. Example:
                 </p>
                 <pre>
                   <code>
@@ -116,9 +123,9 @@ Design a landing page for …
             </li>
             <li>
               <p>
-                Impeccable may still show a “Choose a direction” screen with
-                several options. Keep the world you pasted (confirm it). You do
-                not need a new random set unless you want a different look.
+                Expect this path: pin lock (no new roll) → QUALITY BAR →
+                Direction contract → build → finish. If a “Choose a direction”
+                screen appears, confirm the pasted world only.
               </p>
             </li>
           </ol>

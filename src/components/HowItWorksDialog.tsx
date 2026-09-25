@@ -11,7 +11,11 @@ export function HowItWorksDialog({ open, onClose }: HowItWorksDialogProps) {
   const titleId = useId();
   const descId = useId();
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -24,11 +28,16 @@ export function HowItWorksDialog({ open, onClose }: HowItWorksDialogProps) {
             : null;
         dialog.showModal();
       }
+      if (bodyRef.current) bodyRef.current.scrollTop = 0;
+      closeRef.current?.focus();
       return;
     }
     if (dialog.open) dialog.close();
     const opener = openerRef.current;
-    if (opener && document.contains(opener)) opener.focus();
+    openerRef.current = null;
+    if (opener && document.contains(opener)) {
+      requestAnimationFrame(() => opener.focus());
+    }
   }, [open]);
 
   useEffect(() => {
@@ -36,17 +45,19 @@ export function HowItWorksDialog({ open, onClose }: HowItWorksDialogProps) {
     const onKey = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return;
       event.preventDefault();
-      onClose();
+      event.stopPropagation();
+      onCloseRef.current();
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
+    window.addEventListener("keydown", onKey, true);
+    return () => window.removeEventListener("keydown", onKey, true);
+  }, [open]);
 
   return (
     <dialog
       ref={dialogRef}
       id={HOW_IT_WORKS_DIALOG_ID}
       className="how-dialog"
+      role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}
       aria-describedby={descId}
@@ -63,6 +74,7 @@ export function HowItWorksDialog({ open, onClose }: HowItWorksDialogProps) {
         <header className="how-head">
           <h2 id={titleId}>How it works</h2>
           <button
+            ref={closeRef}
             type="button"
             className="icon-btn"
             onClick={onClose}
@@ -72,7 +84,7 @@ export function HowItWorksDialog({ open, onClose }: HowItWorksDialogProps) {
           </button>
         </header>
 
-        <div className="how-body">
+        <div className="how-body" ref={bodyRef}>
           <p id={descId} className="how-lede">
             This catalog helps you pick a visual direction by eye, then build
             with Impeccable — even if you have never used Impeccable before.

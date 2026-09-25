@@ -99,3 +99,14 @@ export function dismissCompareUndo(state: CompareState): CompareState {
   if (!state.undo) return state;
   return { ...state, undo: null };
 }
+
+export function clearCompare(state: CompareState): CompareState {
+  if (
+    state.slots[0] === null &&
+    state.slots[1] === null &&
+    state.undo === null
+  ) {
+    return state;
+  }
+  return createCompareState();
+}

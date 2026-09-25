@@ -1,4 +1,4 @@
-import type { Ref } from "react";
+import { useId, useLayoutEffect, useRef, type Ref } from "react";
 import type { World } from "../../shared/types";
 import { blobCardUrl } from "../lib/cardImages";
 import type { SlotIndex } from "../lib/compare";
@@ -8,8 +8,11 @@ import { useCardSource } from "../lib/useCardSource";
 interface CompareTrayProps {
   slots: [World | null, World | null];
   focusedSlot: SlotIndex;
+  minimized: boolean;
+  onMinimizedChange?: (next: boolean) => void;
   onFocus: (index: SlotIndex) => void;
   onRemove: (index: SlotIndex) => void;
+  onClear: () => void;
   onOpen: (opener: HTMLButtonElement) => void;
   openButtonRef: Ref<HTMLButtonElement>;
   limitNote?: boolean;
@@ -28,17 +31,45 @@ function TrayThumb({ world }: { world: World }) {
 export function CompareTray({
   slots,
   focusedSlot,
+  minimized,
+  onMinimizedChange,
   onFocus,
   onRemove,
+  onClear,
   onOpen,
   openButtonRef,
   limitNote = false,
 }: CompareTrayProps) {
+  const trayRef = useRef<HTMLDivElement>(null);
+  const slotsId = useId();
   const bothFull = slots[0] !== null && slots[1] !== null;
   const count = slots.filter((slot) => slot !== null).length;
 
+  useLayoutEffect(() => {
+    const node = trayRef.current;
+    if (!node) return;
+    const apply = () => {
+      const height = `${Math.ceil(node.getBoundingClientRect().height)}px`;
+      document.documentElement.style.setProperty("--compare-tray-space", height);
+      document.body.style.setProperty("--compare-tray-space", height);
+    };
+    apply();
+    const observer = new ResizeObserver(apply);
+    observer.observe(node);
+    return () => {
+      observer.disconnect();
+      document.documentElement.style.removeProperty("--compare-tray-space");
+      document.body.style.removeProperty("--compare-tray-space");
+    };
+  }, []);
+
   return (
-    <div className="compare-tray" role="region" aria-label="Compare">
+    <div
+      ref={trayRef}
+      className={`compare-tray${minimized ? " is-minimized" : ""}`}
+      role="region"
+      aria-label="Compare"
+    >
       <p className="sr-only" aria-live="polite">
         {count} of 2 in compare
       </p>
@@ -47,7 +78,10 @@ export function CompareTray({
           Compare is limited to two. Remove one to add another.
         </p>
       ) : null}
-      <div className="compare-tray-slots">
+      {minimized ? (
+        <p className="compare-tray-summary">{count} in compare</p>
+      ) : null}
+      <div id={slotsId} className="compare-tray-slots" hidden={minimized}>
         {([0, 1] as const).map((index) => {
           const world = slots[index];
           if (!world) return null;
@@ -92,14 +126,30 @@ export function CompareTray({
           );
         })}
       </div>
-      <button
-        ref={openButtonRef}
-        type="button"
-        className="btn primary compare-open"
-        onClick={(event) => onOpen(event.currentTarget)}
-      >
-        Open compare
-      </button>
+      <div className="compare-tray-actions">
+        {onMinimizedChange ? (
+          <button
+            type="button"
+            className="btn ghost"
+            aria-expanded={!minimized}
+            aria-controls={slotsId}
+            onClick={() => onMinimizedChange(!minimized)}
+          >
+            {minimized ? "Expand" : "Minimize"}
+          </button>
+        ) : null}
+        <button type="button" className="btn ghost" onClick={onClear}>
+          Clear all
+        </button>
+        <button
+          ref={openButtonRef}
+          type="button"
+          className="btn primary compare-open"
+          onClick={(event) => onOpen(event.currentTarget)}
+        >
+          Open compare
+        </button>
+      </div>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { blobCardUrl } from "../lib/cardImages";
 import { displayValue } from "../lib/display";
 import { moreLikeThis } from "../lib/similarWorlds";
 import { useCardSource } from "../lib/useCardSource";
+import { activateOnSpace, preventSpaceScroll } from "../lib/activateOnSpace";
 import { shouldAllowNativeLink, worldPath } from "../lib/worldPath";
 import { CompareMark } from "./CompareMark";
 import { CanvasFrame } from "./WaveField";
@@ -49,6 +50,8 @@ function SimilarCard({
           event.preventDefault();
           onOpen(world.id);
         }}
+        onKeyDown={preventSpaceScroll}
+        onKeyUp={(event) => activateOnSpace(event, () => onOpen(world.id))}
       >
         <div className="card-thumb">
           <CanvasFrame />

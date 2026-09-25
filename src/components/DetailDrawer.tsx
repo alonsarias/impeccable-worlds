@@ -63,9 +63,11 @@ export function DetailDrawer({
   const viewerRef = useRef<HTMLDivElement>(null);
   const previewBtnRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const viewerCloseRef = useRef<HTMLButtonElement>(null);
+  const announceTimer = useRef(0);
   const [copied, setCopied] = useState<CopiedKind>(null);
+  const [copyAnnounce, setCopyAnnounce] = useState("");
   const [viewerIndex, setViewerIndex] = useState<number | null>(null);
-  const [actionsCompact, setActionsCompact] = useState(false);
   const index = world ? queue.findIndex((entry) => entry.id === world.id) : -1;
   const canStep = Boolean(world) && queue.length > 1;
 
@@ -94,10 +96,12 @@ export function DetailDrawer({
 
   useEffect(() => {
     setCopied(null);
+    setCopyAnnounce("");
     setViewerIndex(null);
-    setActionsCompact(false);
     scrollRef.current?.scrollTo(0, 0);
   }, [requestedId, world?.id]);
+
+  useEffect(() => () => window.clearTimeout(announceTimer.current), []);
 
   useEffect(() => {
     if (!open) return;
@@ -105,23 +109,8 @@ export function DetailDrawer({
   }, [open]);
 
   useEffect(() => {
-    const el = scrollRef.current;
-    if (!open || !el) return;
-    let last = el.scrollTop;
-    const onScroll = () => {
-      const y = el.scrollTop;
-      if (y < 24) setActionsCompact(false);
-      else if (y > last + 8) setActionsCompact(true);
-      else if (y < last - 8) setActionsCompact(false);
-      last = y;
-    };
-    el.addEventListener("scroll", onScroll, { passive: true });
-    return () => el.removeEventListener("scroll", onScroll);
-  }, [open, world?.id]);
-
-  useEffect(() => {
     if (viewerIndex === null) return;
-    viewerRef.current?.focus();
+    viewerCloseRef.current?.focus();
   }, [viewerIndex]);
 
   function closeViewer() {
@@ -152,6 +141,13 @@ export function DetailDrawer({
 
     const onKey = (event: KeyboardEvent) => {
       if (suspendKeys) return;
+      if (event.key === "Escape") {
+        event.preventDefault();
+        event.stopPropagation();
+        if (viewerIndex !== null) closeViewer();
+        else onClose();
+        return;
+      }
       if (
         event.defaultPrevented ||
         event.altKey ||
@@ -188,11 +184,6 @@ export function DetailDrawer({
 
       if (isTypingTarget(event.target)) return;
       if (viewerIndex !== null) {
-        if (event.key === "Escape") {
-          event.preventDefault();
-          closeViewer();
-          return;
-        }
         if (viewerImages.length < 2) return;
         if (event.key === "ArrowLeft") {
           event.preventDefault();
@@ -202,11 +193,6 @@ export function DetailDrawer({
           event.preventDefault();
           stepViewer(1);
         }
-        return;
-      }
-      if (event.key === "Escape") {
-        event.preventDefault();
-        onClose();
         return;
       }
       if (!canStep) return;
@@ -236,12 +222,22 @@ export function DetailDrawer({
 
   if (!open) return null;
 
+  function announceCopy(message: string) {
+    window.clearTimeout(announceTimer.current);
+    setCopyAnnounce("");
+    announceTimer.current = window.setTimeout(
+      () => setCopyAnnounce(message),
+      40,
+    );
+  }
+
   async function copyLink() {
     if (!shareId) return;
     const ok = await copyText(
       worldShareUrl(world ?? shareId, undefined, catalog),
     );
     setCopied(ok ? "link" : null);
+    if (ok) announceCopy("Copied link");
   }
 
   if (!world) {
@@ -276,6 +272,9 @@ export function DetailDrawer({
           <p id={descId} className="missing-copy">
             The catalog is incomplete, so a shared id may not be collected yet.
           </p>
+          <p className="sr-only" role="status" aria-live="polite">
+            {copyAnnounce}
+          </p>
           <footer className="detail-actions">
             <button
               type="button"
@@ -309,6 +308,7 @@ export function DetailDrawer({
   async function copyPrompt() {
     const ok = await copyText(buildDirectionPrompt(selected));
     setCopied(ok ? "prompt" : null);
+    if (ok) announceCopy("Copied prompt");
   }
 
   return (
@@ -371,6 +371,9 @@ export function DetailDrawer({
         <p id={descId} className="sr-only">
           {displayValue(selected.form)}. Use the left and right arrow keys to
           move between worlds. Open an image to view it full size.
+        </p>
+        <p className="sr-only" role="status" aria-live="polite">
+          {copyAnnounce}
         </p>
 
         <div className="detail-scroll" ref={scrollRef}>
@@ -435,9 +438,7 @@ export function DetailDrawer({
           />
         </div>
 
-        <footer
-          className={`detail-actions${actionsCompact ? " is-compact" : ""}`}
-        >
+        <footer className="detail-actions">
           <button
             type="button"
             className="btn primary"
@@ -520,6 +521,7 @@ export function DetailDrawer({
               </>
             ) : null}
             <button
+              ref={viewerCloseRef}
               type="button"
               className="icon-btn"
               onClick={closeViewer}

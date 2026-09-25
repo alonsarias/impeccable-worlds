@@ -2,6 +2,7 @@ import type { World } from "../../shared/types";
 import { blobCardUrl } from "../lib/cardImages";
 import { displayValue } from "../lib/display";
 import { useCardSource } from "../lib/useCardSource";
+import { activateOnSpace, preventSpaceScroll } from "../lib/activateOnSpace";
 import { shouldAllowNativeLink, worldPath } from "../lib/worldPath";
 import { CompareMark } from "./CompareMark";
 import { StarMark } from "./StarMark";
@@ -44,6 +45,10 @@ export function WorldCard({
           event.preventDefault();
           onOpen(world.id, event.currentTarget);
         }}
+        onKeyDown={preventSpaceScroll}
+        onKeyUp={(event) =>
+          activateOnSpace(event, () => onOpen(world.id, event.currentTarget))
+        }
       >
         <div className="card-thumb">
           <CanvasFrame />

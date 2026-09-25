@@ -47,6 +47,7 @@ import { resolveWorld, worldKeyFromPathname, worldPath } from "./lib/worldPath";
 import { ComparePanel } from "./components/ComparePanel";
 import { CompareToast, CompareTray } from "./components/CompareTray";
 import {
+  clearCompare,
   createCompareState,
   dismissCompareUndo,
   focusCompareSlot,
@@ -103,35 +104,24 @@ function useWideCatalog() {
 function MobileFold({
   label,
   wide,
-  collapseWhen = false,
   className,
   children,
 }: {
   label: string;
   wide: boolean;
-  collapseWhen?: boolean;
   className?: string;
   children: ReactNode;
 }) {
   const buttonId = useId();
   const panelId = useId();
-  const panelRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const expanded = wide || open;
-
-  useEffect(() => {
-    if (wide || !collapseWhen) return;
-    setOpen(false);
-  }, [wide, collapseWhen]);
-
-  useEffect(() => {
-    if (!open || wide) return;
-    const favorites = panelRef.current?.querySelector(".check");
-    favorites?.scrollIntoView({ block: "end", inline: "nearest" });
-  }, [open, wide]);
+  const foldClass = ["fold", expanded ? "is-open" : "", className]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <div className={className ? `fold ${className}` : "fold"}>
+    <div className={foldClass}>
       <button
         type="button"
         id={buttonId}
@@ -143,7 +133,6 @@ function MobileFold({
         {label}
       </button>
       <div
-        ref={panelRef}
         id={panelId}
         role="region"
         aria-labelledby={buttonId}
@@ -181,6 +170,7 @@ export function App() {
   const [compare, setCompare] = useState(createCompareState);
   const [compareOpen, setCompareOpen] = useState(false);
   const [compareLimitNote, setCompareLimitNote] = useState(false);
+  const [trayMinimized, setTrayMinimized] = useState(true);
   const wide = useWideCatalog();
   const searchRef = useRef<HTMLInputElement>(null);
   const openCompareRef = useRef<HTMLButtonElement>(null);
@@ -190,6 +180,7 @@ export function App() {
   const restoreWorldFocus = useRef(false);
   const catalogReady = useRef(false);
   const skipCatalogWrite = useRef(false);
+  const catalogTimer = useRef(0);
 
   const refresh = useCallback(async () => {
     const [nextWorlds, nextCoverage] = await Promise.all([
@@ -317,25 +308,27 @@ export function App() {
       prev.sort === sort &&
       prev.layout === layout &&
       prev.favoritesOnly === favoritesOnly;
-    const timer = window.setTimeout(() => {
-      catalogSnapshot.current = { query, tier, sort, layout, favoritesOnly };
+    window.clearTimeout(catalogTimer.current);
+    catalogTimer.current = window.setTimeout(() => {
+      const current = catalogNow.current;
+      catalogSnapshot.current = current;
       const search = catalogSearchString({
-        q: query,
-        type: tier,
-        sort,
-        layout,
-        favorites: favoritesOnly,
+        q: current.query,
+        type: current.tier,
+        sort: current.sort,
+        layout: current.layout,
+        favorites: current.favoritesOnly,
       });
       const next = `${window.location.pathname}${search}`;
-      const current = `${window.location.pathname}${window.location.search}`;
-      if (next === current) return;
+      const here = `${window.location.pathname}${window.location.search}`;
+      if (next === here) return;
       history.pushState(
         { ...(history.state ?? {}), worldId: selectedIdRef.current },
         "",
         next,
       );
-    }, queryOnly ? 300 : 0);
-    return () => window.clearTimeout(timer);
+    }, queryOnly ? 120 : 0);
+    return () => window.clearTimeout(catalogTimer.current);
   }, [query, tier, sort, layout, favoritesOnly]);
 
   const visible = useMemo(
@@ -441,6 +434,42 @@ export function App() {
     setCompareOpen(false);
   }
 
+  function flushCatalogQuery() {
+    window.clearTimeout(catalogTimer.current);
+    const current = catalogNow.current;
+    const prev = catalogSnapshot.current;
+    if (
+      prev.query === current.query &&
+      prev.tier === current.tier &&
+      prev.sort === current.sort &&
+      prev.layout === current.layout &&
+      prev.favoritesOnly === current.favoritesOnly
+    ) {
+      return;
+    }
+    catalogSnapshot.current = current;
+    const search = catalogSearchString({
+      q: current.query,
+      type: current.tier,
+      sort: current.sort,
+      layout: current.layout,
+      favorites: current.favoritesOnly,
+    });
+    const next = `${window.location.pathname}${search}`;
+    const here = `${window.location.pathname}${window.location.search}`;
+    if (next === here) return;
+    history.pushState(
+      { ...(history.state ?? {}), worldId: selectedIdRef.current },
+      "",
+      next,
+    );
+  }
+
+  function onClearCompare() {
+    setCompareLimitNote(false);
+    setCompare((prev) => clearCompare(prev));
+  }
+
   function onCardCompare(id: string) {
     const prev = compareRef.current;
     const already = prev.slots[0] === id || prev.slots[1] === id;
@@ -531,6 +560,10 @@ export function App() {
   }, [compare.slots, compareLimitNote]);
 
   useEffect(() => {
+    if (drawerId) setTrayMinimized(true);
+  }, [drawerId]);
+
+  useEffect(() => {
     if (drawerId) {
       restoreWorldFocus.current = true;
       return;
@@ -558,6 +591,8 @@ export function App() {
   function onClearFilters() {
     setQuery("");
     setTier("all");
+    setSort("name");
+    setLayout("comfortable");
     setFavoritesOnly(false);
     searchRef.current?.focus();
   }
@@ -622,11 +657,7 @@ export function App() {
             </div>
             <div className="room-hang">
             <div className="catalog-stick">
-              <MobileFold
-                label="Search and filters"
-                wide={wide}
-                collapseWhen={emptyKind === "filtered"}
-              >
+              <MobileFold label="Search and filters" wide={wide}>
                 <div className="controls">
                   <label className="search">
                     <span>Search</span>
@@ -635,6 +666,10 @@ export function App() {
                       type="search"
                       value={query}
                       onChange={(event) => setQuery(event.target.value)}
+                      onBlur={() => flushCatalogQuery()}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter") flushCatalogQuery();
+                      }}
                       placeholder="Name, form, spark, system"
                     />
                   </label>
@@ -694,12 +729,7 @@ export function App() {
             </div>
 
             {isCollectAllowed() ? (
-              <MobileFold
-                className="collect-fold"
-                label="Collect"
-                wide={wide}
-                collapseWhen={emptyKind === "filtered"}
-              >
+                <MobileFold className="collect-fold" label="Collect" wide={wide}>
                 <CoverageStrip
                   coverage={coverage}
                   collecting={collecting}
@@ -831,10 +861,15 @@ export function App() {
           <CompareTray
             slots={compareWorlds}
             focusedSlot={compare.focusedSlot}
+            minimized={!wide && trayMinimized}
+            onMinimizedChange={
+              wide ? undefined : (next) => setTrayMinimized(next)
+            }
             onFocus={(index) =>
               setCompare((prev) => focusCompareSlot(prev, index))
             }
             onRemove={onRemoveCompare}
+            onClear={onClearCompare}
             onOpen={(opener) => openCompare(opener)}
             openButtonRef={openCompareRef}
             limitNote={compareLimitNote}
@@ -867,6 +902,7 @@ export function App() {
             ) : null
           }
           onClose={closeCompare}
+          onClear={onClearCompare}
           onRemove={onRemoveCompare}
         />
       </div>

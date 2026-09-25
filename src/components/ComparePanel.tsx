@@ -13,6 +13,7 @@ interface ComparePanelProps {
   slots: [World | null, World | null];
   notice?: ReactNode;
   onClose: () => void;
+  onClear: () => void;
   onRemove: (index: SlotIndex) => void;
 }
 
@@ -36,6 +37,8 @@ function CompareSide({
 }) {
   const nameId = useId();
   const [copied, setCopied] = useState(false);
+  const [copyAnnounce, setCopyAnnounce] = useState("");
+  const announceTimer = useRef(0);
   const upstream = world ? (world.cardHero ?? world.cardBoard) : undefined;
   const image = useCardSource(
     upstream,
@@ -44,7 +47,10 @@ function CompareSide({
 
   useEffect(() => {
     setCopied(false);
+    setCopyAnnounce("");
   }, [world?.id]);
+
+  useEffect(() => () => window.clearTimeout(announceTimer.current), []);
 
   if (!world) {
     return (
@@ -60,6 +66,13 @@ function CompareSide({
   async function copyPrompt() {
     const ok = await copyText(buildDirectionPrompt(selected));
     setCopied(ok);
+    if (!ok) return;
+    window.clearTimeout(announceTimer.current);
+    setCopyAnnounce("");
+    announceTimer.current = window.setTimeout(
+      () => setCopyAnnounce("Copied prompt"),
+      40,
+    );
   }
 
   return (
@@ -73,6 +86,9 @@ function CompareSide({
       </div>
       <h3 id={nameId}>{name}</h3>
       <p className="detail-spark">{displayValue(selected.spark)}</p>
+      <p className="sr-only" role="status" aria-live="polite">
+        {copyAnnounce}
+      </p>
       <div className="compare-actions">
         <button
           type="button"
@@ -100,23 +116,27 @@ export function ComparePanel({
   slots,
   notice,
   onClose,
+  onClear,
   onRemove,
 }: ComparePanelProps) {
   const titleId = useId();
   const paneRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
 
   useEffect(() => {
     if (!open) return;
-    paneRef.current?.focus();
+    closeRef.current?.focus();
 
     const onKey = (event: KeyboardEvent) => {
-      if (event.altKey || event.ctrlKey || event.metaKey) return;
       if (event.key === "Escape") {
         event.preventDefault();
         event.stopPropagation();
-        onClose();
+        onCloseRef.current();
         return;
       }
+      if (event.altKey || event.ctrlKey || event.metaKey) return;
       if (event.key !== "Tab") return;
       const trapRoot = paneRef.current;
       if (!trapRoot) return;
@@ -146,7 +166,7 @@ export function ComparePanel({
     return () => {
       window.removeEventListener("keydown", onKey, true);
     };
-  }, [open, onClose]);
+  }, [open]);
 
   if (!open) return null;
 
@@ -162,14 +182,20 @@ export function ComparePanel({
       <div className="compare-panel">
         <header className="compare-head">
           <h2 id={titleId}>Compare</h2>
-          <button
-            type="button"
-            className="icon-btn"
-            onClick={onClose}
-            aria-label="Close"
-          >
-            ×
-          </button>
+          <div className="compare-head-actions">
+            <button type="button" className="btn ghost" onClick={onClear}>
+              Clear all
+            </button>
+            <button
+              ref={closeRef}
+              type="button"
+              className="icon-btn"
+              onClick={onClose}
+              aria-label="Close"
+            >
+              ×
+            </button>
+          </div>
         </header>
         {notice}
         <div className="compare-columns">

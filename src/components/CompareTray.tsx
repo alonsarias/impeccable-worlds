@@ -12,6 +12,7 @@ interface CompareTrayProps {
   onRemove: (index: SlotIndex) => void;
   onOpen: (opener: HTMLButtonElement) => void;
   openButtonRef: Ref<HTMLButtonElement>;
+  limitNote?: boolean;
 }
 
 function TrayThumb({ world }: { world: World }) {
@@ -31,6 +32,7 @@ export function CompareTray({
   onRemove,
   onOpen,
   openButtonRef,
+  limitNote = false,
 }: CompareTrayProps) {
   const bothFull = slots[0] !== null && slots[1] !== null;
   const count = slots.filter((slot) => slot !== null).length;
@@ -40,6 +42,11 @@ export function CompareTray({
       <p className="sr-only" aria-live="polite">
         {count} of 2 in compare
       </p>
+      {limitNote ? (
+        <p className="compare-limit" role="status">
+          Compare is limited to two. Remove one to add another.
+        </p>
+      ) : null}
       <div className="compare-tray-slots">
         {([0, 1] as const).map((index) => {
           const world = slots[index];

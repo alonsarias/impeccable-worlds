@@ -76,7 +76,7 @@ function SimilarCard({
           inCompare
             ? `Remove ${name} from compare`
             : compareFull
-              ? `Add ${name} to compare, replacing the other side`
+              ? `Compare is limited to two. Remove one to add ${name}`
               : `Add ${name} to compare`
         }
         title={inCompare ? "Remove from compare" : "Add to compare"}

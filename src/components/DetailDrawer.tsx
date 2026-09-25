@@ -59,11 +59,13 @@ export function DetailDrawer({
   const titleId = useId();
   const descId = useId();
   const paneRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
   const viewerRef = useRef<HTMLDivElement>(null);
   const previewBtnRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = useState<CopiedKind>(null);
   const [viewerIndex, setViewerIndex] = useState<number | null>(null);
+  const [actionsCompact, setActionsCompact] = useState(false);
   const index = world ? queue.findIndex((entry) => entry.id === world.id) : -1;
   const canStep = Boolean(world) && queue.length > 1;
 
@@ -93,20 +95,29 @@ export function DetailDrawer({
   useEffect(() => {
     setCopied(null);
     setViewerIndex(null);
+    setActionsCompact(false);
     scrollRef.current?.scrollTo(0, 0);
   }, [requestedId, world?.id]);
 
   useEffect(() => {
     if (!open) return;
-    const opener =
-      document.activeElement instanceof HTMLElement
-        ? document.activeElement
-        : null;
-    paneRef.current?.focus();
-    return () => {
-      opener?.focus();
-    };
+    closeRef.current?.focus();
   }, [open]);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!open || !el) return;
+    let last = el.scrollTop;
+    const onScroll = () => {
+      const y = el.scrollTop;
+      if (y < 24) setActionsCompact(false);
+      else if (y > last + 8) setActionsCompact(true);
+      else if (y < last - 8) setActionsCompact(false);
+      last = y;
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, [open, world?.id]);
 
   useEffect(() => {
     if (viewerIndex === null) return;
@@ -252,6 +263,7 @@ export function DetailDrawer({
             </div>
             <div className="detail-nav">
               <button
+                ref={closeRef}
                 type="button"
                 className="icon-btn"
                 onClick={onClose}
@@ -346,6 +358,7 @@ export function DetailDrawer({
               →
             </button>
             <button
+              ref={closeRef}
               type="button"
               className="icon-btn"
               onClick={onClose}
@@ -422,7 +435,9 @@ export function DetailDrawer({
           />
         </div>
 
-        <footer className="detail-actions">
+        <footer
+          className={`detail-actions${actionsCompact ? " is-compact" : ""}`}
+        >
           <button
             type="button"
             className="btn primary"
@@ -457,7 +472,7 @@ export function DetailDrawer({
                 inCompare(selected.id)
                   ? `Remove ${name} from compare`
                   : compareFull
-                    ? `Add ${name} to compare, replacing the other side`
+                    ? `Compare is limited to two. Remove one to add ${name}`
                     : `Add ${name} to compare`
               }
               onClick={() => onCompare(selected.id)}

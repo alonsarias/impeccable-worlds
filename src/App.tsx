@@ -1,6 +1,7 @@
 import {
   useCallback,
   useEffect,
+  useId,
   useMemo,
   useRef,
   useState,
@@ -37,6 +38,11 @@ import {
   humanizeCollectError,
   titleCaseTier,
 } from "./lib/statusCopy";
+import {
+  catalogSearchString,
+  readCatalogQuery,
+  type CatalogQuery,
+} from "./lib/catalogQuery";
 import { resolveWorld, worldKeyFromPathname, worldPath } from "./lib/worldPath";
 import { ComparePanel } from "./components/ComparePanel";
 import { CompareToast, CompareTray } from "./components/CompareTray";
@@ -107,42 +113,61 @@ function MobileFold({
   className?: string;
   children: ReactNode;
 }) {
+  const buttonId = useId();
+  const panelId = useId();
+  const panelRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
-  const skipToggle = useRef(false);
+  const expanded = wide || open;
 
   useEffect(() => {
     if (wide || !collapseWhen) return;
-    skipToggle.current = true;
     setOpen(false);
   }, [wide, collapseWhen]);
 
+  useEffect(() => {
+    if (!open || wide) return;
+    const favorites = panelRef.current?.querySelector(".check");
+    favorites?.scrollIntoView({ block: "end", inline: "nearest" });
+  }, [open, wide]);
+
   return (
-    <details
-      className={className ? `fold ${className}` : "fold"}
-      open={wide || open}
-      onToggle={(event) => {
-        if (wide) return;
-        if (skipToggle.current) {
-          skipToggle.current = false;
-          return;
-        }
-        setOpen(event.currentTarget.open);
-      }}
-    >
-      <summary>{label}</summary>
-      {children}
-    </details>
+    <div className={className ? `fold ${className}` : "fold"}>
+      <button
+        type="button"
+        id={buttonId}
+        className="fold-toggle"
+        aria-expanded={expanded}
+        aria-controls={panelId}
+        onClick={() => setOpen((current) => !current)}
+      >
+        {label}
+      </button>
+      <div
+        ref={panelRef}
+        id={panelId}
+        role="region"
+        aria-labelledby={buttonId}
+        hidden={!expanded}
+      >
+        {children}
+      </div>
+    </div>
   );
 }
 
+function catalogFromLocation(): CatalogQuery {
+  return readCatalogQuery(window.location.search);
+}
+
 export function App() {
+  const initialCatalog = catalogFromLocation();
   const [worlds, setWorlds] = useState<World[]>([]);
   const [coverage, setCoverage] = useState<Coverage | null>(null);
-  const [query, setQuery] = useState("");
-  const [tier, setTier] = useState("all");
-  const [sort, setSort] = useState<WorldSort>("name");
-  const [layout, setLayout] = useState<CardLayout>("comfortable");
-  const [favoritesOnly, setFavoritesOnly] = useState(false);
+  const [query, setQuery] = useState(initialCatalog.q);
+  const [tier, setTier] = useState(initialCatalog.type);
+  const [sort, setSort] = useState<WorldSort>(initialCatalog.sort);
+  const [layout, setLayout] = useState<CardLayout>(initialCatalog.layout);
+  const [favoritesOnly, setFavoritesOnly] = useState(initialCatalog.favorites);
   const [selectedId, setSelectedId] = useState<string | null>(() =>
     worldKeyFromPathname(window.location.pathname),
   );
@@ -155,11 +180,16 @@ export function App() {
   const [howItWorksOpen, setHowItWorksOpen] = useState(false);
   const [compare, setCompare] = useState(createCompareState);
   const [compareOpen, setCompareOpen] = useState(false);
+  const [compareLimitNote, setCompareLimitNote] = useState(false);
   const wide = useWideCatalog();
   const searchRef = useRef<HTMLInputElement>(null);
   const openCompareRef = useRef<HTMLButtonElement>(null);
   const compareOpenerRef = useRef<HTMLElement | null>(null);
   const restoreCompareFocus = useRef(false);
+  const worldOpenerRef = useRef<HTMLElement | null>(null);
+  const restoreWorldFocus = useRef(false);
+  const catalogReady = useRef(false);
+  const skipCatalogWrite = useRef(false);
 
   const refresh = useCallback(async () => {
     const [nextWorlds, nextCoverage] = await Promise.all([
@@ -199,12 +229,12 @@ export function App() {
   const writeWorldLocation = useCallback(
     (id: string | null, mode: "push" | "replace") => {
       const world = id ? resolveWorld(worlds, id) : undefined;
-      const nextPath = world
-        ? worldPath(world, worlds)
-        : id
-          ? worldPath(id)
-          : "/";
-      if (window.location.pathname === nextPath) return;
+      const nextPath = `${
+        world ? worldPath(world, worlds) : id ? worldPath(id) : "/"
+      }${window.location.search}`;
+      if (`${window.location.pathname}${window.location.search}` === nextPath) {
+        return;
+      }
       const state = { worldId: world?.id ?? id };
       if (mode === "replace") history.replaceState(state, "", nextPath);
       else history.pushState(state, "", nextPath);
@@ -213,7 +243,10 @@ export function App() {
   );
 
   const openWorld = useCallback(
-    (id: string) => {
+    (id: string, opener?: HTMLElement | null) => {
+      const active = document.activeElement;
+      worldOpenerRef.current =
+        opener ?? (active instanceof HTMLElement ? active : null);
       setSelectedId(id);
       writeWorldLocation(id, "push");
     },
@@ -233,13 +266,77 @@ export function App() {
     writeWorldLocation(null, "push");
   }, [writeWorldLocation]);
 
+  const catalogNow = useRef({ query, tier, sort, layout, favoritesOnly });
+  catalogNow.current = { query, tier, sort, layout, favoritesOnly };
+  const compareRef = useRef(compare);
+  compareRef.current = compare;
+
   useEffect(() => {
     const onPop = () => {
+      const catalog = readCatalogQuery(window.location.search);
+      const current = catalogNow.current;
+      if (
+        current.query !== catalog.q ||
+        current.tier !== catalog.type ||
+        current.sort !== catalog.sort ||
+        current.layout !== catalog.layout ||
+        current.favoritesOnly !== catalog.favorites
+      ) {
+        skipCatalogWrite.current = true;
+      }
+      setQuery(catalog.q);
+      setTier(catalog.type);
+      setSort(catalog.sort);
+      setLayout(catalog.layout);
+      setFavoritesOnly(catalog.favorites);
       setSelectedId(worldKeyFromPathname(window.location.pathname));
     };
     window.addEventListener("popstate", onPop);
     return () => window.removeEventListener("popstate", onPop);
   }, []);
+
+  const catalogSnapshot = useRef({ query, tier, sort, layout, favoritesOnly });
+  const selectedIdRef = useRef(selectedId);
+  selectedIdRef.current = selectedId;
+
+  useEffect(() => {
+    if (!catalogReady.current) {
+      catalogReady.current = true;
+      catalogSnapshot.current = { query, tier, sort, layout, favoritesOnly };
+      return;
+    }
+    if (skipCatalogWrite.current) {
+      skipCatalogWrite.current = false;
+      catalogSnapshot.current = { query, tier, sort, layout, favoritesOnly };
+      return;
+    }
+    const prev = catalogSnapshot.current;
+    const queryOnly =
+      prev.query !== query &&
+      prev.tier === tier &&
+      prev.sort === sort &&
+      prev.layout === layout &&
+      prev.favoritesOnly === favoritesOnly;
+    const timer = window.setTimeout(() => {
+      catalogSnapshot.current = { query, tier, sort, layout, favoritesOnly };
+      const search = catalogSearchString({
+        q: query,
+        type: tier,
+        sort,
+        layout,
+        favorites: favoritesOnly,
+      });
+      const next = `${window.location.pathname}${search}`;
+      const current = `${window.location.pathname}${window.location.search}`;
+      if (next === current) return;
+      history.pushState(
+        { ...(history.state ?? {}), worldId: selectedIdRef.current },
+        "",
+        next,
+      );
+    }, queryOnly ? 300 : 0);
+    return () => window.clearTimeout(timer);
+  }, [query, tier, sort, layout, favoritesOnly]);
 
   const visible = useMemo(
     () =>
@@ -259,8 +356,8 @@ export function App() {
     if (!selectedId || worlds.length === 0) return;
     const world = resolveWorld(worlds, selectedId);
     if (!world) return;
-    const nextPath = worldPath(world, worlds);
-    if (window.location.pathname === nextPath) return;
+    const nextPath = `${worldPath(world, worlds)}${window.location.search}`;
+    if (`${window.location.pathname}${window.location.search}` === nextPath) return;
     history.replaceState({ worldId: world.id }, "", nextPath);
   }, [selectedId, worlds]);
 
@@ -345,7 +442,17 @@ export function App() {
   }
 
   function onCardCompare(id: string) {
-    setCompare((prev) => toggleCompare(prev, id));
+    const prev = compareRef.current;
+    const already = prev.slots[0] === id || prev.slots[1] === id;
+    const full = prev.slots[0] !== null && prev.slots[1] !== null;
+    if (!already && full) {
+      setCompareLimitNote(true);
+      return;
+    }
+    const next = toggleCompare(prev, id);
+    compareRef.current = next;
+    setCompareLimitNote(false);
+    setCompare(next);
   }
 
   function onRemoveCompare(index: SlotIndex) {
@@ -379,11 +486,16 @@ export function App() {
   useEffect(() => {
     document.body.classList.toggle("has-compare-tray", trayVisible);
     document.body.classList.toggle("has-compare-toast", compare.undo !== null);
+    document.body.classList.toggle(
+      "has-compare-limit",
+      compareLimitNote && trayVisible,
+    );
     return () => {
       document.body.classList.remove("has-compare-tray");
       document.body.classList.remove("has-compare-toast");
+      document.body.classList.remove("has-compare-limit");
     };
-  }, [trayVisible, compare.undo]);
+  }, [trayVisible, compare.undo, compareLimitNote]);
 
   useEffect(() => {
     document.body.style.overflow = drawerId || compareOpen ? "hidden" : "";
@@ -410,6 +522,29 @@ export function App() {
     }
     (openCompareRef.current ?? searchRef.current)?.focus();
   }, [compareOpen]);
+
+  useEffect(() => {
+    if (!compareLimitNote) return;
+    if (compare.slots[0] === null || compare.slots[1] === null) {
+      setCompareLimitNote(false);
+    }
+  }, [compare.slots, compareLimitNote]);
+
+  useEffect(() => {
+    if (drawerId) {
+      restoreWorldFocus.current = true;
+      return;
+    }
+    if (!restoreWorldFocus.current) return;
+    restoreWorldFocus.current = false;
+    const opener = worldOpenerRef.current;
+    worldOpenerRef.current = null;
+    if (opener && document.contains(opener)) {
+      opener.focus();
+      return;
+    }
+    searchRef.current?.focus();
+  }, [drawerId]);
 
   function onFavorite(id: string) {
     const favorite = toggleFavorite(id);
@@ -475,7 +610,7 @@ export function App() {
                 </p>
                 <button
                   type="button"
-                  className="text-link"
+                  className="btn primary how-cta"
                   aria-haspopup="dialog"
                   aria-expanded={howItWorksOpen}
                   aria-controls={HOW_IT_WORKS_DIALOG_ID}
@@ -696,6 +831,7 @@ export function App() {
             onRemove={onRemoveCompare}
             onOpen={(opener) => openCompare(opener)}
             openButtonRef={openCompareRef}
+            limitNote={compareLimitNote}
           />
         ) : null}
 
@@ -711,7 +847,11 @@ export function App() {
           open={compareOpen}
           slots={compareWorlds}
           notice={
-            compare.undo ? (
+            compareLimitNote ? (
+              <p className="compare-limit is-embedded" role="status">
+                Compare is limited to two. Remove one to add another.
+              </p>
+            ) : compare.undo ? (
               <CompareToast
                 embedded
                 message={undoMessage}

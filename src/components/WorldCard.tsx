@@ -12,7 +12,7 @@ interface WorldCardProps {
   catalog: World[];
   inCompare: boolean;
   compareFull: boolean;
-  onOpen: (id: string) => void;
+  onOpen: (id: string, opener?: HTMLElement | null) => void;
   onFavorite: (id: string) => void;
   onCompare: (id: string) => void;
 }
@@ -42,7 +42,7 @@ export function WorldCard({
         onClick={(event) => {
           if (shouldAllowNativeLink(event)) return;
           event.preventDefault();
-          onOpen(world.id);
+          onOpen(world.id, event.currentTarget);
         }}
       >
         <div className="card-thumb">
@@ -76,7 +76,7 @@ export function WorldCard({
           inCompare
             ? `Remove ${name} from compare`
             : compareFull
-              ? `Add ${name} to compare, replacing the other side`
+              ? `Compare is limited to two. Remove one to add ${name}`
               : `Add ${name} to compare`
         }
         title={inCompare ? "Remove from compare" : "Add to compare"}

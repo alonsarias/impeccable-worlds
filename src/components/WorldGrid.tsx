@@ -9,7 +9,7 @@ interface WorldGridProps {
   layout: CardLayout;
   compareFull: boolean;
   inCompare: (id: string) => boolean;
-  onOpen: (id: string) => void;
+  onOpen: (id: string, opener?: HTMLElement | null) => void;
   onFavorite: (id: string) => void;
   onCompare: (id: string) => void;
 }

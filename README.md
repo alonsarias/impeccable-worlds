@@ -232,7 +232,7 @@ Never commit `.env.local`. Never print the token.
 
 `/w/{slug}` needs server/static HTML meta. The production build writes a static shell per catalog world. Each file sets title `{Name} · Impeccable Worlds`, spark/form description, `summary_large_image`, hero `og:image`, and `og:url` / canonical from `VITE_SITE_URL`.
 
-Home keeps the site title; its image uses Alphabet Storm’s hero (same Blob/catalog rules).
+Home keeps the site title. Its image is the brand card at `/og.png` (1200×630), not a world hero. Regenerate it with `npm run og`.
 
 Quick check:
 

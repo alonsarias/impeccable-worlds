@@ -5,14 +5,6 @@ export const SITE_NAME = "Impeccable Worlds";
 export const WORLD_OG_DESCRIPTION_FALLBACK =
   "Choose a direction by eye. Copy the prompt.";
 
-/** Site share card. Same hero treatment as a world link. */
-export const SITE_OG_WORLD: OgWorld = {
-  id: "dream-surreal-impossible-worlds-alphabet-storm",
-  name: "Alphabet Storm",
-  cardHero:
-    "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-alphabet-storm-hero.webp",
-};
-
 const DESCRIPTION_MAX = 160;
 
 export type OgWorld = {
@@ -73,12 +65,18 @@ export function worldOgSpec(
   };
 }
 
-/** Home share image: Alphabet Storm's hero, resolved like any other world card. */
-export function siteOgImage(
-  blobBase: string | null | undefined,
-  siteUrl: string,
-): { url: string; type: string; sized: boolean } {
-  return worldOgImage(SITE_OG_WORLD, blobBase, siteUrl);
+/** Home share image: the brand card at /og.png, not a world hero. */
+export function siteOgImage(siteUrl: string): {
+  url: string;
+  type: string;
+  sized: boolean;
+} {
+  const origin = httpOrigin(siteUrl);
+  return {
+    url: origin ? `${origin}/og.png` : "/og.png",
+    type: "image/png",
+    sized: true,
+  };
 }
 
 /** Inject world Open Graph tags into an SPA shell. Home HTML is left untouched. */

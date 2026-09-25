@@ -2,24 +2,24 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>OG card</title>
+    <title>Impeccable Worlds — share card</title>
     <!--
-      1200×630 share card: four representative catalog worlds, landing heroes.
-      Angura Theatre Poster · Antialiased Racing League · Alphabet Storm · CRT Arcade Pixel Glow.
-      Hung faces come from data/worlds.json via scripts/generate-og.mjs.
+      1200×630 home share card. Brand lockup, not a world hero.
+      White caption margin, black wave wall. Host Grotesk.
+      Rasterize with: npm run og
     -->
     <style>
       @font-face {
         font-family: "Host Grotesk";
         font-style: normal;
         font-weight: 400;
-        src: url("/fonts/host-grotesk-400-latin.woff2") format("woff2");
+        src: url("../public/fonts/host-grotesk-400-latin.woff2") format("woff2");
       }
       @font-face {
         font-family: "Host Grotesk";
         font-style: normal;
         font-weight: 700;
-        src: url("/fonts/host-grotesk-700-latin.woff2") format("woff2");
+        src: url("../public/fonts/host-grotesk-700-latin.woff2") format("woff2");
       }
       * {
         box-sizing: border-box;
@@ -33,135 +33,72 @@
         background: #fff;
       }
       .card {
-        position: relative;
+        display: grid;
+        grid-template-columns: 614px 1fr;
         width: 1200px;
         height: 630px;
         overflow: hidden;
         background: #fff;
         color: #000;
         font-family: "Host Grotesk", Helvetica, Arial, sans-serif;
-        border: 3px solid #000;
       }
-      .wall {
-        position: absolute;
-        inset: 0;
-        opacity: 0.14;
-        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='48'><path fill='none' stroke='%23000' stroke-width='1' d='M4 0 L8 8 L2 16 L9 24 L3 32 L8 40 L4 48 M18 0 L22 8 L16 16 L23 24 L17 32 L22 40 L18 48'/></svg>");
-        background-size: 28px 48px;
-        pointer-events: none;
-      }
-      .salon {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        left: 10px;
-        bottom: 88px;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 440px));
+      .caption {
+        display: flex;
+        flex-direction: column;
         justify-content: center;
-        align-content: center;
-        gap: 24px;
-      }
-      .hang {
-        margin: 0;
-        min-width: 0;
+        align-items: flex-start;
+        gap: 32px;
+        padding: 0 40px 0 64px;
         background: #fff;
-        border: 1px solid #000;
-      }
-      .hang img {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 2048 / 1152;
-        object-fit: contain;
-        object-position: center;
-        display: block;
-      }
-      .rail {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 80px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 24px;
-        padding: 0 28px;
-        background: #fff;
-        border-top: 2px solid #000;
-      }
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        min-width: 0;
-      }
-      .brand img {
-        width: 36px;
-        height: 36px;
-        display: block;
-        flex: 0 0 auto;
       }
       h1 {
         margin: 0;
-        font-size: 36px;
-        line-height: 1;
+        font-size: 100px;
         font-weight: 700;
-        letter-spacing: -0.035em;
-        white-space: nowrap;
+        line-height: 0.86;
+        letter-spacing: -0.04em;
       }
       p {
         margin: 0;
-        flex: 0 0 auto;
-        font-size: 20px;
-        line-height: 1.2;
+        font-size: 32px;
         font-weight: 400;
-        text-align: right;
-        white-space: nowrap;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+      }
+      .wall {
+        background: #fff;
+      }
+      .wall svg {
+        display: block;
+        width: 100%;
+        height: 100%;
       }
     </style>
   </head>
   <body>
     <div class="card">
-      <div class="wall" aria-hidden="true"></div>
-      <div class="salon">
-        <figure class="hang">
-          <img
-            src="/og-src/posters-covers-sleeves-angura-theatre-poster.webp"
-            alt=""
-          />
-        </figure>
-        <figure class="hang">
-          <img
-            src="/og-src/digital-design-canon-antialiased-racing-league.webp"
-            alt=""
-          />
-        </figure>
-        <figure class="hang">
-          <img
-            src="/og-src/dream-surreal-impossible-worlds-alphabet-storm.webp"
-            alt=""
-          />
-        </figure>
-        <figure class="hang">
-          <img src="/og-src/medium-native-crt-arcade-pixel-glow.webp" alt="" />
-        </figure>
+      <div class="caption">
+        <h1>Impeccable<br />Worlds</h1>
+        <p>Choose a direction by eye.<br />Copy the prompt.</p>
       </div>
-      <div class="rail">
-        <div class="brand">
-          <img src="/favicon.svg" alt="" />
-          <h1>Impeccable Worlds</h1>
-        </div>
-        <p>Choose a direction by eye. Copy the prompt.</p>
+      <div class="wall" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="wave" width="108" height="162" patternUnits="userSpaceOnUse">
+              <path
+                fill="none"
+                stroke="#000"
+                stroke-width="2.75"
+                d="M 12.60 0 Q 22.68 40.50 12.60 81.00 Q 2.52 121.50 12.60 162.00 M 48.60 0 Q 58.68 40.50 48.60 81.00 Q 38.52 121.50 48.60 162.00 M 84.60 0 Q 94.68 40.50 84.60 81.00 Q 74.52 121.50 84.60 162.00"
+              />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#wave)" />
+        </svg>
       </div>
     </div>
     <script>
-      Promise.all([
-        document.fonts.ready,
-        ...[...document.images].map((img) =>
-          img.decode ? img.decode().catch(() => {}) : Promise.resolve(),
-        ),
-      ]).then(() => {
+      document.fonts.ready.then(() => {
         document.documentElement.dataset.ready = "1";
       });
     </script>

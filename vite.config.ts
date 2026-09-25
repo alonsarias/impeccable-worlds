@@ -8,10 +8,10 @@ const SITE_TITLE = "Impeccable Worlds";
 const SITE_DESCRIPTION =
   "A browsable catalog of Impeccable design worlds indexed locally. Unofficial and incomplete — not an official Impeccable product.";
 
-function seoUrlsPlugin(siteUrl: string, blobBase: string): Plugin {
+function seoUrlsPlugin(siteUrl: string): Plugin {
   const origin = siteUrl.replace(/\/$/, "");
   const pageUrl = origin ? `${origin}/` : "";
-  const image = siteOgImage(blobBase, siteUrl);
+  const image = siteOgImage(siteUrl);
   const sizeBlock = image.sized
     ? `<meta property="og:image:width" content="1200" />\n    <meta property="og:image:height" content="630" />`
     : "";
@@ -52,7 +52,7 @@ export default defineConfig(({ mode }) => {
     plugins: [
       react(),
       apiPlugin(),
-      seoUrlsPlugin(env.VITE_SITE_URL ?? "", env.VITE_BLOB_CARDS_BASE_URL ?? ""),
+      seoUrlsPlugin(env.VITE_SITE_URL ?? ""),
       worldOgPlugin({
         siteUrl: env.VITE_SITE_URL ?? "",
         blobBase: env.VITE_BLOB_CARDS_BASE_URL ?? "",

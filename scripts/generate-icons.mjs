@@ -1,7 +1,7 @@
 /**
  * Rasterize public/favicon.svg into PNG / ICO.
  * Same mark at every size — do not invent a second logo.
- * Share card (public/og.png) is the salon on scripts/og-card.html.
+ * Share card (public/og.png) is the brand lockup on scripts/og-card.html.
  * Recapture that card with: node scripts/generate-og.mjs
  *
  * Run: npm install --no-save sharp && node scripts/generate-icons.mjs

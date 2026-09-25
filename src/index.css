@@ -2179,7 +2179,7 @@ h1 {
 @media (min-width: 960px) {
   .app {
     width: min(1480px, calc(100% - 48px));
-    padding-top: 12px;
+    padding-top: 24px;
   }
 
   .room {
@@ -2192,7 +2192,7 @@ h1 {
 
   .room-caption {
     position: sticky;
-    top: 20px;
+    top: 24px;
     min-width: 0;
     container-type: inline-size;
     padding: 18px 18px 32px 18px;

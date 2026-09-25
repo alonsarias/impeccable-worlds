@@ -589,18 +589,6 @@ export function App() {
           inert={drawerId || compareOpen ? true : undefined}
         >
           <div className="room">
-            <div className="mast-rule">
-              <a
-                className="github-link"
-                href={GITHUB_REPO_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="View on GitHub"
-                title="View on GitHub"
-              >
-                <GitHubMark />
-              </a>
-            </div>
             <div className="room-caption">
               <h1>Impeccable Worlds</h1>
               <div className="purpose">
@@ -608,16 +596,28 @@ export function App() {
                   A browsable catalog of Impeccable design worlds. Search,
                   preview, and copy a direction into your coding agent.
                 </p>
-                <button
-                  type="button"
-                  className="btn primary how-cta"
-                  aria-haspopup="dialog"
-                  aria-expanded={howItWorksOpen}
-                  aria-controls={HOW_IT_WORKS_DIALOG_ID}
-                  onClick={() => setHowItWorksOpen(true)}
-                >
-                  How it works
-                </button>
+                <div className="caption-actions">
+                  <button
+                    type="button"
+                    className="btn primary how-cta"
+                    aria-haspopup="dialog"
+                    aria-expanded={howItWorksOpen}
+                    aria-controls={HOW_IT_WORKS_DIALOG_ID}
+                    onClick={() => setHowItWorksOpen(true)}
+                  >
+                    How it works
+                  </button>
+                  <a
+                    className="github-link"
+                    href={GITHUB_REPO_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View on GitHub"
+                    title="View on GitHub"
+                  >
+                    <GitHubMark />
+                  </a>
+                </div>
               </div>
             </div>
             <div className="room-hang">
@@ -783,8 +783,14 @@ export function App() {
 
           <footer className="legal">
             <p>
-              World names, direction text, and card images come from Impeccable
-              (impeccable.style). This is a personal/lab index for choosing a
+              World names, direction text, and card images come from{" "}
+              <a
+                href="https://impeccable.style"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Impeccable
+              </a>. This is a personal/lab index for choosing a
               direction by eye. It is not an official Impeccable product, and it
               does not claim a complete catalog.
             </p>

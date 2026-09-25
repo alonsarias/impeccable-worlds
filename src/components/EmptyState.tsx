@@ -74,7 +74,7 @@ export function EmptyState({
       {onCollect ? (
         <button
           type="button"
-          className="btn primary"
+          className="btn ghost"
           onClick={onCollect}
           disabled={collecting}
           aria-busy={collecting}

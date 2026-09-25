@@ -313,10 +313,12 @@ export function DetailDrawer({
       <div className="detail" inert={viewerIndex !== null ? true : undefined}>
         <header className="detail-head">
           <div className="detail-title">
-            <p className={`tier tier-${selected.wellTier ?? "unknown"}`}>
-              {displayValue(selected.wellTier)}
-            </p>
-            <h2 id={titleId}>{name}</h2>
+            <h2 id={titleId}>
+              {name}{" "}
+              <span className={`tier tier-${selected.wellTier ?? "unknown"}`}>
+                {displayValue(selected.wellTier)}
+              </span>
+            </h2>
             <p className="detail-spark">{displayValue(selected.spark)}</p>
           </div>
           <div className="detail-nav">

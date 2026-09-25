@@ -6,6 +6,7 @@ import { moreLikeThis } from "../lib/similarWorlds";
 import { useCardSource } from "../lib/useCardSource";
 import { shouldAllowNativeLink, worldPath } from "../lib/worldPath";
 import { CompareMark } from "./CompareMark";
+import { CanvasFrame } from "./WaveField";
 
 interface MoreLikeThisProps {
   world: World;
@@ -50,6 +51,7 @@ function SimilarCard({
         }}
       >
         <div className="card-thumb">
+          <CanvasFrame />
           {image.src ? (
             <img
               src={image.src}

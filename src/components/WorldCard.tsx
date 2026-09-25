@@ -36,7 +36,6 @@ export function WorldCard({
 
   return (
     <article className="card" data-vantage="far">
-      <CanvasFrame />
       <a
         className="card-main"
         href={worldPath(world, catalog)}
@@ -47,6 +46,7 @@ export function WorldCard({
         }}
       >
         <div className="card-thumb">
+          <CanvasFrame />
           {image.src ? (
             <img
               src={image.src}
@@ -60,10 +60,12 @@ export function WorldCard({
           )}
         </div>
         <div className="card-body">
-          <h2>{name}</h2>
-          <span className={`tier tier-${world.wellTier ?? "unknown"}`}>
-            {tier}
-          </span>
+          <h2>
+            {name}{" "}
+            <span className={`tier tier-${world.wellTier ?? "unknown"}`}>
+              {tier}
+            </span>
+          </h2>
         </div>
       </a>
       <button

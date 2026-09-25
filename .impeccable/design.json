@@ -1,0 +1,206 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-25T17:28:00.000Z",
+  "title": "Design System: Impeccable Worlds",
+  "extensions": {
+    "colorMeta": {
+      "matte-black": {
+        "role": "primary",
+        "displayName": "Matte Black",
+        "canonical": "#000000",
+        "tonalRamp": ["#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000"]
+      },
+      "gallery-white": {
+        "role": "neutral",
+        "displayName": "Gallery White",
+        "canonical": "#ffffff",
+        "tonalRamp": ["#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff"]
+      },
+      "gallery-veil": {
+        "role": "neutral",
+        "displayName": "Gallery Veil",
+        "canonical": "rgb(255 255 255 / 0.86)",
+        "tonalRamp": ["rgb(255 255 255 / 0.86)", "rgb(255 255 255 / 0.86)", "rgb(255 255 255 / 0.86)", "rgb(255 255 255 / 0.86)", "rgb(255 255 255 / 0.86)", "rgb(255 255 255 / 0.86)", "rgb(255 255 255 / 0.86)", "rgb(255 255 255 / 0.86)"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Catalog title in the left gallery margin."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Open-world title and compare heading."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Hung card name."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Lede, notes, and control text."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase field labels and the unboxed tier caption."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-gallery",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "State, sheet, and toast easing when motion is allowed."
+      },
+      {
+        "name": "duration-reveal",
+        "value": "180ms",
+        "purpose": "Mark opacity and transform, sheet fade, toast entrance."
+      },
+      {
+        "name": "duration-state",
+        "value": "160ms",
+        "purpose": "Mark color, wave-ground color, and disclosure chevrons."
+      },
+      {
+        "name": "vantage",
+        "value": "scroll + IntersectionObserver; tiles divided by min(devicePixelRatio, 3)",
+        "purpose": "Retunes card wave frequency among far, mid, and near. Wall shift is scrollY × 0.35 and is skipped when reduced motion hides the wall."
+      }
+    ],
+    "breakpoints": [
+      { "name": "narrow", "value": "720px" },
+      { "name": "wide-catalog", "value": "721px" },
+      { "name": "facts", "value": "800px" },
+      { "name": "gallery", "value": "960px" }
+    ],
+    "waves": [
+      { "name": "wall", "value": "48×72, 3 columns", "purpose": "Full-bleed ground. Widest interval. Hidden under reduced motion." },
+      { "name": "far", "value": "36×56, 2 columns", "purpose": "Card strip when the canvas is away from the viewport center." },
+      { "name": "mid", "value": "18×32, 3 columns", "purpose": "Card strip as the canvas approaches center." },
+      { "name": "near", "value": "9×16, 3 columns", "purpose": "Card strip when the canvas center is within 0.22 of the viewport midpoint." },
+      { "name": "accent", "value": "5×10, 3 columns", "purpose": "Tightest SVG interval. Static UI waves approximate it: focus 14×20, checked 8×12, primary 10×14 (hover 6×8), outline hover 12×16, mark-on 10×14." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Black wave fill for Copy direction prompt and Open compare.",
+      "html": "<button class=\"ds-btn-primary\">Copy direction prompt</button>",
+      "css": ".ds-btn-primary { background-color: #000; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='14' viewBox='0 0 10 14'%3E%3Cpath d='M2 0 Q4 3.5 2 7 Q0 10.5 2 14 M6 0 Q8 3.5 6 7 Q4 10.5 6 14' fill='none' stroke='%23fff' stroke-width='0.7'/%3E%3C/svg%3E\"); background-repeat: repeat; background-size: 10px 14px; color: #fff; border: 1px solid #000; border-radius: 0; min-height: 44px; min-width: 13rem; padding: 0 12px; font-family: \"Host Grotesk\", Helvetica, Arial, sans-serif; font-size: 1rem; font-weight: 400; cursor: pointer; } .ds-btn-primary:hover, .ds-btn-primary:focus-visible { background-size: 6px 8px; outline: 2px solid #000; outline-offset: 2px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "White ruled button. Fetch new directions, and the pressed wave for coverage chips.",
+      "html": "<button class=\"ds-btn-outline\">Fetch new directions</button>",
+      "css": ".ds-btn-outline { background: #fff; color: #000; border: 1px solid #000; border-radius: 0; min-height: 44px; padding: 0 12px; font-family: \"Host Grotesk\", Helvetica, Arial, sans-serif; font-size: 1rem; font-weight: 400; cursor: pointer; } .ds-btn-outline:hover, .ds-btn-outline:focus-visible, .ds-btn-outline.is-on { background-color: #fff; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='16' viewBox='0 0 12 16'%3E%3Cpath d='M3 0 Q6 4 3 8 Q0 12 3 16 M8 0 Q11 4 8 8 Q5 12 8 16' fill='none' stroke='%23000' stroke-width='0.8'/%3E%3C/svg%3E\"); background-repeat: repeat; background-size: 12px 16px; color: #000; outline: 2px solid #000; outline-offset: 2px; }"
+    },
+    {
+      "name": "Solid Button",
+      "kind": "button",
+      "refersTo": "button-solid",
+      "description": "Matte black fill without a wave, for retry, clear, undo, and back.",
+      "html": "<button class=\"ds-btn-solid\">Clear search and filters</button>",
+      "css": ".ds-btn-solid { background: #000; color: #fff; border: 1px solid #000; border-radius: 0; min-height: 44px; padding: 0 12px; font-family: \"Host Grotesk\", Helvetica, Arial, sans-serif; font-size: 1rem; cursor: pointer; } .ds-btn-solid:hover, .ds-btn-solid:focus-visible { outline: 2px solid #000; outline-offset: 2px; } .ds-btn-solid:disabled { opacity: 1; background: #fff; color: #000; border-style: dashed; cursor: default; }"
+    },
+    {
+      "name": "Text Link",
+      "kind": "button",
+      "refersTo": "text-link",
+      "description": "Underlined text button that inverts on hover. How it works.",
+      "html": "<button class=\"ds-text-link\">How it works</button>",
+      "css": ".ds-text-link { display: inline-flex; align-items: center; min-height: 44px; margin: 0; padding: 0 6px; border: 0; border-radius: 0; background: transparent; color: #000; font-family: \"Host Grotesk\", Helvetica, Arial, sans-serif; font-size: 1rem; text-decoration: underline; text-underline-offset: 0.18em; cursor: pointer; } .ds-text-link:hover, .ds-text-link:focus-visible { background: #000; color: #fff; text-decoration: none; outline: 2px solid #000; outline-offset: 2px; }"
+    },
+    {
+      "name": "Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Ruled search or select. Focus tiles a black wave across the white ground.",
+      "html": "<label class=\"ds-field\"><span>Search</span><input type=\"search\" placeholder=\"Name, form, spark, system\" /></label>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 4px; font-family: \"Host Grotesk\", Helvetica, Arial, sans-serif; font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; color: #000; } .ds-field input { min-height: 44px; border: 1px solid #000; border-radius: 0; background: #fff; color: #000; padding: 0 12px; font: 1rem \"Host Grotesk\", Helvetica, Arial, sans-serif; letter-spacing: normal; text-transform: none; } .ds-field input::placeholder { color: #000; opacity: 1; } .ds-field:focus-within input { background-color: #fff; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='20' viewBox='0 0 14 20'%3E%3Cpath d='M3 0 Q6 5 3 10 Q0 15 3 20 M9 0 Q12 5 9 10 Q6 15 9 20' fill='none' stroke='%23000' stroke-width='0.8'/%3E%3C/svg%3E\"); background-repeat: repeat; background-size: 14px 20px; outline: 2px solid #000; outline-offset: 2px; }"
+    },
+    {
+      "name": "World Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Hung canvas: wave strip, hotlinked image, name and tier as one caption.",
+      "html": "<article class=\"ds-card\"><div class=\"ds-card-wave\"></div><div class=\"ds-card-image\"></div><h2>Riley Moire Gallery <span class=\"ds-tier\">Graphic</span></h2></article>",
+      "css": ".ds-card { background: #fff; color: #000; border: 0; border-radius: 0; padding: 12px 12px 0; font-family: \"Host Grotesk\", Helvetica, Arial, sans-serif; } .ds-card-wave { height: 64px; background-color: #fff; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='56' viewBox='0 0 36 56'%3E%3Cpath d='M12.60 0 Q22.68 14 12.60 28 Q2.52 42 12.60 56' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E\"); background-repeat: repeat; background-size: 36px 56px; } .ds-card-image { aspect-ratio: 4 / 3; background: #fff; border: 0; } .ds-card h2 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.35em 0.65em; margin: 0; padding: 10px 0 12px; font-size: 0.98rem; font-weight: 500; letter-spacing: -0.02em; } .ds-tier { border: 0; padding: 0; background: transparent; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }"
+    },
+    {
+      "name": "Wave Mark",
+      "kind": "custom",
+      "refersTo": "mark-on",
+      "description": "Favorite or compare on-state: white stroke on a black wave pad.",
+      "html": "<button class=\"ds-mark is-on\" aria-pressed=\"true\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M8 2L9.44 6.17L13.85 6.25L10.33 8.91L11.61 13.13L8 10.6L4.39 13.13L5.67 8.91L2.15 6.25L6.56 6.17Z\" fill=\"currentColor\" stroke=\"currentColor\" stroke-width=\"1.25\" stroke-linejoin=\"round\"/></svg></button>",
+      "css": ".ds-mark { position: relative; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 0; background: transparent; color: #000; cursor: pointer; } .ds-mark svg { position: relative; z-index: 1; } .ds-mark::after { content: \"\"; position: absolute; top: 50%; left: 50%; width: 32px; height: 32px; transform: translate(-50%, -50%); background: #fff; border: 1px solid #000; } .ds-mark.is-on { color: #fff; } .ds-mark.is-on::after { width: 40px; height: 40px; background-color: #000; background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='14' viewBox='0 0 10 14'%3E%3Cpath d='M2 0 Q5 3.5 2 7 Q-1 10.5 2 14 M7 0 Q10 3.5 7 7 Q4 10.5 7 14' fill='none' stroke='%23fff' stroke-width='1.1'/%3E%3C/svg%3E\"); background-repeat: repeat; background-size: 10px 14px; border-color: #000; } .ds-mark:focus-visible { outline: 2px solid #000; outline-offset: -4px; }"
+    },
+    {
+      "name": "Empty State",
+      "kind": "custom",
+      "refersTo": "button-outline",
+      "description": "Dashed white frame for no worlds, no matches, loading, and errors.",
+      "html": "<div class=\"ds-empty\"><h2>No worlds yet</h2><p>Fetch from Impeccable’s public roll API to start a local index.</p><button class=\"ds-btn-outline\">Fetch new directions</button></div>",
+      "css": ".ds-empty { border: 1px dashed #000; background: #fff; color: #000; border-radius: 0; padding: 28px; display: grid; justify-items: start; gap: 10px; font-family: \"Host Grotesk\", Helvetica, Arial, sans-serif; text-align: left; } .ds-empty h2 { margin: 0; font-size: 1rem; font-weight: 500; } .ds-empty p { margin: 0; max-width: 52ch; } .ds-empty .ds-btn-outline { background: #fff; color: #000; border: 1px solid #000; border-radius: 0; min-height: 44px; padding: 0 12px; font: inherit; cursor: pointer; } .ds-empty .ds-btn-outline:hover, .ds-empty .ds-btn-outline:focus-visible { background-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='16' viewBox='0 0 12 16'%3E%3Cpath d='M3 0 Q6 4 3 8 Q0 12 3 16 M8 0 Q11 4 8 8 Q5 12 8 16' fill='none' stroke='%23000' stroke-width='0.8'/%3E%3C/svg%3E\"); background-repeat: repeat; background-size: 12px 16px; outline: 2px solid #000; outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Riley Moire Gallery",
+    "overview": "The catalog is a white gallery hung with canvases. Visitors choose a direction by changing viewing distance. Matte black and gallery white are the only inks. Contrast is the interval of an SVG wave — far, mid, near, accent — never a gray. Host Grotesk is self-hosted and sits in the white margin. One caption per canvas names the world and its tier.\n\nThe room splits on a wide viewport. The display title and lede occupy the left margin. Search, filters, the results caption, and the hung card images occupy the right. A full-bleed wall wave sits behind the room and is hidden when the visitor prefers reduced motion. Opening a canvas is the near reading. Copy direction prompt is the black wave action. Fetch new directions is an outline button.\n\nCard images are hotlinked from impeccable.style, with an optional blob URL only as a load fallback. This build did not generate shipping rasters. Critique references under the quality bar are not page assets.",
+    "keyCharacteristics": [
+      "Two inks only: matte black and gallery white.",
+      "Contrast is wave frequency, retuned by scroll, intersection, and devicePixelRatio.",
+      "Split gallery: title and lede in the left white margin; controls and canvases on the right.",
+      "Square corners, hairline rules, no shadows.",
+      "Card caption is the name plus the tier, unboxed.",
+      "Favorite and compare on-states are wave-filled marks."
+    ],
+    "rules": [
+      {
+        "name": "The Two Inks Rule",
+        "body": "Interface color is matte black or gallery white. Tier names do not introduce a third color. Muted copy is the same black as display type, set smaller.",
+        "section": "colors"
+      },
+      {
+        "name": "The Frequency Rule",
+        "body": "Hierarchy that would otherwise be gray is a change of wave interval: wall (widest), far, mid, near, then accent (tightest). A focused field, a checked Favorites only control, a hovered outline button, and a primary action each tighten the interval.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Face Rule",
+        "body": "Host Grotesk is the voice. Do not introduce a second text family for display, labels, or captions. Monospace stays inside code samples.",
+        "section": "typography"
+      },
+      {
+        "name": "The Caption Rule",
+        "body": "A card’s visible label is the world name plus its tier, in one line, with no box around the tier. The detail title uses the same pairing.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Wall Rule",
+        "body": "Do not add shadows. A nearer reading is a tighter wave, a 1px rule, or a white sheet, not a lift.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep the palette to matte black `#000000` and gallery white `#ffffff`, plus the gallery veil only as a dialog scrim.",
+      "Do make emphasis a tighter SVG wave: wall, far, mid, near, accent.",
+      "Do set the catalog title in self-hosted Host Grotesk at display weight 700.",
+      "Do hang the name and tier as one unboxed caption.",
+      "Do give Copy direction prompt the black wave fill, and Fetch new directions the outline button.",
+      "Do fill favorite and compare on-states with the accent wave.",
+      "Do treat card images as hotlinked impeccable.style assets, with a blob URL only as an optional load fallback."
+    ],
+    "donts": [
+      "Don't introduce gray, tinted tiers, or a second accent.",
+      "Don't add box shadows or rounded corners.",
+      "Don't box the tier into a chip.",
+      "Don't put the black wave fill on Fetch new directions.",
+      "Don't generate or invent provenance for card images. Quality-bar PNGs are critique references, not shipping rasters."
+    ]
+  }
+}

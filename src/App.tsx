@@ -453,41 +453,40 @@ export function App() {
           className="catalog"
           inert={drawerId || compareOpen ? true : undefined}
         >
-          <div className="catalog-chrome">
+          <div className="room">
+            <div className="mast-rule">
+              <a
+                className="github-link"
+                href={GITHUB_REPO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View on GitHub"
+                title="View on GitHub"
+              >
+                <GitHubMark />
+              </a>
+            </div>
+            <div className="room-caption">
+              <h1>Impeccable Worlds</h1>
+              <div className="purpose">
+                <p className="lede">
+                  A browsable catalog of Impeccable design worlds. Search,
+                  preview, and copy a direction into your coding agent.
+                </p>
+                <button
+                  type="button"
+                  className="text-link"
+                  aria-haspopup="dialog"
+                  aria-expanded={howItWorksOpen}
+                  aria-controls={HOW_IT_WORKS_DIALOG_ID}
+                  onClick={() => setHowItWorksOpen(true)}
+                >
+                  How it works
+                </button>
+              </div>
+            </div>
+            <div className="room-hang">
             <div className="catalog-stick">
-              <header className="top">
-                <div className="masthead">
-                  <div>
-                    <h1>Impeccable Worlds</h1>
-                    <div className="purpose">
-                      <p className="lede">
-                        A browsable catalog of Impeccable design worlds. Search,
-                        preview, and copy a direction into your coding agent.
-                      </p>
-                      <button
-                        type="button"
-                        className="text-link"
-                        aria-haspopup="dialog"
-                        aria-expanded={howItWorksOpen}
-                        aria-controls={HOW_IT_WORKS_DIALOG_ID}
-                        onClick={() => setHowItWorksOpen(true)}
-                      >
-                        How it works
-                      </button>
-                    </div>
-                  </div>
-                  <a
-                    className="github-link"
-                    href={GITHUB_REPO_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="View on GitHub"
-                    title="View on GitHub"
-                  >
-                    <GitHubMark />
-                  </a>
-                </div>
-              </header>
               <MobileFold
                 label="Search and filters"
                 wide={wide}
@@ -601,7 +600,6 @@ export function App() {
                 ready={ready}
               />
             )}
-          </div>
 
           {emptyKind ? (
             <EmptyState
@@ -646,6 +644,7 @@ export function App() {
               onCompare={onCardCompare}
             />
           )}
+            </div>
 
           <footer className="legal">
             <p>
@@ -665,6 +664,7 @@ export function App() {
               How it works
             </button>
           </footer>
+        </div>
         </div>
 
         <HowItWorksDialog

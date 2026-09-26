@@ -4,7 +4,7 @@ Browsable catalog of [Impeccable](https://impeccable.style) design worlds: searc
 
 🚀 **[Live Demo](https://impeccableworlds.vercel.app/)**
 
-![Impeccable Worlds](https://github.com/user-attachments/assets/da44666b-9ccf-4872-8892-950ae9892bd3)
+![Impeccable Worlds](https://github.com/user-attachments/assets/775c68a9-db58-46f8-a55a-e8b45d90e375)
 > Unofficial companion. Not an official Impeccable product.
 
 ## Table of Contents

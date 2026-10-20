@@ -9,6 +9,7 @@ import {
   buildWorldSlugs,
   resolveWorld,
   worldKeyFromPathname,
+  worldPath,
 } from "../shared/worldPath";
 
 const SEGMENT = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -94,6 +95,11 @@ export function worldOgPlugin(options: {
           "VITE_SITE_URL is unset, so world pages omit absolute og:url and canonical",
         );
       }
+      if (!writeSitemap(dir, worlds, siteUrl)) {
+        this.warn(
+          "VITE_SITE_URL is unset, so sitemap.xml was not written",
+        );
+      }
       if (
         sample &&
         spec &&
@@ -164,6 +170,52 @@ function writeWorldPages(
     }
   }
   return files;
+}
+
+function writeSitemap(
+  outDir: string,
+  worlds: readonly World[],
+  siteUrl: string,
+): boolean {
+  const origin = siteOrigin(siteUrl);
+  if (!origin) return false;
+  const locs = [
+    `${origin}/`,
+    ...worlds.map((world) => `${origin}${worldPath(world, worlds)}`),
+  ];
+  const body = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ...locs.map((loc) => `  <url><loc>${escapeXml(loc)}</loc></url>`),
+    "</urlset>",
+    "",
+  ].join("\n");
+  fs.writeFileSync(path.join(outDir, "sitemap.xml"), body);
+  return true;
+}
+
+function siteOrigin(siteUrl: string): string | null {
+  const raw = siteUrl.trim();
+  if (!raw) return null;
+  try {
+    const url = new URL(raw);
+    if (url.protocol !== "http:" && url.protocol !== "https:") return null;
+    if (url.username || url.password) return null;
+    if (url.pathname !== "/" && url.pathname !== "") return null;
+    if (url.search || url.hash) return null;
+    return url.origin;
+  } catch {
+    return null;
+  }
+}
+
+function escapeXml(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&apos;");
 }
 
 function segmentsFor(slug: string, id: string): string[] {

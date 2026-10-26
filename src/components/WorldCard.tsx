@@ -4,6 +4,11 @@ import { displayValue } from "../lib/display";
 import { useCardSource } from "../lib/useCardSource";
 import { activateOnSpace, preventSpaceScroll } from "../lib/activateOnSpace";
 import { shouldAllowNativeLink, worldPath } from "../lib/worldPath";
+import {
+  CARD_THUMB_INTRINSIC_HEIGHT,
+  CARD_THUMB_INTRINSIC_WIDTH,
+  type CardImagePriority,
+} from "../lib/cardThumb";
 import { CompareMark } from "./CompareMark";
 import { StarMark } from "./StarMark";
 import { CanvasFrame } from "./WaveField";
@@ -13,6 +18,7 @@ interface WorldCardProps {
   catalog: World[];
   inCompare: boolean;
   compareFull: boolean;
+  imagePriority: CardImagePriority;
   onOpen: (id: string, opener?: HTMLElement | null) => void;
   onFavorite: (id: string) => void;
   onCompare: (id: string) => void;
@@ -23,6 +29,7 @@ export function WorldCard({
   catalog,
   inCompare,
   compareFull,
+  imagePriority,
   onOpen,
   onFavorite,
   onCompare,
@@ -56,7 +63,10 @@ export function WorldCard({
             <img
               src={image.src}
               alt=""
-              loading="lazy"
+              width={CARD_THUMB_INTRINSIC_WIDTH}
+              height={CARD_THUMB_INTRINSIC_HEIGHT}
+              loading={imagePriority === "lazy" ? "lazy" : "eager"}
+              fetchPriority={imagePriority === "high" ? "high" : undefined}
               decoding="async"
               onError={image.onError}
             />

@@ -1,4 +1,6 @@
 import type { World } from "../../shared/types";
+import { useGridColumnCount } from "../lib/gridColumns";
+import { cardImagePriority } from "../lib/cardThumb";
 import { WorldCard } from "./WorldCard";
 
 export type CardLayout = "comfortable" | "compact" | "list";
@@ -24,15 +26,18 @@ export function WorldGrid({
   onFavorite,
   onCompare,
 }: WorldGridProps) {
+  const columns = useGridColumnCount(layout);
+
   return (
     <div className={`grid layout-${layout}`}>
-      {worlds.map((world) => (
+      {worlds.map((world, index) => (
         <WorldCard
           key={world.id}
           world={world}
           catalog={catalog}
           inCompare={inCompare(world.id)}
           compareFull={compareFull}
+          imagePriority={cardImagePriority(index, columns)}
           onOpen={onOpen}
           onFavorite={onFavorite}
           onCompare={onCompare}

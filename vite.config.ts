@@ -1,12 +1,32 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig, loadEnv, type Plugin } from "vite";
+import shipped from "./data/worlds.json";
+import { sortWorlds, worldsFromStore } from "./shared/catalog";
 import { worldOgPlugin } from "./server/worldOgPlugin";
 import { apiPlugin } from "./server/vite-plugin";
+import type { WorldsStoreFile } from "./shared/types";
 import { siteOgImage } from "./shared/worldOg";
 
 const SITE_TITLE = "Impeccable Worlds";
 const SITE_DESCRIPTION =
   "A browsable catalog of Impeccable design worlds indexed locally. Unofficial and incomplete — not an official Impeccable product.";
+
+function lcpHeroPreloadPlugin(): Plugin {
+  const worlds = worldsFromStore(shipped as WorldsStoreFile);
+  const lead = sortWorlds(worlds, "name")[0];
+  const href = lead?.cardHero?.trim() ?? "";
+  const tag = href
+    ? `    <link rel="preload" as="image" href="${href.replaceAll("&", "&amp;").replaceAll('"', "&quot;")}" fetchpriority="high" />\n`
+    : "";
+
+  return {
+    name: "lcp-hero-preload",
+    transformIndexHtml(html) {
+      if (!tag) return html;
+      return html.replace("</head>", `${tag}  </head>`);
+    },
+  };
+}
 
 function seoUrlsPlugin(siteUrl: string): Plugin {
   const origin = siteUrl.replace(/\/$/, "");
@@ -52,6 +72,7 @@ export default defineConfig(({ mode }) => {
     plugins: [
       react(),
       apiPlugin(),
+      lcpHeroPreloadPlugin(),
       seoUrlsPlugin(env.VITE_SITE_URL ?? ""),
       worldOgPlugin({
         siteUrl: env.VITE_SITE_URL ?? "",

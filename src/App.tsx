@@ -27,6 +27,7 @@ import {
   collectWorlds,
   fetchCoverage,
   fetchWorlds,
+  readShippedCatalog,
   toggleFavorite,
 } from "./lib/api";
 import { isCollectAllowed } from "./lib/collectAllowed";
@@ -148,10 +149,16 @@ function catalogFromLocation(): CatalogQuery {
   return readCatalogQuery(window.location.search);
 }
 
+const shippedCatalog = isCollectAllowed() ? null : readShippedCatalog();
+
 export function App() {
   const initialCatalog = catalogFromLocation();
-  const [worlds, setWorlds] = useState<World[]>([]);
-  const [coverage, setCoverage] = useState<Coverage | null>(null);
+  const [worlds, setWorlds] = useState<World[]>(
+    () => shippedCatalog?.worlds ?? [],
+  );
+  const [coverage, setCoverage] = useState<Coverage | null>(
+    () => shippedCatalog?.coverage ?? null,
+  );
   const [query, setQuery] = useState(initialCatalog.q);
   const [tier, setTier] = useState(initialCatalog.type);
   const [sort, setSort] = useState<WorldSort>(initialCatalog.sort);
@@ -165,7 +172,7 @@ export function App() {
   const [includeDirection, setIncludeDirection] = useState(false);
   const [selectedModes, setSelectedModes] = useState<string[]>([]);
   const [loadError, setLoadError] = useState<string | null>(null);
-  const [ready, setReady] = useState(false);
+  const [ready, setReady] = useState(() => shippedCatalog !== null);
   const [howItWorksOpen, setHowItWorksOpen] = useState(false);
   const [compare, setCompare] = useState(createCompareState);
   const [compareOpen, setCompareOpen] = useState(false);

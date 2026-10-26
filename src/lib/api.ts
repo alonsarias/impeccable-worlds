@@ -6,6 +6,17 @@ import { applyFavorites, toggleFavoriteId } from "./favorites";
 
 const catalog = shipped as WorldsStoreFile;
 
+/** Synchronous catalog for production builds (worlds.json is already in the bundle). */
+export function readShippedCatalog(): {
+  worlds: World[];
+  coverage: Coverage;
+} {
+  return {
+    worlds: applyFavorites(worldsFromStore(catalog)),
+    coverage: coverageFromStore(catalog),
+  };
+}
+
 async function readJson<T>(response: Response): Promise<T> {
   const data = (await response.json()) as T;
   return data;
@@ -13,7 +24,7 @@ async function readJson<T>(response: Response): Promise<T> {
 
 export async function fetchWorlds(): Promise<World[]> {
   if (!isCollectAllowed()) {
-    return applyFavorites(worldsFromStore(catalog));
+    return readShippedCatalog().worlds;
   }
   const response = await fetch("/api/worlds");
   if (!response.ok) throw new Error("Could not load worlds.");
@@ -23,7 +34,7 @@ export async function fetchWorlds(): Promise<World[]> {
 
 export async function fetchCoverage(): Promise<Coverage> {
   if (!isCollectAllowed()) {
-    return coverageFromStore(catalog);
+    return readShippedCatalog().coverage;
   }
   const response = await fetch("/api/coverage");
   if (!response.ok) throw new Error("Could not load coverage.");

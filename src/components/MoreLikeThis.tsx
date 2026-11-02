@@ -1,6 +1,8 @@
 import { useId, useMemo } from "react";
 import type { World } from "../../shared/types";
+import { cardGridImageSizes } from "../../shared/cardImageOptimize";
 import { blobCardUrl } from "../lib/cardImages";
+import { responsiveCardImage } from "../lib/cardResponsive";
 import { displayValue } from "../lib/display";
 import { moreLikeThis } from "../lib/similarWorlds";
 import { useCardSource } from "../lib/useCardSource";
@@ -38,6 +40,10 @@ function SimilarCard({
     upstream,
     blobCardUrl(world.id, world.cardHero ? "hero" : "board"),
   );
+  const responsive = responsiveCardImage(
+    image.src,
+    cardGridImageSizes("compact"),
+  );
   const name = displayValue(world.name);
 
   return (
@@ -57,7 +63,9 @@ function SimilarCard({
           <CanvasFrame />
           {image.src ? (
             <img
-              src={image.src}
+              src={responsive.src ?? image.src}
+              srcSet={responsive.srcSet}
+              sizes={responsive.sizes}
               alt=""
               loading="lazy"
               decoding="async"

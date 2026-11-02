@@ -1,6 +1,8 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import type { World } from "../../shared/types";
+import { DETAIL_PREVIEW_IMAGE_SIZES } from "../../shared/cardImageOptimize";
 import { blobCardUrl } from "../lib/cardImages";
+import { responsiveCardImage } from "../lib/cardResponsive";
 import { copyText } from "../lib/clipboard";
 import type { SlotIndex } from "../lib/compare";
 import { buildDirectionPrompt } from "../lib/directionPrompt";
@@ -44,6 +46,7 @@ function CompareSide({
     upstream,
     world ? blobCardUrl(world.id, world.cardHero ? "hero" : "board") : null,
   );
+  const responsive = responsiveCardImage(image.src, DETAIL_PREVIEW_IMAGE_SIZES);
 
   useEffect(() => {
     setCopied(false);
@@ -79,7 +82,13 @@ function CompareSide({
     <section className="compare-side" aria-labelledby={nameId}>
       <div className="compare-hero">
         {image.src ? (
-          <img src={image.src} alt="" onError={image.onError} />
+          <img
+            src={responsive.src ?? image.src}
+            srcSet={responsive.srcSet}
+            sizes={responsive.sizes}
+            alt=""
+            onError={image.onError}
+          />
         ) : (
           <span className="missing">No value</span>
         )}

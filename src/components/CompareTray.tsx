@@ -1,6 +1,8 @@
 import { useId, useLayoutEffect, useRef, type Ref } from "react";
 import type { World } from "../../shared/types";
+import { COMPARE_THUMB_IMAGE_SIZES } from "../../shared/cardImageOptimize";
 import { blobCardUrl } from "../lib/cardImages";
+import { responsiveCardImage } from "../lib/cardResponsive";
 import type { SlotIndex } from "../lib/compare";
 import { displayValue } from "../lib/display";
 import { useCardSource } from "../lib/useCardSource";
@@ -24,8 +26,19 @@ function TrayThumb({ world }: { world: World }) {
     upstream,
     blobCardUrl(world.id, world.cardHero ? "hero" : "board"),
   );
+  const responsive = responsiveCardImage(image.src, COMPARE_THUMB_IMAGE_SIZES, [
+    320,
+  ]);
   if (!image.src) return <span className="compare-slot-missing">No value</span>;
-  return <img src={image.src} alt="" onError={image.onError} />;
+  return (
+    <img
+      src={responsive.src ?? image.src}
+      srcSet={responsive.srcSet}
+      sizes={responsive.sizes}
+      alt=""
+      onError={image.onError}
+    />
+  );
 }
 
 export function CompareTray({

@@ -5,6 +5,10 @@ import { sortWorlds, worldsFromStore } from "./shared/catalog";
 import { worldOgPlugin } from "./server/worldOgPlugin";
 import { apiPlugin } from "./server/vite-plugin";
 import type { WorldsStoreFile } from "./shared/types";
+import {
+  cardGridImageSizes,
+  homeLeadCardPreloadTag,
+} from "./shared/cardImageOptimize";
 import { siteOgImage } from "./shared/worldOg";
 
 const SITE_TITLE = "Impeccable Worlds";
@@ -16,7 +20,7 @@ function lcpHeroPreloadPlugin(): Plugin {
   const lead = sortWorlds(worlds, "name")[0];
   const href = lead?.cardHero?.trim() ?? "";
   const tag = href
-    ? `    <link rel="preload" as="image" href="${href.replaceAll("&", "&amp;").replaceAll('"', "&quot;")}" fetchpriority="high" />\n`
+    ? homeLeadCardPreloadTag(href, cardGridImageSizes("comfortable"))
     : "";
 
   return {

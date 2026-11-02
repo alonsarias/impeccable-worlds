@@ -5,6 +5,11 @@ import { useCardSource } from "../lib/useCardSource";
 import { activateOnSpace, preventSpaceScroll } from "../lib/activateOnSpace";
 import { shouldAllowNativeLink, worldPath } from "../lib/worldPath";
 import {
+  cardGridImageSizes,
+  type CardLayoutKind,
+} from "../../shared/cardImageOptimize";
+import { responsiveCardImage } from "../lib/cardResponsive";
+import {
   CARD_THUMB_INTRINSIC_HEIGHT,
   CARD_THUMB_INTRINSIC_WIDTH,
   type CardImagePriority,
@@ -16,6 +21,7 @@ import { CanvasFrame } from "./WaveField";
 interface WorldCardProps {
   world: World;
   catalog: World[];
+  layout: CardLayoutKind;
   inCompare: boolean;
   compareFull: boolean;
   imagePriority: CardImagePriority;
@@ -27,6 +33,7 @@ interface WorldCardProps {
 export function WorldCard({
   world,
   catalog,
+  layout,
   inCompare,
   compareFull,
   imagePriority,
@@ -38,6 +45,10 @@ export function WorldCard({
   const image = useCardSource(
     thumb,
     blobCardUrl(world.id, world.cardHero ? "hero" : "board"),
+  );
+  const responsive = responsiveCardImage(
+    image.src,
+    cardGridImageSizes(layout),
   );
   const name = displayValue(world.name);
   const tier = displayValue(world.wellTier);
@@ -61,7 +72,9 @@ export function WorldCard({
           <CanvasFrame />
           {image.src ? (
             <img
-              src={image.src}
+              src={responsive.src ?? image.src}
+              srcSet={responsive.srcSet}
+              sizes={responsive.sizes}
               alt=""
               width={CARD_THUMB_INTRINSIC_WIDTH}
               height={CARD_THUMB_INTRINSIC_HEIGHT}

@@ -1,4 +1,8 @@
 import { cardBlobPathname } from "./cardBlobs";
+import {
+  stripLcpImagePreload,
+  worldHeroPreloadTag,
+} from "./cardImageOptimize";
 import { worldPath } from "./worldPath";
 
 export const SITE_NAME = "Impeccable Worlds";
@@ -81,7 +85,11 @@ export function siteOgImage(siteUrl: string): {
 
 /** Inject world Open Graph tags into an SPA shell. Home HTML is left untouched. */
 export function applyWorldOg(html: string, spec: WorldOgSpec): string {
-  let next = html.replaceAll("<!--SEO_CANONICAL-->", "");
+  let next = stripLcpImagePreload(html);
+  if (spec.image.startsWith("https://") && !spec.imageSized) {
+    next = next.replace("</head>", `${worldHeroPreloadTag(spec.image)}  </head>`);
+  }
+  next = next.replaceAll("<!--SEO_CANONICAL-->", "");
   next = next.replaceAll("<!--SEO_JSONLD-->", "");
   next = replaceTitle(next, spec.title);
   next = replaceMeta(next, "name", "description", spec.description);

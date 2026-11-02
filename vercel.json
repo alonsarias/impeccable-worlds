@@ -2,6 +2,25 @@
   "framework": "vite",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "images": {
+    "sizes": [320, 480, 640, 960, 1200],
+    "domains": [],
+    "qualities": [75],
+    "minimumCacheTTL": 86400,
+    "formats": ["image/webp"],
+    "remotePatterns": [
+      {
+        "protocol": "https",
+        "hostname": "^impeccable\\.style$",
+        "pathname": "^/worlds/cards/.*\\.webp$"
+      },
+      {
+        "protocol": "https",
+        "hostname": "^[a-z0-9]+\\.public\\.blob\\.vercel-storage\\.com$",
+        "pathname": "^/cards/.*\\.webp$"
+      }
+    ]
+  },
   "headers": [
     {
       "source": "/assets/(.*)",

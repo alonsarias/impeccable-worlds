@@ -4,8 +4,10 @@ import { displayValue } from "../lib/display";
 import { useCardSource } from "../lib/useCardSource";
 import { activateOnSpace, preventSpaceScroll } from "../lib/activateOnSpace";
 import { shouldAllowNativeLink, worldPath } from "../lib/worldPath";
-import { cardGridImageSizes } from "../../shared/cardImageOptimize";
-import type { CardLayoutKind } from "../../shared/cardImageOptimize";
+import {
+  cardGridImageSizes,
+  type CardLayoutKind,
+} from "../../shared/cardImageOptimize";
 import { responsiveCardImage } from "../lib/cardResponsive";
 import {
   CARD_THUMB_INTRINSIC_HEIGHT,

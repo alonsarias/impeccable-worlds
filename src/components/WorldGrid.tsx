@@ -35,6 +35,7 @@ export function WorldGrid({
           key={world.id}
           world={world}
           catalog={catalog}
+          layout={layout}
           inCompare={inCompare(world.id)}
           compareFull={compareFull}
           imagePriority={cardImagePriority(index, columns)}

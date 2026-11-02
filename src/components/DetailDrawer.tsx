@@ -1,6 +1,11 @@
 import { useEffect, useId, useRef, useState } from "react";
 import type { World } from "../../shared/types";
+import {
+  DETAIL_PREVIEW_IMAGE_SIZES,
+  DETAIL_VIEWER_IMAGE_SIZES,
+} from "../../shared/cardImageOptimize";
 import { blobCardUrl } from "../lib/cardImages";
+import { responsiveCardImage } from "../lib/cardResponsive";
 import { copyText } from "../lib/clipboard";
 import { buildDirectionPrompt } from "../lib/directionPrompt";
 import { displayValue } from "../lib/display";
@@ -89,6 +94,22 @@ export function DetailDrawer({
   const boardImage = useCardSource(boardUpstream, boardFallback);
   const viewerPreview = useCardSource(previewUpstream, previewFallback);
   const viewerBoard = useCardSource(boardUpstream, boardFallback);
+  const previewResponsive = responsiveCardImage(
+    previewImage.src,
+    DETAIL_PREVIEW_IMAGE_SIZES,
+  );
+  const boardResponsive = responsiveCardImage(
+    boardImage.src,
+    DETAIL_PREVIEW_IMAGE_SIZES,
+  );
+  const viewerPreviewResponsive = responsiveCardImage(
+    viewerPreview.src,
+    DETAIL_VIEWER_IMAGE_SIZES,
+  );
+  const viewerBoardResponsive = responsiveCardImage(
+    viewerBoard.src,
+    DETAIL_VIEWER_IMAGE_SIZES,
+  );
   const viewerImages = [
     previewUpstream ? viewerPreview : null,
     boardUpstream ? viewerBoard : null,
@@ -391,7 +412,9 @@ export function DetailDrawer({
                   aria-label={`View ${name} full size`}
                 >
                   <img
-                    src={previewImage.src}
+                    src={previewResponsive.src ?? previewImage.src}
+                    srcSet={previewResponsive.srcSet}
+                    sizes={previewResponsive.sizes}
                     alt=""
                     onError={previewImage.onError}
                   />
@@ -414,7 +437,9 @@ export function DetailDrawer({
                     aria-label={`View ${name} board full size`}
                   >
                     <img
-                      src={boardImage.src}
+                      src={boardResponsive.src ?? boardImage.src}
+                      srcSet={boardResponsive.srcSet}
+                      sizes={boardResponsive.sizes}
                       alt=""
                       onError={boardImage.onError}
                     />
@@ -533,7 +558,22 @@ export function DetailDrawer({
           <div className="image-viewer-stage" onClick={closeViewer}>
             {viewerImages[viewerIndex].src ? (
               <img
-                src={viewerImages[viewerIndex].src}
+                src={
+                  (viewerIndex === 0
+                    ? viewerPreviewResponsive.src
+                    : viewerBoardResponsive.src) ??
+                  viewerImages[viewerIndex].src
+                }
+                srcSet={
+                  viewerIndex === 0
+                    ? viewerPreviewResponsive.srcSet
+                    : viewerBoardResponsive.srcSet
+                }
+                sizes={
+                  viewerIndex === 0
+                    ? viewerPreviewResponsive.sizes
+                    : viewerBoardResponsive.sizes
+                }
                 alt={name}
                 onError={viewerImages[viewerIndex].onError}
                 onClick={(event) => event.stopPropagation()}

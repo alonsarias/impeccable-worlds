@@ -10,10 +10,7 @@ import {
   homeLeadCardPreloadTag,
 } from "./shared/cardImageOptimize";
 import { siteOgImage } from "./shared/worldOg";
-
-const SITE_TITLE = "Impeccable Worlds";
-const SITE_DESCRIPTION =
-  "A browsable catalog of Impeccable design worlds indexed locally. Unofficial and incomplete — not an official Impeccable product.";
+import { SITE_DESCRIPTION, SITE_PAGE_TITLE } from "./shared/siteMeta";
 
 function lcpHeroPreloadPlugin(): Plugin {
   const worlds = worldsFromStore(shipped as WorldsStoreFile);
@@ -43,7 +40,7 @@ function seoUrlsPlugin(siteUrl: string): Plugin {
   const jsonLd: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: SITE_TITLE,
+    name: SITE_PAGE_TITLE,
     description: SITE_DESCRIPTION,
     image: image.url,
   };

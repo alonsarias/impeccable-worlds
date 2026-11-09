@@ -7,6 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { SITE_BRAND, SITE_PAGE_TITLE } from "../shared/siteMeta";
 import type { Coverage, World } from "../shared/types";
 import { DEFAULT_COLLECT_MODES, WELL_TIERS } from "../shared/types";
 import type { WorldSort } from "../shared/catalog";
@@ -362,20 +363,19 @@ export function App() {
   }, [selectedId, worlds]);
 
   useEffect(() => {
-    const base = "Impeccable Worlds";
     if (selected?.name) {
-      document.title = `${selected.name} · ${base}`;
+      document.title = `${selected.name} · ${SITE_BRAND}`;
       return () => {
-        document.title = base;
+        document.title = SITE_PAGE_TITLE;
       };
     }
     if (drawerId && !selected) {
-      document.title = `Not in the index · ${base}`;
+      document.title = `Not in the index · ${SITE_BRAND}`;
       return () => {
-        document.title = base;
+        document.title = SITE_PAGE_TITLE;
       };
     }
-    document.title = base;
+    document.title = SITE_PAGE_TITLE;
   }, [drawerId, selected]);
 
   function toggleMode(mode: string) {

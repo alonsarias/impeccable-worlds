@@ -19,7 +19,7 @@ function worldsJsonPath(): string {
   );
 }
 
-/** Read the shipped catalog from disk (includeFiles in vercel.json copies data/). */
+/** Read the shipped catalog from disk (vercel.json includeFiles copies data/). */
 export function readShippedStore(): WorldsStoreFile {
   if (cache) return cache;
   const file = worldsJsonPath();

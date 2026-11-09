@@ -1,7 +1,6 @@
-import shipped from "../data/worlds.json";
 import { worldsFromStore } from "../shared/catalog";
-import type { WorldsStoreFile } from "../shared/types";
+import { readShippedStore } from "../shared/shippedStore";
 
 export function GET(): Response {
-  return Response.json({ worlds: worldsFromStore(shipped as WorldsStoreFile) });
+  return Response.json({ worlds: worldsFromStore(readShippedStore()) });
 }

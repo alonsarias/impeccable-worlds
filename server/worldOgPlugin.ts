@@ -5,6 +5,7 @@ import type { Plugin, ViteDevServer } from "vite";
 import { worldsFromStore } from "../shared/catalog";
 import type { World, WorldsStoreFile } from "../shared/types";
 import { applyWorldOg, worldOgSpec } from "../shared/worldOg";
+import { worldNotFoundHtml } from "../shared/worldNotFound";
 import {
   buildWorldSlugs,
   resolveWorld,
@@ -71,7 +72,10 @@ export function worldOgPlugin(options: {
         const key = keyFromUrl(req.url);
         if (!key) return next();
         const file = worldHtmlFile(outDir, key);
-        if (!file) return next();
+        if (!file) {
+          sendHtml(res, req.method, worldNotFoundHtml(), 404);
+          return;
+        }
         sendHtml(res, req.method, fs.readFileSync(file));
       });
     },
@@ -100,6 +104,7 @@ export function worldOgPlugin(options: {
           "VITE_SITE_URL is unset, so sitemap.xml was not written",
         );
       }
+      fs.writeFileSync(path.join(dir, "404.html"), worldNotFoundHtml());
       if (
         sample &&
         spec &&
@@ -120,14 +125,14 @@ export function worldOgPlugin(options: {
     server: ViteDevServer,
     req: IncomingMessage,
     res: ServerResponse,
-    next: Next,
+    _next: Next,
     key: string,
     readCatalog: () => World[],
   ): Promise<void> {
     const worlds = readCatalog();
     const world = resolveWorld(worlds, key);
     if (!world) {
-      next();
+      sendHtml(res, req.method, worldNotFoundHtml(), 404);
       return Promise.resolve();
     }
     const raw = fs.readFileSync(path.join(root, "index.html"), "utf8");
@@ -274,11 +279,12 @@ function sendHtml(
   res: ServerResponse,
   method: string | undefined,
   html: string | Buffer,
+  status = 200,
 ): void {
   const body = typeof html === "string" ? Buffer.from(html) : html;
-  res.statusCode = 200;
+  res.statusCode = status;
   res.setHeader("Content-Type", "text/html; charset=utf-8");
-  res.setHeader("Cache-Control", "no-cache");
+  res.setHeader("Cache-Control", status === 404 ? "no-store" : "no-cache");
   res.setHeader("Content-Length", body.length);
   res.end(method === "HEAD" ? undefined : body);
 }

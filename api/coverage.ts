@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { coverageFromStore } from "../shared/catalog";
 import type { WorldsStoreFile } from "../shared/types";
 
 function readShippedStore(): WorldsStoreFile {
@@ -14,7 +15,6 @@ function readShippedStore(): WorldsStoreFile {
   return JSON.parse(readFileSync(file, "utf8")) as WorldsStoreFile;
 }
 
-export async function GET(): Promise<Response> {
-  const { coverageFromStore } = await import("../shared/catalog");
+export function GET(): Response {
   return Response.json(coverageFromStore(readShippedStore()));
 }

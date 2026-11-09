@@ -1,10 +1,9 @@
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { worldsFromStore } from "../shared/catalog";
-import type { WorldsStoreFile } from "../shared/types";
+import { worldsFromShippedStore, type ShippedStore } from "./shippedCatalog";
 
-function readShippedStore(): WorldsStoreFile {
+function readShippedStore(): ShippedStore {
   const here = path.dirname(fileURLToPath(import.meta.url));
   const file = [path.join(process.cwd(), "data", "worlds.json"), path.join(here, "..", "data", "worlds.json")].find(
     existsSync,
@@ -12,9 +11,9 @@ function readShippedStore(): WorldsStoreFile {
   if (!file) {
     throw new Error(`data/worlds.json is missing (cwd=${process.cwd()})`);
   }
-  return JSON.parse(readFileSync(file, "utf8")) as WorldsStoreFile;
+  return JSON.parse(readFileSync(file, "utf8")) as ShippedStore;
 }
 
 export function GET(): Response {
-  return Response.json({ worlds: worldsFromStore(readShippedStore()) });
+  return Response.json({ worlds: worldsFromShippedStore(readShippedStore()) });
 }

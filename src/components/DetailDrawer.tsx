@@ -5,7 +5,10 @@ import {
   DETAIL_VIEWER_IMAGE_SIZES,
 } from "../../shared/cardImageOptimize";
 import { blobCardUrl } from "../lib/cardImages";
-import { responsiveCardImage } from "../lib/cardResponsive";
+import {
+  responsiveCardImage,
+  responsiveDetailPreviewImage,
+} from "../lib/cardResponsive";
 import { copyText } from "../lib/clipboard";
 import { buildDirectionPrompt } from "../lib/directionPrompt";
 import { displayValue } from "../lib/display";
@@ -94,7 +97,7 @@ export function DetailDrawer({
   const boardImage = useCardSource(boardUpstream, boardFallback);
   const viewerPreview = useCardSource(previewUpstream, previewFallback);
   const viewerBoard = useCardSource(boardUpstream, boardFallback);
-  const previewResponsive = responsiveCardImage(
+  const previewResponsive = responsiveDetailPreviewImage(
     previewImage.src,
     DETAIL_PREVIEW_IMAGE_SIZES,
   );

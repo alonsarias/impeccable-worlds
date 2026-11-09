@@ -49,20 +49,28 @@ export const DETAIL_PREVIEW_IMAGE_SIZES = "(min-width: 800px) 50vw, 100vw";
 export const DETAIL_VIEWER_IMAGE_SIZES = "100vw";
 export const COMPARE_THUMB_IMAGE_SIZES = "56px";
 
+/** Typical selected width for detail preview hero on desktop (matches preload). */
+export const DETAIL_HERO_LCP_WIDTH: CardImageWidth = 960;
+
 const LCP_PRELOAD_WIDTH: CardImageWidth = 640;
+
+export function detailPreviewImageSrc(sourceUrl: string): string {
+  return vercelOptimizedImageUrl(sourceUrl, DETAIL_HERO_LCP_WIDTH);
+}
 
 export function cardResponsiveAttributes(
   sourceUrl: string | undefined,
   sizes: string,
   widths: readonly CardImageWidth[] = CARD_IMAGE_WIDTHS,
   optimize = true,
+  defaultWidth: CardImageWidth = 640,
 ): { src?: string; srcSet?: string; sizes?: string } {
   if (!sourceUrl) return {};
   if (!optimize) {
     return { src: sourceUrl };
   }
   return {
-    src: cardImageDefaultSrc(sourceUrl),
+    src: vercelOptimizedImageUrl(sourceUrl, defaultWidth),
     srcSet: cardImageSrcSet(sourceUrl, widths),
     sizes,
   };
@@ -87,7 +95,7 @@ export function homeLeadCardPreloadTag(
 
 /** Preload tag when landing directly on a world share URL (detail hero). */
 export function worldHeroPreloadTag(heroUrl: string): string {
-  const href = escapePreloadAttr(cardImageDefaultSrc(heroUrl));
+  const href = escapePreloadAttr(detailPreviewImageSrc(heroUrl));
   const srcset = escapePreloadAttr(cardImageSrcSet(heroUrl));
   const sizes = escapePreloadAttr(DETAIL_PREVIEW_IMAGE_SIZES);
   return `    <link rel="preload" as="image" href="${href}" imagesrcset="${srcset}" imagesizes="${sizes}" fetchpriority="high" />\n`;

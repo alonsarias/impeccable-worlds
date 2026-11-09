@@ -15,6 +15,11 @@ function readShippedStore(): WorldsStoreFile {
 }
 
 export async function GET(): Promise<Response> {
-  const { worldsFromStore } = await import("../shared/catalog");
-  return Response.json({ worlds: worldsFromStore(readShippedStore()) });
+  try {
+    const { worldsFromStore } = await import("../shared/catalog");
+    return Response.json({ worlds: worldsFromStore(readShippedStore()) });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    return Response.json({ error: message }, { status: 500 });
+  }
 }

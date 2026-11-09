@@ -1,7 +1,10 @@
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { worldsFromShippedStore, type ShippedStore } from "./shippedCatalog";
+
+type ShippedStore = {
+  worlds: Record<string, Record<string, unknown> & { id: string; name?: string }>;
+};
 
 function readShippedStore(): ShippedStore {
   const here = path.dirname(fileURLToPath(import.meta.url));
@@ -14,6 +17,14 @@ function readShippedStore(): ShippedStore {
   return JSON.parse(readFileSync(file, "utf8")) as ShippedStore;
 }
 
+function worldsFromStore(store: ShippedStore) {
+  return Object.values(store.worlds)
+    .map((world) => ({ ...world, favorite: false }))
+    .sort((a, b) =>
+      (a.name ?? a.id).localeCompare(b.name ?? b.id, undefined, { sensitivity: "base" }),
+    );
+}
+
 export function GET(): Response {
-  return Response.json({ worlds: worldsFromShippedStore(readShippedStore()) });
+  return Response.json({ worlds: worldsFromStore(readShippedStore()) });
 }

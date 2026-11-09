@@ -1,7 +1,13 @@
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { coverageFromShippedStore, type ShippedStore } from "./shippedCatalog";
+
+type ShippedStore = {
+  worlds: Record<string, unknown>;
+  lastApprovedCount?: number;
+  lastCatalogCount?: number;
+  lastCollectAt?: string | null;
+};
 
 function readShippedStore(): ShippedStore {
   const here = path.dirname(fileURLToPath(import.meta.url));
@@ -15,5 +21,12 @@ function readShippedStore(): ShippedStore {
 }
 
 export function GET(): Response {
-  return Response.json(coverageFromShippedStore(readShippedStore()));
+  const store = readShippedStore();
+  return Response.json({
+    indexedCount: Object.keys(store.worlds).length,
+    lastApprovedCount: store.lastApprovedCount,
+    lastCatalogCount: store.lastCatalogCount,
+    lastCollectAt: store.lastCollectAt,
+    collecting: null,
+  });
 }

@@ -50,7 +50,6 @@ export const DETAIL_VIEWER_IMAGE_SIZES = "100vw";
 export const COMPARE_THUMB_IMAGE_SIZES = "56px";
 
 const LCP_PRELOAD_WIDTH: CardImageWidth = 640;
-const WORLD_LCP_PRELOAD_WIDTH: CardImageWidth = 960;
 
 export function cardResponsiveAttributes(
   sourceUrl: string | undefined,
@@ -88,10 +87,10 @@ export function homeLeadCardPreloadTag(
 
 /** Preload tag when landing directly on a world share URL (detail hero). */
 export function worldHeroPreloadTag(heroUrl: string): string {
-  const href = escapePreloadAttr(
-    vercelOptimizedImageUrl(heroUrl, WORLD_LCP_PRELOAD_WIDTH),
-  );
-  return `    <link rel="preload" as="image" href="${href}" fetchpriority="high" />\n`;
+  const href = escapePreloadAttr(cardImageDefaultSrc(heroUrl));
+  const srcset = escapePreloadAttr(cardImageSrcSet(heroUrl));
+  const sizes = escapePreloadAttr(DETAIL_PREVIEW_IMAGE_SIZES);
+  return `    <link rel="preload" as="image" href="${href}" imagesrcset="${srcset}" imagesizes="${sizes}" fetchpriority="high" />\n`;
 }
 
 export function stripLcpImagePreload(html: string): string {

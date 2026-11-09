@@ -31,13 +31,5 @@
         }
       ]
     }
-  ],
-  "functions": {
-    "api/worlds.ts": {
-      "includeFiles": "data/worlds.json"
-    },
-    "api/coverage.ts": {
-      "includeFiles": "data/worlds.json"
-    }
-  }
+  ]
 }

@@ -113,6 +113,10 @@ function worldOgImage(
   blobBase: string | null | undefined,
   siteUrl: string,
 ): { url: string; type: string; sized: boolean } {
+  const hero = world.cardHero?.trim() ?? "";
+  if (hero.startsWith("https://")) {
+    return { url: hero, type: imageMime(hero), sized: false };
+  }
   const blob = httpsOrigin(blobBase);
   if (blob) {
     try {
@@ -124,10 +128,6 @@ function worldOgImage(
     } catch {
       // Unsafe id. Fall through to the catalog hero.
     }
-  }
-  const hero = world.cardHero?.trim() ?? "";
-  if (hero.startsWith("https://")) {
-    return { url: hero, type: imageMime(hero), sized: false };
   }
   const origin = httpOrigin(siteUrl);
   return {

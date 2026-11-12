@@ -9,7 +9,7 @@ import {
   cardGridImageSizes,
   homeLeadCardPreloadTag,
 } from "./shared/cardImageOptimize";
-import { siteOgImage } from "./shared/worldOg";
+import { homeNoscriptBlock, siteOgImage } from "./shared/worldOg";
 import { SITE_DESCRIPTION, SITE_PAGE_TITLE } from "./shared/siteMeta";
 
 function lcpHeroPreloadPlugin(): Plugin {
@@ -30,6 +30,9 @@ function lcpHeroPreloadPlugin(): Plugin {
 }
 
 function seoUrlsPlugin(siteUrl: string): Plugin {
+  const catalog = worldsFromStore(shipped as WorldsStoreFile);
+  const worlds = sortWorlds(catalog, "name");
+  const noscript = homeNoscriptBlock(worlds, catalog);
   const origin = siteUrl.replace(/\/$/, "");
   const pageUrl = origin ? `${origin}/` : "";
   const image = siteOgImage(siteUrl);
@@ -57,12 +60,19 @@ function seoUrlsPlugin(siteUrl: string): Plugin {
   return {
     name: "seo-urls",
     transformIndexHtml(html) {
-      return html
+      let next = html
         .replaceAll("%OG_IMAGE%", safeImage)
         .replaceAll("%OG_IMAGE_TYPE%", safeType)
         .replace("<!--OG_IMAGE_SIZE-->", sizeBlock)
         .replace("<!--SEO_CANONICAL-->", canonicalBlock)
         .replace("<!--SEO_JSONLD-->", jsonLdBlock);
+      if (!/<noscript>[\s\S]*?<\/noscript>/.test(next)) {
+        next = next.replace(
+          '<div id="root"></div>',
+          `${noscript}\n    <div id="root"></div>`,
+        );
+      }
+      return next;
     },
   };
 }

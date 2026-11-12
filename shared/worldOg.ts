@@ -24,6 +24,7 @@ export type WorldOgSpec = {
   description: string;
   image: string;
   imageType: string;
+  imageAlt: string;
   /** True only for the legacy 1200×630 png. Hero webps omit width and height. */
   imageSized: boolean;
   pageUrl: string | null;
@@ -58,12 +59,14 @@ export function worldOgSpec(
   const image = worldOgImage(world, options.blobBase, options.siteUrl);
   const title = worldOgTitle(world);
   const description = worldOgDescription(world);
+  const imageAlt = collapse(world.name) || world.id;
   const pageUrl = origin ? `${origin}${worldPath(world, catalog)}` : null;
   return {
     title,
     description,
     image: image.url,
     imageType: image.type,
+    imageAlt,
     imageSized: image.sized,
     pageUrl,
   };
@@ -101,9 +104,13 @@ export function applyWorldOg(html: string, spec: WorldOgSpec): string {
   next = replaceMeta(next, "name", "twitter:title", spec.title);
   next = replaceMeta(next, "name", "twitter:description", spec.description);
   next = replaceMeta(next, "name", "twitter:image", spec.image);
+  next = replaceMeta(next, "property", "og:image:alt", spec.imageAlt);
+  next = replaceMeta(next, "name", "twitter:image:alt", spec.imageAlt);
+  next = ensureSiteName(next);
   next = spec.imageSized ? ensureImageSize(next) : stripImageSize(next);
   next = upsertPageUrl(next, spec.pageUrl);
   next = upsertJsonLd(next, spec);
+  next = replaceNoscript(next, worldNoscriptInner(spec));
   assertWorldOg(next, spec);
   return next;
 }
@@ -186,6 +193,67 @@ function replaceTitle(html: string, title: string): string {
   const tag = `<title>${escapeText(title)}</title>`;
   if (/<title>[\s\S]*?<\/title>/.test(html)) {
     return html.replace(/<title>[\s\S]*?<\/title>/, tag);
+  }
+  return html.replace("</head>", `    ${tag}\n  </head>`);
+}
+
+function worldNoscriptInner(spec: WorldOgSpec): string {
+  return [
+    `  <h1>${escapeText(spec.imageAlt)}</h1>`,
+    `  <p>${escapeText(spec.description)}</p>`,
+    `  <p><a href="/">${escapeText(SITE_NAME)}</a></p>`,
+  ].join("\n");
+}
+
+/** Static home-page crawl fallback (injected at build; replaced on world pages). */
+export function homeNoscriptInner(
+  worlds: readonly { id: string; name?: string }[],
+  catalog: readonly { id: string; name?: string }[],
+): string {
+  const items = worlds
+    .map((world) => {
+      const label = escapeText(collapse(world.name) || world.id);
+      const href = escapeAttr(worldPath(world, catalog));
+      return `    <li><a href="${href}">${label}</a></li>`;
+    })
+    .join("\n");
+  const lede =
+    "A browsable catalog of Impeccable design worlds. Search, preview, and copy a direction into your coding agent.";
+  return [
+    "  <h1>Impeccable Worlds</h1>",
+    `  <p>${escapeText(lede)}</p>`,
+    "  <ul>",
+    items,
+    "  </ul>",
+  ].join("\n");
+}
+
+export function homeNoscriptBlock(
+  worlds: readonly { id: string; name?: string }[],
+  catalog: readonly { id: string; name?: string }[],
+): string {
+  return `<noscript>\n${homeNoscriptInner(worlds, catalog)}\n</noscript>`;
+}
+
+function replaceNoscript(html: string, inner: string): string {
+  const block = `<noscript>\n${inner}\n</noscript>`;
+  if (/<noscript>[\s\S]*?<\/noscript>/.test(html)) {
+    return html.replace(/<noscript>[\s\S]*?<\/noscript>/, block);
+  }
+  return html.replace(
+    '<div id="root"></div>',
+    `${block}\n    <div id="root"></div>`,
+  );
+}
+
+function ensureSiteName(html: string): string {
+  const tag = `<meta property="og:site_name" content="${escapeAttr(SITE_NAME)}" />`;
+  if (countTags(html, tag) === 1) return html;
+  const pattern = new RegExp(
+    `<meta\\s+property="og:site_name"\\s+content="[\\s\\S]*?"\\s*\\/?>`,
+  );
+  if (pattern.test(html)) {
+    return html.replace(pattern, tag);
   }
   return html.replace("</head>", `    ${tag}\n  </head>`);
 }
@@ -275,12 +343,15 @@ function assertWorldOg(html: string, spec: WorldOgSpec): void {
     ["name", "description", spec.description],
     ["property", "og:title", spec.title],
     ["property", "og:description", spec.description],
+    ["property", "og:site_name", SITE_NAME],
     ["property", "og:image", spec.image],
     ["property", "og:image:type", spec.imageType],
+    ["property", "og:image:alt", spec.imageAlt],
     ["name", "twitter:card", "summary_large_image"],
     ["name", "twitter:title", spec.title],
     ["name", "twitter:description", spec.description],
     ["name", "twitter:image", spec.image],
+    ["name", "twitter:image:alt", spec.imageAlt],
   ];
   if (!html.includes(`<title>${escapeText(spec.title)}</title>`)) {
     throw new Error("world og: failed to set <title>");
@@ -319,6 +390,20 @@ function assertWorldOg(html: string, spec: WorldOgSpec): void {
     html.includes('"@type":"CollectionPage"')
   ) {
     throw new Error("world og: failed to replace JSON-LD");
+  }
+  const noscriptMatch = html.match(/<noscript>([\s\S]*?)<\/noscript>/);
+  if (!noscriptMatch) {
+    throw new Error("world og: missing noscript fallback");
+  }
+  const noscriptBody = noscriptMatch[1] ?? "";
+  if (countTags(noscriptBody, `<h1>${escapeText(spec.imageAlt)}</h1>`) !== 1) {
+    throw new Error("world og: noscript h1 mismatch");
+  }
+  if (!noscriptBody.includes(`<p>${escapeText(spec.description)}</p>`)) {
+    throw new Error("world og: noscript description mismatch");
+  }
+  if (countTags(noscriptBody, '<a href="/">') !== 1) {
+    throw new Error("world og: noscript home link mismatch");
   }
 }
 
